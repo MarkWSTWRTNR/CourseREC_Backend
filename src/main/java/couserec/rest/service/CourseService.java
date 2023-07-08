@@ -5,6 +5,7 @@ import couserec.rest.repository.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -20,6 +21,7 @@ public class CourseService {
             // Handle duplicate courseId error, such as throwing an exception
             throw new IllegalArgumentException("A course with courseId " + courseId + " already exists.");
         }
+
         return courseRepository.save(course);
     }
     public List<Course> saveCourses(List<Course> courses){
@@ -47,13 +49,16 @@ public class CourseService {
 
     }
 
-    public Course updateCourse(Course course){
+    public Course updateCourse(Course course) {
         Course existingCourse = courseRepository.findById(course.getId()).orElse(null);
         existingCourse.setCourseId(course.getCourseId());
         existingCourse.setName(course.getName());
         existingCourse.setCredit(course.getCredit());
         existingCourse.setGradingtype(course.getGradingtype());
         existingCourse.setDescription(course.getDescription());
+//        existingCourse.setPrerequisites(course.getPrerequisites());
+        // Update prerequisites
+
         return courseRepository.save(existingCourse);
     }
 }

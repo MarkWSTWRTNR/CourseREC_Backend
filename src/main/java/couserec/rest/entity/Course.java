@@ -26,18 +26,19 @@ public class Course {
     private String gradingtype;
     private String description;
 
-
-    @ManyToMany
-    @JoinTable(
-            name = "prerequisites",
-            joinColumns = @JoinColumn(name = "courseId"),
-            inverseJoinColumns = @JoinColumn(name = "prerequisite_id")
-    )
-
-
-    private List<Course> prereq;
-    @ManyToMany(mappedBy = "prereq")
-    private List<Course> requiredBy;
+//    @ManyToMany
+//    @JoinTable(name = "course_prerequisites",
+//            joinColumns = @JoinColumn(name = "courseId"),
+//            inverseJoinColumns = @JoinColumn(name = "prerequisite_id"))
+//    private List<Course> prerequisites;
+//
+//    public List<Course> getPrerequisites() {
+//        return prerequisites;
+//    }
+//
+//    public void setPrerequisites(List<Course> prerequisites) {
+//        this.prerequisites = prerequisites;
+//    }
 
     public int getId() {
         return id;
@@ -88,19 +89,5 @@ public class Course {
         this.description = description;
     }
 
-    public List<Course> getRequiredBy() {
-        return requiredBy;
-    }
 
-    public void setRequiredBy(List<Course> requiredBy) {
-        this.requiredBy = requiredBy;
-    }
-
-    public List<Course> getPrereq() {
-        return prereq;
-    }
-
-    public void setPrereq(List<Course> prereq) {
-        this.prereq = prereq;
-    }
 }
