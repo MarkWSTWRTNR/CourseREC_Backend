@@ -14,7 +14,12 @@ public class CourseService {
     private CourseRepository courseRepository;
 
     public Course saveCourse(Course course){
-
+        Long courseId = course.getCourseId();
+        Course existingCourse = courseRepository.findByCourseId(courseId);
+        if (existingCourse != null) {
+            // Handle duplicate courseId error, such as throwing an exception
+            throw new IllegalArgumentException("A course with courseId " + courseId + " already exists.");
+        }
         return courseRepository.save(course);
     }
     public List<Course> saveCourses(List<Course> courses){
@@ -44,7 +49,7 @@ public class CourseService {
 
     public Course updateCourse(Course course){
         Course existingCourse = courseRepository.findById(course.getId()).orElse(null);
-        existingCourse.setCourse_id(course.getCourse_id());
+        existingCourse.setCourseId(course.getCourseId());
         existingCourse.setName(course.getName());
         existingCourse.setCredit(course.getCredit());
         existingCourse.setGradingtype(course.getGradingtype());

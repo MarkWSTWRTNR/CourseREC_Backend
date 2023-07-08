@@ -13,13 +13,11 @@ import java.util.List;
 public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-
     private int id;
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Exclude
-
-
+    @Column(unique = true)
     private Long courseId;
     private String name;
 
@@ -50,11 +48,11 @@ public class Course {
     }
 
 
-    public Long getCourse_id() {
+    public Long getCourseId() {
         return courseId;
     }
 
-    public void setCourse_id(Long courseId) {
+    public void setCourseId(Long courseId) {
         this.courseId = courseId;
     }
 
