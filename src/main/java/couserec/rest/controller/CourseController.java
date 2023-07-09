@@ -44,7 +44,7 @@ public class CourseController {
     public Course updateCourse(@RequestBody Course course) {
         return courseService.updateCourse(course);
     }
-    @DeleteMapping("/delete/{courseId}")
+    @DeleteMapping("/deleteCourse/{courseId}")
     public String deleteCourse(@PathVariable Integer courseId){
         boolean deleted = courseService.deleteCourseById(courseId);
         if (deleted) {
