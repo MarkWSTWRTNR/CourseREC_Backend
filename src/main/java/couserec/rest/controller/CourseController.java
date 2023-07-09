@@ -29,7 +29,7 @@ public class CourseController {
         return courseService.getCourseById(id);
     }
     @GetMapping("/coursesByCourseId/{courseId}")
-    public  Course findCourseByCourseId(@PathVariable Long courseId){
+    public  Course findCourseByCourseId(@PathVariable Integer courseId){
         return courseService.getCourseByCourseId(courseId);
     }
     @GetMapping("/coursesByName/{name}")
@@ -44,10 +44,16 @@ public class CourseController {
     public Course updateCourse(@RequestBody Course course) {
         return courseService.updateCourse(course);
     }
-    @DeleteMapping("/delete/{id}")
-    public String deleteCourse(@PathVariable int id){
-        return courseService.deleteCourse(id);
+    @DeleteMapping("/delete/{courseId}")
+    public String deleteCourse(@PathVariable Integer courseId){
+        boolean deleted = courseService.deleteCourseById(courseId);
+        if (deleted) {
+            return "Course deleted successfully";
+        } else {
+            return "Course not found";
+        }
     }
+
     public CourseService getCourseService() {
         return courseService;
     }

@@ -5,7 +5,6 @@ import couserec.rest.repository.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -14,8 +13,8 @@ public class CourseService {
     @Autowired
     private CourseRepository courseRepository;
 
-    public Course saveCourse(Course course){
-        Long courseId = course.getCourseId();
+    public Course saveCourse(Course course) {
+        Integer courseId = course.getCourseId();
         Course existingCourse = courseRepository.findByCourseId(courseId);
         if (existingCourse != null) {
             // Handle duplicate courseId error, such as throwing an exception
@@ -24,30 +23,40 @@ public class CourseService {
 
         return courseRepository.save(course);
     }
-    public List<Course> saveCourses(List<Course> courses){
+
+    public List<Course> saveCourses(List<Course> courses) {
         return courseRepository.saveAll(courses);
     }
 
-    public List<Course> getCourses(){
+    public List<Course> getCourses() {
         return courseRepository.findAll();
     }
-    public  Course getCourseById(int id){
+
+    public Course getCourseById(int id) {
         return courseRepository.findById(id).orElse(null);
     }
-    public Course getCourseByCourseId(Long courseId){
+
+    public Course getCourseByCourseId(Integer courseId) {
         return courseRepository.findByCourseId(courseId);
     }
-    public Course getCourseByName(String name){
+
+    public Course getCourseByName(String name) {
         return courseRepository.findByName(name);
     }
-    public Course getCourseByDescription(String description){
+
+    public Course getCourseByDescription(String description) {
         return courseRepository.findByDescription(description);
     }
-    public String deleteCourse(int id){
-        courseRepository.deleteById(id);
-        return "Course removed !!"+id;
 
+    public boolean deleteCourseById(Integer courseId) {
+        Course course = courseRepository.findByCourseId(courseId);
+        if (course != null) {
+            courseRepository.delete(course);
+            return true;
+        }
+        return false;
     }
+
 
     public Course updateCourse(Course course) {
         Course existingCourse = courseRepository.findById(course.getId()).orElse(null);

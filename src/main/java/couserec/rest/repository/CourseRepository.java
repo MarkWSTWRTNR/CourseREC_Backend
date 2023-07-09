@@ -5,9 +5,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CourseRepository extends JpaRepository<Course, Integer> {
 
-    Course findByCourseId(Long courseId);
+    Course findByCourseId(Integer courseId);
 
     Course findByName(String name);
 
     Course findByDescription(String description);
+
 }
