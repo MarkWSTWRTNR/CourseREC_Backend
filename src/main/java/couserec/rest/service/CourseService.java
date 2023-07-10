@@ -14,7 +14,7 @@ public class CourseService {
     private CourseRepository courseRepository;
 
     public Course saveCourse(Course course) {
-        Integer courseId = course.getCourseId();
+        String courseId = course.getCourseId();
         Course existingCourse = courseRepository.findByCourseId(courseId);
         if (existingCourse != null) {
             // Handle duplicate courseId error, such as throwing an exception
@@ -36,7 +36,7 @@ public class CourseService {
         return courseRepository.findById(id).orElse(null);
     }
 
-    public Course getCourseByCourseId(Integer courseId) {
+    public Course getCourseByCourseId(String courseId) {
         return courseRepository.findByCourseId(courseId);
     }
 
@@ -48,7 +48,7 @@ public class CourseService {
         return courseRepository.findByDescription(description);
     }
 
-    public boolean deleteCourseById(Integer courseId) {
+    public boolean deleteCourseById(String courseId) {
         Course course = courseRepository.findByCourseId(courseId);
         if (course != null) {
             courseRepository.delete(course);

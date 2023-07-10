@@ -3,6 +3,7 @@ package couserec.rest.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -15,16 +16,19 @@ public class Course {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Exclude
     @Column(unique = true)
-    private Integer courseId;
+    private String courseId;
     private String name;
 
     private Long credit;
 
     private String gradingtype;
     private String description;
+
+    @ManyToMany
+            @Builder.Default
+    List<Course> prerequisite = new ArrayList<>();
 
 //    @ManyToMany
 //    @JoinTable(name = "course_prerequisites",
@@ -40,54 +44,6 @@ public class Course {
 //        this.prerequisites = prerequisites;
 //    }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-
-    public Integer getCourseId() {
-        return courseId;
-    }
-
-    public void setCourseId(Integer courseId) {
-        this.courseId = courseId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Long getCredit() {
-        return credit;
-    }
-
-    public void setCredit(Long credit) {
-        this.credit = credit;
-    }
-
-    public String getGradingtype() {
-        return gradingtype;
-    }
-
-    public void setGradingtype(String gradingtype) {
-        this.gradingtype = gradingtype;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 
 
 }
