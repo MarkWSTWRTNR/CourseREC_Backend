@@ -1,26 +1,26 @@
 package couserec.rest.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
-
 @Data
 @Builder
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class Program {
+public class Curriculum {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @EqualsAndHashCode.Exclude
     private int id;
 
-    @Column(unique = true)
-    private String programId;
-    private String name;
-
+    @Builder.Default
+    @OneToMany
+    List<Course> GE = new ArrayList<>();
 
 
 }

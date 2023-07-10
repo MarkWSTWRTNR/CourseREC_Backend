@@ -4,8 +4,10 @@ package couserec.rest.repository;
 import couserec.rest.entity.Faculty;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface FacultyRepository  extends JpaRepository<Faculty, Integer> {
-    Faculty findByFacultyId(Integer facultyId);
+import java.util.List;
 
-    Faculty findByName(String name);
+public interface FacultyRepository  extends JpaRepository<Faculty, Integer> {
+//    Faculty findById(int id);
+    List<Faculty> findAll();
+//    Faculty findByName(String name);
 }
