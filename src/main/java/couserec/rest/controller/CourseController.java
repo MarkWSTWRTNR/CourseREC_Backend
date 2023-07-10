@@ -60,12 +60,8 @@ public class CourseController {
     }
     @DeleteMapping("/deleteCourse/{id}")
     public ResponseEntity<String> deleteCourse(@PathVariable int id) {
-        String result = courseService.deleteCourseById(id);
-        if (result.equals("Course deleted successfully")) {
-            return ResponseEntity.ok(result);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        String deleteCourse = courseService.deleteCourse(id);
+        return ResponseEntity.ok(deleteCourse);
     }
 
 }

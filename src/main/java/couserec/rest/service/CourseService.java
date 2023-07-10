@@ -13,8 +13,7 @@ public interface CourseService {
 
 
     Course updateCourse(Course course);
-
-    String deleteCourseById(int id);
+    String deleteCourse(int id);
 
 //    Course findByCourseId(Course courseId);
 
