@@ -19,10 +19,6 @@ public class CourseDaoDbImpl implements CourseDao{
         return courseRepository.save(course);
     }
     @Override
-    public List<Course> saveCourses(List<Course> courses) {
-        return courseRepository.saveAll(courses);
-    }
-    @Override
     public List<Course> getCourses() {
         return courseRepository.findAll();
     }
@@ -47,6 +43,6 @@ public class CourseDaoDbImpl implements CourseDao{
 //        existingCourse.setPrerequisites(course.getPrerequisites());
         // Update prerequisites
 
-        return courseRepository.save(existingCourse);
+        return courseRepository.save(course);
     }
 }

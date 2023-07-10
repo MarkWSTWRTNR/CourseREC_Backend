@@ -28,10 +28,7 @@ public class CourseDaoImpl implements CourseDao{
         return course;
     }
 
-    @Override
-    public List<Course> saveCourses(List<Course> courses) {
-        return courses;
-    }
+
 
     @Override
     public List<Course> getCourses() {
@@ -54,7 +51,7 @@ public class CourseDaoImpl implements CourseDao{
 
     @Override
     public Course updateCourse(Course course) {
-        return null;
+        return course;
     }
 
 }

@@ -3,6 +3,7 @@ package couserec.rest.controller;
 import couserec.rest.entity.Course;
 import couserec.rest.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,31 +14,24 @@ public class CourseController {
     private CourseService courseService;
 
     @PostMapping("/addCourse")
-    public Course addCourse(@RequestBody Course course) {
-//        String courseId = course.getCourseId();
-//        Course existingCourse = courseService.findByCourseId(courseId);
-//        if (existingCourse != null) {
-//            // Handle duplicate courseId error, such as throwing an exception
-//            throw new IllegalArgumentException("A course with courseId " + courseId + " already exists.");
-//        }
-
-        return courseService.saveCourse(course);
-    }
-    @PostMapping("/addCourses")
-    public List<Course> addCourses(@RequestBody List<Course> courses){
-        return courseService.saveCourses(courses);
+    public ResponseEntity<?> addCourse(@RequestBody Course course) {
+        Course addCourse = courseService.saveCourse(course);
+        return ResponseEntity.ok(addCourse);
     }
     @GetMapping("/courses")
-    public List<Course> findAllCourses(){
-        return courseService.getCourses();
+    public ResponseEntity<?> getCourses(){
+        List<Course> getCourse = courseService.getCourses();
+        return ResponseEntity.ok(getCourse);
     }
     @GetMapping("/courseById/{id}")
-    public Course findCourseById(@PathVariable int id){
-        return courseService.getCourseById(id);
+    public ResponseEntity<?> getCourseById(@PathVariable int id){
+        Course getCourseById = courseService.getCourseById(id);
+        return ResponseEntity.ok(getCourseById);
     }
     @PutMapping("/updateCourse")
-    public Course updateCourse(@RequestBody Course course) {
-        return courseService.updateCourse(course);
+    public ResponseEntity<?> updateCourse(@RequestBody Course course) {
+        Course updateCourse = courseService.updateCourse(course);
+        return ResponseEntity.ok(updateCourse);
     }
 
 

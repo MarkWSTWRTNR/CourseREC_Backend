@@ -17,9 +17,6 @@ public class CourseServiceImpl implements CourseService {
         return courseDao.saveCourse(course);
     }
 
-    public List<Course> saveCourses(List<Course> courses) {
-        return courseDao.saveCourses(courses);
-    }
 
     public List<Course> getCourses() {
         return courseDao.getCourses();
