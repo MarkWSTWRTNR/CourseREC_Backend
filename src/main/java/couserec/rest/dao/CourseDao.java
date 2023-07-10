@@ -13,4 +13,6 @@ public interface CourseDao {
 //    Course findByCourseId(Course courseId);
 
     Course updateCourse(Course course);
+
+    String deleteCourse(int id);
 }

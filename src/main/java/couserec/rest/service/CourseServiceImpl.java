@@ -34,6 +34,11 @@ public class CourseServiceImpl implements CourseService {
         return courseDao.updateCourse(course);
     }
 
+    @Override
+    public String deleteCourseById(int id) {
+        return courseDao.deleteCourse(id);
+    }
+
 //    @Override
 //    public Course findByCourseId(Course courseId) {
 //        return courseDao.findByCourseId(courseId);

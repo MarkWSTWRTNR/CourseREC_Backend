@@ -54,4 +54,9 @@ public class CourseDaoImpl implements CourseDao{
         return course;
     }
 
+    @Override
+    public String deleteCourse(int id) {
+        return null;
+    }
+
 }

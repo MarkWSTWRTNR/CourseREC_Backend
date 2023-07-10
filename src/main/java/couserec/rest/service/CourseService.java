@@ -14,7 +14,7 @@ public interface CourseService {
 
     Course updateCourse(Course course);
 
-
+    String deleteCourseById(int id);
 
 //    Course findByCourseId(Course courseId);
 

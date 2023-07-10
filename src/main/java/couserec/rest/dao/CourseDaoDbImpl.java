@@ -34,15 +34,11 @@ public class CourseDaoDbImpl implements CourseDao{
 
     @Override
     public Course updateCourse(Course course) {
-        Course existingCourse = courseRepository.findById(course.getId()).orElse(null);
-        existingCourse.setCourseId(course.getCourseId());
-        existingCourse.setName(course.getName());
-        existingCourse.setCredit(course.getCredit());
-        existingCourse.setGradingtype(course.getGradingtype());
-        existingCourse.setDescription(course.getDescription());
-//        existingCourse.setPrerequisites(course.getPrerequisites());
-        // Update prerequisites
-
         return courseRepository.save(course);
+    }
+    public String deleteCourse(int id){
+        courseRepository.deleteById(id);
+        return "Course removed !!"+id;
+
     }
 }
