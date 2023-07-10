@@ -14,14 +14,15 @@ import java.util.List;
 public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @EqualsAndHashCode.Exclude
     private int id;
 
-    @EqualsAndHashCode.Exclude
+
     @Column(unique = true)
     private String courseId;
     private String name;
 
-    private Long credit;
+    private int credit;
 
     private String gradingtype;
     private String description;

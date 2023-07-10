@@ -14,6 +14,13 @@ public class CourseController {
 
     @PostMapping("/addCourse")
     public Course addCourse(@RequestBody Course course) {
+//        String courseId = course.getCourseId();
+//        Course existingCourse = courseService.findByCourseId(courseId);
+//        if (existingCourse != null) {
+//            // Handle duplicate courseId error, such as throwing an exception
+//            throw new IllegalArgumentException("A course with courseId " + courseId + " already exists.");
+//        }
+
         return courseService.saveCourse(course);
     }
     @PostMapping("/addCourses")
@@ -28,37 +35,10 @@ public class CourseController {
     public Course findCourseById(@PathVariable int id){
         return courseService.getCourseById(id);
     }
-    @GetMapping("/coursesByCourseId/{courseId}")
-    public  Course findCourseByCourseId(@PathVariable String courseId){
-        return courseService.getCourseByCourseId(courseId);
-    }
-    @GetMapping("/coursesByName/{name}")
-    public Course findCourseByName(@PathVariable String name){
-        return courseService.getCourseByName(name);
-    }
-    @GetMapping("/coursesByDescription/{description}")
-    public Course findCourseByDescription(@PathVariable String description){
-        return courseService.getCourseByDescription(description);
-    }
     @PutMapping("/updateCourse")
     public Course updateCourse(@RequestBody Course course) {
         return courseService.updateCourse(course);
     }
-    @DeleteMapping("/deleteCourse/{courseId}")
-    public String deleteCourse(@PathVariable String courseId){
-        boolean deleted = courseService.deleteCourseById(courseId);
-        if (deleted) {
-            return "Course deleted successfully";
-        } else {
-            return "Course not found";
-        }
-    }
 
-    public CourseService getCourseService() {
-        return courseService;
-    }
 
-    public void setCourseService(CourseService courseService) {
-        this.courseService = courseService;
-    }
 }

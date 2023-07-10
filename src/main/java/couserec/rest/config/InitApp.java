@@ -15,14 +15,27 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
     @Override
     @Transactional
     public void onApplicationEvent(ApplicationReadyEvent event) {
-        Course a = courseRepository.save(
-                Course.builder()
-                        .courseId("953331").name("A").build()
-        );
-        a.setName("hello");
-        Course b = courseRepository.save(
-                Course.builder().courseId("001001").name("Eng").build()
-        );
-        b.getPrerequisite().add(a);
+        courseRepository.save(Course.builder()
+                .courseId("001001")
+                .name("English 1")
+                .credit(3)
+                .gradingtype("Letter Grading")
+                .description("details").build());
+        courseRepository.save(Course.builder()
+                .courseId("953234")
+                .name("Dev-ops")
+                .credit(3)
+                .gradingtype("Letter grading")
+                .description("Details")
+                .build());
+//        Course a = courseRepository.save(
+//                Course.builder()
+//                        .courseId("953331").name("A").build()
+//        );
+//        a.setName("hello");
+//        Course b = courseRepository.save(
+//                Course.builder().courseId("001001").name("Eng").build()
+//        );
+//        b.getPrerequisite().add(a);
     }
 }
