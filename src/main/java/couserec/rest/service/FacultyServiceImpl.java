@@ -14,8 +14,8 @@ public class FacultyServiceImpl implements FacultyService{
     @Autowired
     FacultyDao facultyDao;
 
-    public Faculty saveFaculty(Faculty course) {
-        return facultyDao.saveFaculty(course);
+    public Faculty saveFaculty(Faculty faculty) {
+        return facultyDao.saveFaculty(faculty);
     }
 
 
@@ -30,9 +30,9 @@ public class FacultyServiceImpl implements FacultyService{
 
 
 
-    public Faculty updateFaculty(Faculty course) {
+    public Faculty updateFaculty(Faculty faculty) {
 
-        return facultyDao.updateFaculty(course);
+        return facultyDao.updateFaculty(faculty);
     }
 
     @Override

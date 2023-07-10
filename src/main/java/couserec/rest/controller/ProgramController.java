@@ -1,8 +1,12 @@
 package couserec.rest.controller;
 
 import couserec.rest.entity.Program;
+
 import couserec.rest.service.ProgramService;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,40 +17,41 @@ public class ProgramController {
     private ProgramService programService;
 
     @PostMapping("/addProgram")
-    public Program addProgram(@RequestBody Program program) {
-        return programService.saveProgram(program);
-    }
-    @PostMapping("/addPrograms")
-    public List<Program> addPrograms(@RequestBody List<Program> programs){
-        return programService.savePrograms(programs);
+    public ResponseEntity<?> addProgram(@RequestBody Program program) {
+        Program addProgram = programService.saveProgram(program);
+        return ResponseEntity.ok(addProgram);
     }
     @GetMapping("/programs")
-    public List<Program> findAllPrograms(){
-        return programService.getPrograms();
+    public ResponseEntity<?> getPrograms(){
+        List<Program> getProgram = programService.getPrograms();
+        return ResponseEntity.ok(getProgram);
     }
     @GetMapping("/programById/{id}")
-    public Program findProgramById(@PathVariable int id){
-        return programService.getProgramById(id);
-    }
-    @GetMapping("/programsByProgramId/{programId}")
-    public  Program findProgramByProgramId(@PathVariable Integer programId){
-        return programService.getProgramByProgramId(programId);
-    }
-    @GetMapping("/programsByName/{name}")
-    public Program findProgramByName(@PathVariable String name){
-        return programService.getProgramByName(name);
+    public ResponseEntity<?> getProgramById(@PathVariable int id){
+        Program getProgramById = programService.getProgramById(id);
+        return ResponseEntity.ok(getProgramById);
     }
     @PutMapping("/updateProgram")
-    public Program updateProgram(@RequestBody Program program) {
-        return programService.updateProgram(program);
-    }
-    @DeleteMapping("/deleteProgram/{programId}")
-    public String deleteProgram(@PathVariable Integer programId){
-        boolean deleted = programService.deleteProgramById(programId);
-        if (deleted) {
-            return "Program deleted successfully";
-        } else {
-            return "Program not found";
+    public ResponseEntity<?> updateProgram(@RequestBody Program program) {
+        Program existingProgram = programService.getProgramById(program.getId());
+        if (existingProgram == null) {
+            return ResponseEntity.notFound().build();
         }
+
+        // Update the program information
+        existingProgram.setProgramId(program.getProgramId());
+        existingProgram.setName(program.getName());
+
+
+
+        // Save the update program
+        Program updateProgram = programService.updateProgram(existingProgram);
+        return ResponseEntity.ok(updateProgram);
     }
+    @DeleteMapping("/deleteProgram/{id}")
+    public ResponseEntity<String> deleteProgram(@PathVariable int id) {
+        String deleteProgram = programService.deleteProgram(id);
+        return ResponseEntity.ok(deleteProgram);
+    }
+
 }

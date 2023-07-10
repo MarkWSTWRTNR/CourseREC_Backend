@@ -1,6 +1,6 @@
 package couserec.rest.dao;
 
-import couserec.rest.entity.Course;
+
 import couserec.rest.entity.Faculty;
 import couserec.rest.repository.FacultyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +15,8 @@ public class FacultyDaoDbImpl implements FacultyDao {
     FacultyRepository facultyRepository;
 
     @Override
-    public Faculty saveFaculty(Faculty course) {
-        return facultyRepository.save(course);
+    public Faculty saveFaculty(Faculty faculty) {
+        return facultyRepository.save(faculty);
     }
     @Override
     public List<Faculty> getFacultys() {
@@ -27,8 +27,8 @@ public class FacultyDaoDbImpl implements FacultyDao {
         return facultyRepository.findById(id).orElse(null);
     }
     @Override
-    public Faculty updateFaculty(Faculty course) {
-        return facultyRepository.save(course);
+    public Faculty updateFaculty(Faculty faculty) {
+        return facultyRepository.save(faculty);
     }
     @Override
     public String deleteFaculty(int id){
