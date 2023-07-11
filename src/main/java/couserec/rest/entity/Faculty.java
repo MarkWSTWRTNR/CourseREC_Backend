@@ -3,6 +3,9 @@ package couserec.rest.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 @Builder
 @Entity
@@ -19,4 +22,7 @@ public class Faculty {
     private String facultyId;
     private String name;
 
+    @OneToMany(mappedBy = "faculty")
+            @Builder.Default
+    List<Program> programs = new ArrayList<>();
 }

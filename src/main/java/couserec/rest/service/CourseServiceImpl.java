@@ -3,8 +3,10 @@ package couserec.rest.service;
 import couserec.rest.dao.CourseDao;
 import couserec.rest.entity.Course;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -14,6 +16,14 @@ public class CourseServiceImpl implements CourseService {
     CourseDao courseDao;
 
     public Course saveCourse(Course course) {
+        List<Course> prerequisites = new ArrayList<>();
+        for (Course prerequisite : course.getPrerequisite()) {
+            Course fetchedPrerequisite = courseDao.getCourseById(prerequisite.getId());
+            if (fetchedPrerequisite != null) {
+                prerequisites.add(fetchedPrerequisite);
+            }
+        }
+        course.setPrerequisite(prerequisites);
         return courseDao.saveCourse(course);
     }
 
@@ -30,8 +40,21 @@ public class CourseServiceImpl implements CourseService {
 
 
     public Course updateCourse(Course course) {
+        Course existingCourse = courseDao.getCourseById(course.getId());
+        if (existingCourse == null) {
+            return null;
+        }
+        // Update the course information
+        existingCourse.setCourseId(course.getCourseId());
+        existingCourse.setName(course.getName());
+        existingCourse.setCredit(course.getCredit());
+        existingCourse.setGradingtype(course.getGradingtype());
+        existingCourse.setDescription(course.getDescription());
 
-        return courseDao.updateCourse(course);
+        // Update the prerequisites
+        existingCourse.setPrerequisite(course.getPrerequisite());
+
+        return courseDao.updateCourse(existingCourse);
     }
 
     @Override
