@@ -63,7 +63,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public Course findByCourseId(String courseId) {
-        return courseDao.findByCourseId(courseId);
+    public Course getCourseByCourseId(String courseId) {
+        return courseDao.getCourseByCourseId(courseId);
     }
 }

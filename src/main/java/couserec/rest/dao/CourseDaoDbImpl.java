@@ -28,8 +28,8 @@ public class CourseDaoDbImpl implements CourseDao{
     }
 
     @Override
-    public Course findByCourseId(String courseId) {
-        return courseRepository.findByCourseId(courseId);
+    public Course getCourseByCourseId(String courseId) {
+        return courseRepository.getCourseByCourseId(courseId);
     }
 
 //    @Override

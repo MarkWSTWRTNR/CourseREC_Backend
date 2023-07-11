@@ -38,10 +38,6 @@ public class ProgramController {
     }
     @PutMapping("/updateProgram")
     public ResponseEntity<?> updateProgram(@RequestBody Program program) {
-
-
-
-
         // Save the update program
         Program updateProgram = programService.updateProgram(program);
         return ResponseEntity.ok(updateProgram);

@@ -1,5 +1,6 @@
 package couserec.rest.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -21,9 +22,8 @@ public class Program {
     private String programId;
     private String name;
 
-
+    @JsonIgnore
     @ManyToOne
     private Faculty faculty;
-
 
 }

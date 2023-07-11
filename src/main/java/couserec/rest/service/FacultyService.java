@@ -10,7 +10,7 @@ public interface FacultyService {
 
     List<Faculty> getFacultys();
     Faculty getFacultyById(int id);
-    Faculty findByFacultyId(String facultyId);
+    Faculty getFacultyByFacultyId(String facultyId);
 
     Faculty updateFaculty(Faculty faculty);
     String deleteFaculty(int id);

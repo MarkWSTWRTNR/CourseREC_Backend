@@ -33,7 +33,7 @@ public class FacultyController {
     }
     @GetMapping("/facultyByFacultyId/{courseId}")
     public ResponseEntity<?> getByFacultyId(@PathVariable String facultyId){
-        Faculty getFacultyByFacultyId = facultyService.findByFacultyId(facultyId);
+        Faculty getFacultyByFacultyId = facultyService.getFacultyByFacultyId(facultyId);
         return ResponseEntity.ok(getFacultyByFacultyId);
     }
     @PutMapping("/updateFaculty")

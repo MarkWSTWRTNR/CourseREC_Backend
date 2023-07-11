@@ -15,5 +15,5 @@ public interface FacultyDao {
 
     String deleteFaculty(int id);
 
-    Faculty findByFacultyId(String facultyId);
+    Faculty getFacultyByFacultyId(String facultyId);
 }

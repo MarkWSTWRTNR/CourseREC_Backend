@@ -1,5 +1,6 @@
 package couserec.rest.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -24,6 +25,7 @@ public class Faculty {
 
 
     @OneToMany(mappedBy = "faculty")
+    @JsonIgnore
     @Builder.Default
     List<Program> programs = new ArrayList<>();
 }

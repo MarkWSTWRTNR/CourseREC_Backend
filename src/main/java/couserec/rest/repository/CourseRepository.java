@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface CourseRepository extends JpaRepository<Course, Integer> {
 
-    Course findByCourseId(String courseId);
+    Course getCourseByCourseId(String courseId);
 
 //    Course findByName(Course name);
 //

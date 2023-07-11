@@ -18,9 +18,9 @@ public class Curriculum {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @Builder.Default
-    @OneToMany
-    List<Course> GE = new ArrayList<>();
+//    @Builder.Default
+//    @OneToMany
+//    List<Course> GE = new ArrayList<>();
 
 
 }

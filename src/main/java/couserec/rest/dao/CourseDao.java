@@ -10,7 +10,7 @@ public interface CourseDao {
     List<Course> getCourses();
     Course getCourseById(int id);
 
-    Course findByCourseId(String courseId);
+    Course getCourseByCourseId(String courseId);
 
     Course updateCourse(Course course);
 

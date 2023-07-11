@@ -44,7 +44,7 @@ public class CourseDaoImpl implements CourseDao{
     }
 
     @Override
-    public Course findByCourseId(String courseId) {
+    public Course getCourseByCourseId(String courseId) {
         return null;
     }
 

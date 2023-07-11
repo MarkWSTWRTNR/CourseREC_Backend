@@ -31,7 +31,7 @@ public class CourseController {
     }
     @GetMapping("/courseByCourseId/{courseId}")
     public ResponseEntity<?> getCourseByCourseId(@PathVariable String courseId){
-        Course getCourseByCourseId = courseService.findByCourseId(courseId);
+        Course getCourseByCourseId = courseService.getCourseByCourseId(courseId);
         return ResponseEntity.ok(getCourseByCourseId);
     }
     @PutMapping("/updateCourse")
