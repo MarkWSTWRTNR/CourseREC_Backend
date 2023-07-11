@@ -33,18 +33,10 @@ public class FacultyController {
     }
     @PutMapping("/updateFaculty")
     public ResponseEntity<?> updateFaculty(@RequestBody Faculty faculty) {
-        Faculty existingFaculty = facultyService.getFacultyById(faculty.getId());
-        if (existingFaculty == null) {
-            return ResponseEntity.notFound().build();
-        }
-
-        // Update the faculty information
-        existingFaculty.setFacultyId(faculty.getFacultyId());
-        existingFaculty.setName(faculty.getName());
 
 
         // Save the update faculty
-        Faculty updateFaculty = facultyService.updateFaculty(existingFaculty);
+        Faculty updateFaculty = facultyService.updateFaculty(faculty);
         return ResponseEntity.ok(updateFaculty);
     }
     @DeleteMapping("/deleteFaculty/{id}")

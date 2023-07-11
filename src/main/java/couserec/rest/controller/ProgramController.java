@@ -33,19 +33,12 @@ public class ProgramController {
     }
     @PutMapping("/updateProgram")
     public ResponseEntity<?> updateProgram(@RequestBody Program program) {
-        Program existingProgram = programService.getProgramById(program.getId());
-        if (existingProgram == null) {
-            return ResponseEntity.notFound().build();
-        }
 
-        // Update the program information
-        existingProgram.setProgramId(program.getProgramId());
-        existingProgram.setName(program.getName());
 
 
 
         // Save the update program
-        Program updateProgram = programService.updateProgram(existingProgram);
+        Program updateProgram = programService.updateProgram(program);
         return ResponseEntity.ok(updateProgram);
     }
     @DeleteMapping("/deleteProgram/{id}")

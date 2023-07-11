@@ -21,6 +21,7 @@ public class Program {
     private String programId;
     private String name;
 
+
     @ManyToOne
     private Faculty faculty;
 

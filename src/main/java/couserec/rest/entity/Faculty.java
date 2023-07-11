@@ -22,7 +22,8 @@ public class Faculty {
     private String facultyId;
     private String name;
 
+
     @OneToMany(mappedBy = "faculty")
-            @Builder.Default
+    @Builder.Default
     List<Program> programs = new ArrayList<>();
 }

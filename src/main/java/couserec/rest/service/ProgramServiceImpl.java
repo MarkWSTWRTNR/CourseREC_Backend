@@ -4,6 +4,7 @@ import couserec.rest.dao.ProgramDao;
 import couserec.rest.entity.Program;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,31 +13,38 @@ import java.util.List;
 public class ProgramServiceImpl implements ProgramService{
 
     @Autowired
-    ProgramDao facultyDao;
+    ProgramDao programDao;
 
     public Program saveProgram(Program Program) {
-        return facultyDao.saveProgram(Program);
+        return programDao.saveProgram(Program);
     }
 
 
     public List<Program> getPrograms() {
-        return facultyDao.getPrograms();
+        return programDao.getPrograms();
     }
 
     public Program getProgramById(int id) {
-        return facultyDao.getProgramById(id);
+        return programDao.getProgramById(id);
     }
 
 
 
 
-    public Program updateProgram(Program Program) {
+    public Program updateProgram(Program program) {
+        Program existingProgram = programDao.getProgramById(program.getId());
+        if (existingProgram == null) {
+            return null;
+        }
 
-        return facultyDao.updateProgram(Program);
+        // Update the program information
+        existingProgram.setProgramId(program.getProgramId());
+        existingProgram.setName(program.getName());
+        return programDao.updateProgram(existingProgram);
     }
 
     @Override
     public String deleteProgram(int id) {
-        return facultyDao.deleteProgram(id);
+        return programDao.deleteProgram(id);
     }
 }

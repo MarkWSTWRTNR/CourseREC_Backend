@@ -4,6 +4,7 @@ import couserec.rest.dao.FacultyDao;
 import couserec.rest.entity.Faculty;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,8 +32,17 @@ public class FacultyServiceImpl implements FacultyService{
 
 
     public Faculty updateFaculty(Faculty faculty) {
+        Faculty existingFaculty = facultyDao.getFacultyById(faculty.getId());
+        if (existingFaculty == null) {
+            return null;
+        }
 
-        return facultyDao.updateFaculty(faculty);
+        // Update the faculty information
+        existingFaculty.setFacultyId(faculty.getFacultyId());
+        existingFaculty.setName(faculty.getName());
+
+
+        return facultyDao.updateFaculty(existingFaculty);
     }
 
     @Override
