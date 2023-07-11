@@ -1,6 +1,7 @@
 package couserec.rest.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -23,9 +24,9 @@ public class Faculty {
     private String facultyId;
     private String name;
 
-
-    @OneToMany(mappedBy = "faculty")
-    @JsonIgnore
+    
+    @OneToMany(mappedBy = "faculties")
+    @JsonManagedReference
     @Builder.Default
     List<Program> programs = new ArrayList<>();
 }

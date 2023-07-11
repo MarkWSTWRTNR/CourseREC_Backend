@@ -1,6 +1,7 @@
 package couserec.rest.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -24,6 +25,7 @@ public class Program {
 
     @JsonIgnore
     @ManyToOne
-    private Faculty faculty;
+    @JsonManagedReference
+    private Faculty faculties;
 
 }

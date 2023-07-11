@@ -36,13 +36,13 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .gradingtype("Letter grading")
                 .description("Details")
                 .build());
-        var p = programRepository.save(Program.builder().name("SE").programId("01").build());
-        var p2 = programRepository.save(Program.builder().name("ani").programId("02").build());
-        var f = facultyRepository.save(Faculty.builder().facultyId("01").name("CAMT").build());
+        Program p = programRepository.save(Program.builder().name("SE").programId("01").build());
+        Program p2 = programRepository.save(Program.builder().name("ani").programId("02").build());
+        Faculty f = facultyRepository.save(Faculty.builder().facultyId("01").name("CAMT").build());
         f.getPrograms().add(p);
-        p.setFaculty(f);
+        p.setFaculties(f);
         f.getPrograms().add(p2);
-        p2.setFaculty(f);
+        p2.setFaculties(f);
 //        Course a = courseRepository.save(
 //                Course.builder()
 //                        .courseId("953331").name("A").build()
