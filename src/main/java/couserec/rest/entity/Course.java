@@ -31,19 +31,8 @@ public class Course {
             @Builder.Default
     List<Course> prerequisite = new ArrayList<>();
 
-//    @ManyToMany
-//    @JoinTable(name = "course_prerequisites",
-//            joinColumns = @JoinColumn(name = "courseId"),
-//            inverseJoinColumns = @JoinColumn(name = "prerequisite_id"))
-//    private List<Course> prerequisites;
-//
-//    public List<Course> getPrerequisites() {
-//        return prerequisites;
-//    }
-//
-//    public void setPrerequisites(List<Course> prerequisites) {
-//        this.prerequisites = prerequisites;
-//    }
+    @ManyToOne
+    Curriculum curriculum;
 
 
 

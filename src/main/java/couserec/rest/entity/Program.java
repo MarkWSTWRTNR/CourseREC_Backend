@@ -25,8 +25,7 @@ public class Program {
     private String name;
 
     @ManyToOne
-    @JsonBackReference
-    private Faculty faculty;
+    Faculty faculty;
 
 
 }

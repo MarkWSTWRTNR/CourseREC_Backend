@@ -1,9 +1,11 @@
 package couserec.rest.config;
 
 import couserec.rest.entity.Course;
+import couserec.rest.entity.Curriculum;
 import couserec.rest.entity.Faculty;
 import couserec.rest.entity.Program;
 import couserec.rest.repository.CourseRepository;
+import couserec.rest.repository.CurriculumRepository;
 import couserec.rest.repository.FacultyRepository;
 import couserec.rest.repository.ProgramRepository;
 import jakarta.transaction.Transactional;
@@ -20,10 +22,13 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
     ProgramRepository programRepository;
     @Autowired
     FacultyRepository facultyRepository;
+
+    @Autowired
+    CurriculumRepository curriculumRepository;
     @Override
     @Transactional
     public void onApplicationEvent(ApplicationReadyEvent event) {
-        courseRepository.save(Course.builder()
+       Course a = courseRepository.save(Course.builder()
                 .courseId("001001")
                 .name("English 1")
                 .credit(3)
@@ -43,6 +48,10 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
         p.setFaculty(f);
         f.getPrograms().add(p2);
         p2.setFaculty(f);
+
+        Curriculum ccl = curriculumRepository.save(Curriculum.builder().credit(30).name("GE").build());
+        ccl.getGerclp().add(a);
+        
 //        Course a = courseRepository.save(
 //                Course.builder()
 //                        .courseId("953331").name("A").build()
