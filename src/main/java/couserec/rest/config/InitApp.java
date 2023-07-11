@@ -40,9 +40,9 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
         Program p2 = programRepository.save(Program.builder().name("ani").programId("02").build());
         Faculty f = facultyRepository.save(Faculty.builder().facultyId("01").name("CAMT").build());
         f.getPrograms().add(p);
-        p.setFaculties(f);
+        p.setFaculty(f);
         f.getPrograms().add(p2);
-        p2.setFaculties(f);
+        p2.setFaculty(f);
 //        Course a = courseRepository.save(
 //                Course.builder()
 //                        .courseId("953331").name("A").build()

@@ -17,10 +17,16 @@ public class Curriculum {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-
+    int credit;
 //    @Builder.Default
 //    @OneToMany
-//    List<Course> GE = new ArrayList<>();
+//    List<Course> gerclp = new ArrayList<>();
+//    List<Course> gercIc = new ArrayList<>();
+//    List<Course> gercac = new ArrayList<>();
+//    List<Course> geec = new ArrayList<>();
+//    List<Course> foscc = new ArrayList<>();
+//    List<Course> fosmcrc  = new ArrayList<>();
+//    List<Course> fosme  = new ArrayList<>();
 
 
 }

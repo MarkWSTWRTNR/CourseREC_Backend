@@ -25,8 +25,9 @@ public class Faculty {
     private String name;
 
 
-    @OneToMany(mappedBy = "faculties")
+    @OneToMany(mappedBy = "faculty")
     @JsonManagedReference
     @Builder.Default
     List<Program> programs = new ArrayList<>();
+
 }

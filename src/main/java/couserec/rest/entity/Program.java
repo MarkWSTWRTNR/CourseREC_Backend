@@ -1,5 +1,6 @@
 package couserec.rest.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
@@ -23,9 +24,9 @@ public class Program {
     private String programId;
     private String name;
 
-    @JsonIgnore
     @ManyToOne
-    @JsonManagedReference
-    private Faculty faculties;
+    @JsonBackReference
+    private Faculty faculty;
+
 
 }
