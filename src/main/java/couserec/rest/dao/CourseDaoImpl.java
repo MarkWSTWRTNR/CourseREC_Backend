@@ -43,6 +43,11 @@ public class CourseDaoImpl implements CourseDao{
                 .orElse(null);
     }
 
+    @Override
+    public Course findByCourseId(String courseId) {
+        return null;
+    }
+
 //    @Override
 //    public Course findByCourseId(Course courseId) {
 //        return courseId;

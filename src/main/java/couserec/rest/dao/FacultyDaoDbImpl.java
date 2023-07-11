@@ -36,4 +36,9 @@ public class FacultyDaoDbImpl implements FacultyDao {
         return "Faculty removed !!"+id;
 
     }
+
+    @Override
+    public Faculty findByFacultyId(String facultyId) {
+        return facultyRepository.findByFacultyId(facultyId);
+    }
 }

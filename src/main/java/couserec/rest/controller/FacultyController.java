@@ -31,6 +31,11 @@ public class FacultyController {
         Faculty getFacultyById = facultyService.getFacultyById(id);
         return ResponseEntity.ok(getFacultyById);
     }
+    @GetMapping("/facultyByFacultyId/{courseId}")
+    public ResponseEntity<?> getByFacultyId(@PathVariable String facultyId){
+        Faculty getFacultyByFacultyId = facultyService.findByFacultyId(facultyId);
+        return ResponseEntity.ok(getFacultyByFacultyId);
+    }
     @PutMapping("/updateFaculty")
     public ResponseEntity<?> updateFaculty(@RequestBody Faculty faculty) {
 

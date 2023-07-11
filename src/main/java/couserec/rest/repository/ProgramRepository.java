@@ -9,4 +9,6 @@ public interface ProgramRepository extends JpaRepository<Program, Integer> {
 //    Program findByProgramId(Integer programId);
 //    Program findByName(String name);
     List<Program> findAll();
+
+    Program getProgramByProgramId(String programId);
 }

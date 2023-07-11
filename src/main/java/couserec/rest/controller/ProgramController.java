@@ -31,6 +31,11 @@ public class ProgramController {
         Program getProgramById = programService.getProgramById(id);
         return ResponseEntity.ok(getProgramById);
     }
+    @GetMapping("/programByProgramId")
+    public ResponseEntity<?> getProgramByProgramId(@PathVariable String programId){
+        Program getProgramByProgramId = programService.getProgramByProgramId(programId);
+        return ResponseEntity.ok(getProgramByProgramId);
+    }
     @PutMapping("/updateProgram")
     public ResponseEntity<?> updateProgram(@RequestBody Program program) {
 

@@ -13,5 +13,7 @@ public interface ProgramDao {
 
     Program updateProgram(Program program);
 
+    Program getProgramByProgramId(String programId);
+
     String deleteProgram(int id);
 }

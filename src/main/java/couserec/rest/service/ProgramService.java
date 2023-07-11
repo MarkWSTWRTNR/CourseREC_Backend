@@ -13,4 +13,6 @@ public interface ProgramService {
 
     Program updateProgram(Program program);
     String deleteProgram(int id);
+
+    Program getProgramByProgramId(String programId);
 }

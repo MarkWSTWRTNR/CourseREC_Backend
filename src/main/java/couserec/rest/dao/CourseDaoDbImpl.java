@@ -27,6 +27,11 @@ public class CourseDaoDbImpl implements CourseDao{
         return courseRepository.findById(id).orElse(null);
     }
 
+    @Override
+    public Course findByCourseId(String courseId) {
+        return courseRepository.findByCourseId(courseId);
+    }
+
 //    @Override
 //    public Course findByCourseId(Course courseId) {
 //        return courseRepository.findByCourseId(String.valueOf(courseId));

@@ -31,6 +31,10 @@ public class ProgramDaoDbImpl implements ProgramDao {
         return programRepository.save(program);
     }
     @Override
+    public Program getProgramByProgramId(String programId){
+        return programRepository.getProgramByProgramId(programId);
+    }
+    @Override
     public String deleteProgram(int id){
         programRepository.deleteById(id);
         return "Program removed !!"+id;

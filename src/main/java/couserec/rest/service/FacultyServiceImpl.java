@@ -28,7 +28,10 @@ public class FacultyServiceImpl implements FacultyService{
         return facultyDao.getFacultyById(id);
     }
 
-
+    @Override
+    public Faculty findByFacultyId(String facultyId) {
+        return facultyDao.findByFacultyId(facultyId);
+    }
 
 
     public Faculty updateFaculty(Faculty faculty) {

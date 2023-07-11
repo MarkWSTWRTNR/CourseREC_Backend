@@ -29,6 +29,11 @@ public class CourseController {
         Course getCourseById = courseService.getCourseById(id);
         return ResponseEntity.ok(getCourseById);
     }
+    @GetMapping("/courseByCourseId/{courseId}")
+    public ResponseEntity<?> getCourseByCourseId(@PathVariable String courseId){
+        Course getCourseByCourseId = courseService.findByCourseId(courseId);
+        return ResponseEntity.ok(getCourseByCourseId);
+    }
     @PutMapping("/updateCourse")
     public ResponseEntity<?> updateCourse(@RequestBody Course course) {
         // Save the update course
