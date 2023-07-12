@@ -22,24 +22,31 @@ public class Curriculum {
     private int credit;
     @Column(unique = true)
     private String name;
+//    General Education | Required courses | Learner Person
     @Builder.Default
     @OneToMany
     private List<Course> gerclp = new ArrayList<>();
+//    General Education | Required courses | Innovative Co-creator
     @Builder.Default
     @OneToMany
     private List<Course> gercIc = new ArrayList<>();
+//    General Education | Required courses | Active Citizen
     @Builder.Default
     @OneToMany
     private List<Course> gercac = new ArrayList<>();
+//    General Education | Elective courses
     @Builder.Default
     @OneToMany
     private List<Course> geec = new ArrayList<>();
+//    Feild of Specialization| Core Courses
     @Builder.Default
     @OneToMany
     private List<Course> foscc = new ArrayList<>();
+//    Feild of Specialization | Major Courses | Required Courses
     @Builder.Default
     @OneToMany
     private List<Course> fosmcrc = new ArrayList<>();
+//    Feild of Specialization | Major Elective
     @Builder.Default
     @OneToMany
     private List<Course> fosme = new ArrayList<>();

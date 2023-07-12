@@ -41,17 +41,18 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .gradingtype("Letter grading")
                 .description("Details")
                 .build());
-        Program p = programRepository.save(Program.builder().name("SE").programId("01").build());
-        Program p2 = programRepository.save(Program.builder().name("ani").programId("02").build());
-        Faculty f = facultyRepository.save(Faculty.builder().facultyId("01").name("CAMT").build());
-        f.getPrograms().add(p);
-        p.setFaculty(f);
-        f.getPrograms().add(p2);
-        p2.setFaculty(f);
+//        Program p = programRepository.save(Program.builder().name("SE").programId("01").build());
+//        Program p2 = programRepository.save(Program.builder().name("ani").programId("02").build());
+//        Faculty f = facultyRepository.save(Faculty.builder().facultyId("01").name("CAMT").build());
+//        f.getPrograms().add(p);
+//        p.setFaculty(f);
+//        f.getPrograms().add(p2);
+//        p2.setFaculty(f);
 
-        Curriculum ccl = curriculumRepository.save(Curriculum.builder().credit(30).name("GE").build());
-        ccl.getGerclp().add(a);
-        
+//        Curriculum ccl = curriculumRepository.save(Curriculum.builder().credit(30).name("GELP").build());
+//        ccl.getGerclp().add(a);
+//        a.setCurriculum(ccl);
+
 //        Course a = courseRepository.save(
 //                Course.builder()
 //                        .courseId("953331").name("A").build()
