@@ -1,7 +1,10 @@
 package couserec.rest.controller;
 
+import couserec.rest.entity.Faculty;
 import couserec.rest.entity.Program;
 
+import couserec.rest.repository.FacultyRepository;
+import couserec.rest.repository.ProgramRepository;
 import couserec.rest.service.ProgramService;
 
 
@@ -15,9 +18,14 @@ import java.util.List;
 public class ProgramController {
     @Autowired
     private ProgramService programService;
+    @Autowired
+    private ProgramRepository programRepository;
+    @Autowired
+    private FacultyRepository facultyRepository;
 
     @PostMapping("/addProgram")
     public ResponseEntity<?> addProgram(@RequestBody Program program) {
+
         Program addProgram = programService.saveProgram(program);
         return ResponseEntity.ok(addProgram);
     }
@@ -43,9 +51,17 @@ public class ProgramController {
         return ResponseEntity.ok(updateProgram);
     }
     @DeleteMapping("/deleteProgram/{id}")
-    public ResponseEntity<String> deleteProgram(@PathVariable int id) {
+    public ResponseEntity<?> deleteProgram(@PathVariable int id) {
         String deleteProgram = programService.deleteProgram(id);
         return ResponseEntity.ok(deleteProgram);
+    }
+    @PostMapping("/setProgramToFaculty")
+    public ResponseEntity<?> setProgramToFaculty(@PathVariable Program program){
+        Program program1 = programRepository.findById(program.getId()).orElse(null);
+        Faculty faculty = facultyRepository.findById(program.getFaculty().getId()).orElse(null);
+        program1.setFaculty(faculty);
+        faculty.getPrograms().add(program1);
+        return ResponseEntity.ok(program);
     }
 
 }

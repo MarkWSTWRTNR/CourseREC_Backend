@@ -15,8 +15,8 @@ public class CourseController {
     private CourseService courseService;
 
     @PostMapping("/addCourse")
-    public ResponseEntity<?> addCourse(@RequestBody Course course) {
-        Course addCourse = courseService.saveCourse(course);
+    public ResponseEntity<?> addCourse(@RequestBody List<Course> course) {
+        List<Course> addCourse = courseService.saveCourse(course);
         return ResponseEntity.ok(addCourse);
     }
     @GetMapping("/courses")

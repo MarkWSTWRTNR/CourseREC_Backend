@@ -34,21 +34,22 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .credit(3)
                 .gradingtype("Letter Grading")
                 .description("details").build());
-        courseRepository.save(Course.builder()
+       Course b = courseRepository.save(Course.builder()
                 .courseId("953234")
                 .name("Dev-ops")
                 .credit(3)
                 .gradingtype("Letter grading")
                 .description("Details")
                 .build());
-//        Program p = programRepository.save(Program.builder().name("SE").programId("01").build());
-//        Program p2 = programRepository.save(Program.builder().name("ani").programId("02").build());
-//        Faculty f = facultyRepository.save(Faculty.builder().facultyId("01").name("CAMT").build());
-//        f.getPrograms().add(p);
-//        p.setFaculty(f);
-//        f.getPrograms().add(p2);
-//        p2.setFaculty(f);
+        Program p = programRepository.save(Program.builder().name("SE").programId("01").build());
+        Program p2 = programRepository.save(Program.builder().name("ani").programId("02").build());
+        Faculty f = facultyRepository.save(Faculty.builder().facultyId("01").name("CAMT").build());
+        f.getPrograms().add(p);
+        p.setFaculty(f);
+        f.getPrograms().add(p2);
+        p2.setFaculty(f);
 
+        b.getPrerequisite().add(a);
 //        Curriculum ccl = curriculumRepository.save(Curriculum.builder().credit(30).name("GELP").build());
 //        ccl.getGerclp().add(a);
 //        a.setCurriculum(ccl);

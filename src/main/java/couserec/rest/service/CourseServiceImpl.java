@@ -15,17 +15,22 @@ public class CourseServiceImpl implements CourseService {
     @Autowired
     CourseDao courseDao;
 
-    public Course saveCourse(Course course) {
-        List<Course> prerequisites = new ArrayList<>();
-        for (Course prerequisite : course.getPrerequisite()) {
-            Course fetchedPrerequisite = courseDao.getCourseById(prerequisite.getId());
-            if (fetchedPrerequisite != null) {
-                prerequisites.add(fetchedPrerequisite);
+    public List<Course> saveCourse(List<Course> courses) {
+        List<Course> savedCourses = new ArrayList<>();
+        for (Course course : courses) {
+            List<Course> prerequisites = new ArrayList<>();
+            for (Course prerequisite : course.getPrerequisite()) {
+                Course fetchedPrerequisite = courseDao.getCourseByCourseId(prerequisite.getCourseId());
+                if (fetchedPrerequisite != null) {
+                    prerequisites.add(fetchedPrerequisite);
+                }
             }
+            course.setPrerequisite(prerequisites);
+            savedCourses.add(course);
         }
-        course.setPrerequisite(prerequisites);
-        return courseDao.saveCourse(course);
+        return courseDao.saveCourse(savedCourses);
     }
+
 
 
     public List<Course> getCourses() {

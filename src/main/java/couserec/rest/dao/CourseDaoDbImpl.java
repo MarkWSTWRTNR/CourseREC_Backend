@@ -15,8 +15,8 @@ public class CourseDaoDbImpl implements CourseDao{
     CourseRepository courseRepository;
 
     @Override
-    public Course saveCourse(Course course) {
-        return courseRepository.save(course);
+    public List<Course> saveCourse(List<Course> course) {
+        return courseRepository.saveAll(course);
     }
     @Override
     public List<Course> getCourses() {

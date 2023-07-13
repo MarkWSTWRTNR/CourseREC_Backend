@@ -23,9 +23,8 @@ public class Program {
     @Column(unique = true)
     private String programId;
     private String name;
-
+    @JsonBackReference
     @ManyToOne
     Faculty faculty;
-
 
 }

@@ -1,6 +1,7 @@
 package couserec.rest.service;
 
 import couserec.rest.dao.ProgramDao;
+import couserec.rest.entity.Faculty;
 import couserec.rest.entity.Program;
 
 import org.springframework.beans.factory.annotation.Autowired;

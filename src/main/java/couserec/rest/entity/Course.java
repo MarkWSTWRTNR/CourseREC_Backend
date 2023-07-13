@@ -28,11 +28,12 @@ public class Course {
     private String description;
 
     @ManyToMany
-            @Builder.Default
+    @Builder.Default
     List<Course> prerequisite = new ArrayList<>();
 
     @ManyToOne
     Curriculum curriculum;
+
 
 
 

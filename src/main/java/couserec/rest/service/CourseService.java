@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface CourseService {
-    Course saveCourse(Course course);
+    List<Course> saveCourse(List<Course> course);
 
     List<Course> getCourses();
     Course getCourseById(int id);
