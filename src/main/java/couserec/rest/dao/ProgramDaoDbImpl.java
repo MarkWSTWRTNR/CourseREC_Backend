@@ -1,8 +1,10 @@
 package couserec.rest.dao;
 
 
+import couserec.rest.entity.Curriculum;
 import couserec.rest.entity.Program;
 import couserec.rest.repository.ProgramRepository;
+import jakarta.persistence.OneToOne;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
@@ -40,4 +42,6 @@ public class ProgramDaoDbImpl implements ProgramDao {
         return "Program removed !!"+id;
 
     }
+
+    
 }

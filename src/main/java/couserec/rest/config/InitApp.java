@@ -48,8 +48,8 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
         p.setFaculty(f);
         f.getPrograms().add(p2);
         p2.setFaculty(f);
-
-        b.getPrerequisite().add(a);
+//
+//        b.getPrerequisite().add(a);
 //        Curriculum ccl = curriculumRepository.save(Curriculum.builder().credit(30).name("GELP").build());
 //        ccl.getGerclp().add(a);
 //        a.setCurriculum(ccl);

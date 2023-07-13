@@ -20,6 +20,8 @@ public class Curriculum {
     private int id;
 
     private int credit;
+
+    private String freeElective;
     @Column(unique = true)
     private String name;
 //    General Education | Required courses | Learner Person
@@ -50,4 +52,8 @@ public class Curriculum {
     @Builder.Default
     @OneToMany
     private List<Course> fosme = new ArrayList<>();
+
+
+    @OneToOne
+    Program program;
 }
