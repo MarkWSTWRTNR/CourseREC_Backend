@@ -1,11 +1,13 @@
 package couserec.rest.service;
 
+import couserec.rest.dao.FacultyDao;
 import couserec.rest.dao.ProgramDao;
 import couserec.rest.entity.Faculty;
 import couserec.rest.entity.Program;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -14,8 +16,13 @@ public class ProgramServiceImpl implements ProgramService{
 
     @Autowired
     ProgramDao programDao;
-
+    @Autowired
+    FacultyDao facultyDao;
+    @Transactional
     public Program saveProgram(Program program) {
+        Faculty faculty = facultyDao.getFacultyByFacultyId(program.getFaculty().getFacultyId());
+        program.setFaculty(faculty);
+        faculty.getPrograms().add(program);
         return programDao.saveProgram(program);
     }
 

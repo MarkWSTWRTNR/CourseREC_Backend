@@ -9,9 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProgramDTO {
+public class ProgramOwnFacultyDTO {
     int id;
-    String programId;
+    String facultyId;
     String name;
-    ProgramOwnFacultyDTO faculty;
 }

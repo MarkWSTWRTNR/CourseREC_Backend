@@ -8,6 +8,7 @@ import couserec.rest.repository.ProgramRepository;
 import couserec.rest.service.ProgramService;
 
 
+import couserec.rest.util.LabMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,14 +26,13 @@ public class ProgramController {
 
     @PostMapping("/addProgram")
     public ResponseEntity<?> addProgram(@RequestBody Program program) {
-
         Program addProgram = programService.saveProgram(program);
-        return ResponseEntity.ok(addProgram);
+        return ResponseEntity.ok(LabMapper.INSTANCE.getProgramDto(addProgram));
     }
     @GetMapping("/programs")
     public ResponseEntity<?> getPrograms(){
         List<Program> getProgram = programService.getPrograms();
-        return ResponseEntity.ok(getProgram);
+        return ResponseEntity.ok(LabMapper.INSTANCE.getProgramDto(getProgram));
     }
     @GetMapping("/programById/{id}")
     public ResponseEntity<?> getProgramById(@PathVariable int id){
@@ -55,13 +55,4 @@ public class ProgramController {
         String deleteProgram = programService.deleteProgram(id);
         return ResponseEntity.ok(deleteProgram);
     }
-    @PostMapping("/setProgramToFaculty")
-    public ResponseEntity<?> setProgramToFaculty(@PathVariable Program program){
-        Program program1 = programRepository.findById(program.getId()).orElse(null);
-        Faculty faculty = facultyRepository.findById(program.getFaculty().getId()).orElse(null);
-        program1.setFaculty(faculty);
-        faculty.getPrograms().add(program1);
-        return ResponseEntity.ok(program);
-    }
-
 }
