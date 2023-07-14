@@ -45,7 +45,7 @@ public class CourseServiceImpl implements CourseService {
 
 
     public Course updateCourse(Course course) {
-        Course existingCourse = courseDao.getCourseById(course.getId());
+        Course existingCourse = courseDao.getCourseByCourseId(course.getCourseId());
         if (existingCourse == null) {
             return null;
         }

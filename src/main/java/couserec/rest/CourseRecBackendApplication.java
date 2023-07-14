@@ -18,6 +18,7 @@ public class CourseRecBackendApplication {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
+                        .allowedMethods("POST","GET","OPTIONS","DELETE","PUT")
                         .allowedOrigins("http://localhost:3000")
                         .exposedHeaders("x-total-count");
 

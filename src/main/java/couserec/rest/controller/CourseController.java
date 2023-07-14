@@ -40,7 +40,7 @@ public class CourseController {
         Course updateCourse = courseService.updateCourse(course);
         return ResponseEntity.ok(updateCourse);
     }
-    @CrossOrigin
+
     @DeleteMapping("/deleteCourse/{id}")
     public ResponseEntity<?> deleteCourse(@PathVariable int id) {
         String deleteCourse = courseService.deleteCourse(id);
