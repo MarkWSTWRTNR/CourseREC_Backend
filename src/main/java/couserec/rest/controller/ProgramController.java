@@ -19,10 +19,6 @@ import java.util.List;
 public class ProgramController {
     @Autowired
     private ProgramService programService;
-    @Autowired
-    private ProgramRepository programRepository;
-    @Autowired
-    private FacultyRepository facultyRepository;
 
     @PostMapping("/addProgram")
     public ResponseEntity<?> addProgram(@RequestBody Program program) {

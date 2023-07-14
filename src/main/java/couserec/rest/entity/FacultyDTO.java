@@ -17,7 +17,7 @@ public class FacultyDTO {
     int id;
     String facultyId;
     String name;
-    List<Program> programs = new ArrayList<>();
+    List<ProgramOwnFacultyDTO> programs = new ArrayList<>();
 
 
 }

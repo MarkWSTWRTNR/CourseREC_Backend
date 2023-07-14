@@ -25,7 +25,7 @@ public class FacultyController {
     @GetMapping("/facultys")
     public ResponseEntity<?> getFacultys(){
         List<Faculty> getFaculty = facultyService.getFacultys();
-        return ResponseEntity.ok(LabMapper.INSTANCE.getFacultyDto((Faculty) getFaculty));
+        return ResponseEntity.ok(LabMapper.INSTANCE.getFacultyDto(getFaculty));
     }
     @GetMapping("/facultyById/{id}")
     public ResponseEntity<?> getFacultyById(@PathVariable int id){

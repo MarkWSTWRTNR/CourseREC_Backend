@@ -15,8 +15,9 @@ public interface LabMapper {
 LabMapper INSTANCE = Mappers.getMapper(LabMapper.class);
 
 
-    ProgramDTO getProgramDto(Program addProgram);
+    ProgramDTO getProgramDto(Program program);
     List<ProgramDTO> getProgramDto(List<Program> programs);
-    FacultyDTO getFacultyDto(Faculty f);
+    FacultyDTO getFacultyDto(Faculty faculty);
+    List<FacultyDTO> getFacultyDto(List<Faculty> facultys);
 }
 
