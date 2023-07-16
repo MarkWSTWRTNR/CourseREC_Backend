@@ -14,6 +14,10 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 @Component
 public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
     @Autowired
@@ -41,9 +45,18 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .gradingtype("Letter grading")
                 .description("Details")
                 .build());
+        Course c = courseRepository.save(Course.builder()
+                .courseId("953331")
+                .name("Compo-based")
+                .credit(3)
+                .gradingtype("Letter grading")
+                .description("Details")
+                .build());
         Program p = programRepository.save(Program.builder().name("SE").programId("01").build());
         Program p2 = programRepository.save(Program.builder().name("ani").programId("02").build());
         Faculty f = facultyRepository.save(Faculty.builder().facultyId("01").name("CAMT").build());
+
+
 //        f.getPrograms().add(p);
 //        p.setFaculty(f);
 //        f.getPrograms().add(p2);

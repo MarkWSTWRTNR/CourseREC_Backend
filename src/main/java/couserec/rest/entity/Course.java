@@ -31,10 +31,6 @@ public class Course {
     @Builder.Default
     List<Course> prerequisite = new ArrayList<>();
 
-    @ManyToOne
-    Curriculum curriculum;
-
-
-
-
+    @ManyToMany
+    List<Curriculum> curriculum;
 }
