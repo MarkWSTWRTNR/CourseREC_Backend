@@ -11,14 +11,16 @@ import java.util.List;
 public interface LabMapper {
 LabMapper INSTANCE = Mappers.getMapper(LabMapper.class);
 
-
+    //Program
     ProgramDTO getProgramDto(Program program);
     List<ProgramDTO> getProgramDto(List<Program> programs);
+    //Faculty
     FacultyDTO getFacultyDto(Faculty faculty);
     List<FacultyDTO> getFacultyDto(List<Faculty> facultys);
-
+    //Course
     CourseDTO getCourseDto(Course course);
     List<CourseDTO> getCourseDto(List<Course> courses);
+    //Student
     StudentDTO getStudentDto(Student student);
     List<StudentDTO> getStudentDto(List<Student> students);
 }

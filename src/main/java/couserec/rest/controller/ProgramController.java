@@ -33,18 +33,18 @@ public class ProgramController {
     @GetMapping("/programById/{id}")
     public ResponseEntity<?> getProgramById(@PathVariable int id){
         Program getProgramById = programService.getProgramById(id);
-        return ResponseEntity.ok(getProgramById);
+        return ResponseEntity.ok(LabMapper.INSTANCE.getProgramDto(getProgramById));
     }
     @GetMapping("/programByProgramId/{programId}")
     public ResponseEntity<?> getProgramByProgramId(@PathVariable String programId){
         Program getProgramByProgramId = programService.getProgramByProgramId(programId);
-        return ResponseEntity.ok(getProgramByProgramId);
+        return ResponseEntity.ok(LabMapper.INSTANCE.getProgramDto(getProgramByProgramId));
     }
     @PutMapping("/updateProgram")
     public ResponseEntity<?> updateProgram(@RequestBody Program program) {
         // Save the update program
         Program updateProgram = programService.updateProgram(program);
-        return ResponseEntity.ok(updateProgram);
+        return ResponseEntity.ok(LabMapper.INSTANCE.getProgramDto(updateProgram));
     }
     @DeleteMapping("/deleteProgram/{id}")
     public ResponseEntity<?> deleteProgram(@PathVariable int id) {

@@ -28,18 +28,18 @@ public class CourseController {
     @GetMapping("/courseById/{id}")
     public ResponseEntity<?> getCourseById(@PathVariable int id){
         Course getCourseById = courseService.getCourseById(id);
-        return ResponseEntity.ok(getCourseById);
+        return ResponseEntity.ok(LabMapper.INSTANCE.getCourseDto(getCourseById));
     }
     @GetMapping("/courseByCourseId/{courseId}")
     public ResponseEntity<?> getCourseByCourseId(@PathVariable String courseId){
         Course getCourseByCourseId = courseService.getCourseByCourseId(courseId);
-        return ResponseEntity.ok(getCourseByCourseId);
+        return ResponseEntity.ok(LabMapper.INSTANCE.getCourseDto(getCourseByCourseId));
     }
     @PutMapping("/updateCourse")
     public ResponseEntity<?> updateCourse(@RequestBody Course course) {
         // Save the update course
         Course updateCourse = courseService.updateCourse(course);
-        return ResponseEntity.ok(updateCourse);
+        return ResponseEntity.ok(LabMapper.INSTANCE.getCourseDto(updateCourse));
     }
 
     @DeleteMapping("/deleteCourse/{id}")

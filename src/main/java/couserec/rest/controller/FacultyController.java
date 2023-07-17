@@ -30,12 +30,12 @@ public class FacultyController {
     @GetMapping("/facultyById/{id}")
     public ResponseEntity<?> getFacultyById(@PathVariable int id){
         Faculty getFacultyById = facultyService.getFacultyById(id);
-        return ResponseEntity.ok(getFacultyById);
+        return ResponseEntity.ok(LabMapper.INSTANCE.getFacultyDto(getFacultyById));
     }
     @GetMapping("/facultyByFacultyId/{facultyId}")
     public ResponseEntity<?> getByFacultyId(@PathVariable String facultyId){
         Faculty getFacultyByFacultyId = facultyService.getFacultyByFacultyId(facultyId);
-        return ResponseEntity.ok(getFacultyByFacultyId);
+        return ResponseEntity.ok(LabMapper.INSTANCE.getFacultyDto(getFacultyByFacultyId));
     }
     @PutMapping("/updateFaculty")
     public ResponseEntity<?> updateFaculty(@RequestBody Faculty faculty) {
@@ -43,7 +43,7 @@ public class FacultyController {
 
         // Save the update faculty
         Faculty updateFaculty = facultyService.updateFaculty(faculty);
-        return ResponseEntity.ok(updateFaculty);
+        return ResponseEntity.ok(LabMapper.INSTANCE.getFacultyDto(updateFaculty));
     }
     @DeleteMapping("/deleteFaculty/{id}")
     public ResponseEntity<String> deleteFaculty(@PathVariable int id) {
