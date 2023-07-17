@@ -2,6 +2,7 @@ package couserec.rest.controller;
 
 import couserec.rest.entity.Course;
 import couserec.rest.service.CourseService;
+import couserec.rest.util.LabMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,14 +16,14 @@ public class CourseController {
     private CourseService courseService;
 
     @PostMapping("/addCourse")
-    public ResponseEntity<?> addCourse(@RequestBody List<Course> course) {
-        List<Course> addCourse = courseService.saveCourse(course);
-        return ResponseEntity.ok(addCourse);
+    public ResponseEntity<?> addCourse(@RequestBody Course course) {
+        Course addCourse = courseService.saveCourse(course);
+        return ResponseEntity.ok(LabMapper.INSTANCE.getCourseDto(addCourse));
     }
     @GetMapping("/courses")
     public ResponseEntity<?> getCourses(){
         List<Course> getCourse = courseService.getCourses();
-        return ResponseEntity.ok(getCourse);
+        return ResponseEntity.ok(LabMapper.INSTANCE.getCourseDto(getCourse));
     }
     @GetMapping("/courseById/{id}")
     public ResponseEntity<?> getCourseById(@PathVariable int id){

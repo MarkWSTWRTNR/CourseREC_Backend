@@ -2,6 +2,7 @@ package couserec.rest.controller;
 
 import couserec.rest.entity.Student;
 import couserec.rest.service.StudentService;
+import couserec.rest.util.LabMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,12 +20,12 @@ public class StudentController {
     @PostMapping("/saveStudentFinishedCourse")
     public ResponseEntity<?> saveFinishedCourse(@RequestBody Student student){
         Student saveFinishedCourse = studentService.saveStudentFinishedCourse(student);
-        return ResponseEntity.ok(saveFinishedCourse);
+        return ResponseEntity.ok(LabMapper.INSTANCE.getStudentDto(saveFinishedCourse));
     }
     @GetMapping("/getStudentFinishedCourse")
     public ResponseEntity<?> getFinishedCourse(){
         List<Student> getFinishedCourse  =  studentService.getStudentFinishedCourse();
-        return ResponseEntity.ok(getFinishedCourse);
+        return ResponseEntity.ok(LabMapper.INSTANCE.getStudentDto(getFinishedCourse));
     }
 
 
