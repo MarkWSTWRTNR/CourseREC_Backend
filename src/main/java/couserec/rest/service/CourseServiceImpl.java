@@ -46,18 +46,26 @@ public class CourseServiceImpl implements CourseService {
         if (existingCourse == null) {
             return null;
         }
+
         // Update the course information
-        existingCourse.setCourseId(course.getCourseId());
         existingCourse.setName(course.getName());
         existingCourse.setCredit(course.getCredit());
         existingCourse.setGradingtype(course.getGradingtype());
         existingCourse.setDescription(course.getDescription());
 
         // Update the prerequisites
-        existingCourse.setPrerequisite(course.getPrerequisite());
+        List<Course> prerequisites = new ArrayList<>();
+        for (Course prerequisite : course.getPrerequisite()) {
+            Course existingPrerequisite = courseDao.getCourseByCourseId(prerequisite.getCourseId());
+            if (existingPrerequisite != null) {
+                prerequisites.add(existingPrerequisite);
+            }
+        }
+        existingCourse.setPrerequisite(prerequisites);
 
         return courseDao.updateCourse(existingCourse);
     }
+
 
     @Override
     public String deleteCourse(int id) {
