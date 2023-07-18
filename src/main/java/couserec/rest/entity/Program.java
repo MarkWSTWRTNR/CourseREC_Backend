@@ -1,8 +1,5 @@
 package couserec.rest.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -33,7 +30,7 @@ public class Program {
     //   General Education | Required courses | Innovative Co-creator
     @ManyToMany(mappedBy = "programList")
     @Builder.Default
-    private List<Course> gercIc = new ArrayList<>();
+    List<Course> gercIc = new ArrayList<>();
     @ManyToOne
     Faculty faculty;
 

@@ -18,7 +18,8 @@ public class CourseDTO {
     int credit;
     String gradingtype;
     String description;
-    List<CourseDTO> prerequisite;
-    List<ProgramOwnCourseDTO> programList = new ArrayList<>();
-    List<StudentOwnCourseDTO> students;
+    List<Course> prerequisite;
+    @Builder.Default
+    List<CourseOwnProgramDTO> programList = new ArrayList<>();
+    List<CourseOwnStudentDTO> students;
 }

@@ -15,17 +15,17 @@ public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @EqualsAndHashCode.Exclude
-    private int id;
+    int id;
 
 
     @Column(unique = true)
-    private String courseId;
-    private String name;
+    String courseId;
+    String name;
 
-    private int credit;
+    int credit;
 
-    private String gradingtype;
-    private String description;
+    String gradingtype;
+    String description;
 
     @ManyToMany
     @Builder.Default

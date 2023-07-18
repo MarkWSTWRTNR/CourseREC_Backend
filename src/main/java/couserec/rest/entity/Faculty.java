@@ -1,7 +1,5 @@
 package couserec.rest.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -17,14 +15,10 @@ public class Faculty {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @EqualsAndHashCode.Exclude
-    private int id;
-
-
+    int id;
     @Column(unique = true)
-    private String facultyId;
-    private String name;
-
-
+    String facultyId;
+    String name;
     @OneToMany(mappedBy = "faculty")
     @Builder.Default
     List<Program> programs = new ArrayList<>();

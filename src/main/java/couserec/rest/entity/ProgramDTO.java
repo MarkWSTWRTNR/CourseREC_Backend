@@ -18,6 +18,8 @@ public class ProgramDTO {
     String name;
     String freeElective;
     ProgramOwnFacultyDTO faculty;
+    @Builder.Default
     List<CourseDTO> gerclp = new ArrayList<>();
+    @Builder.Default
     List<CourseDTO> gercIc = new ArrayList<>();
 }

@@ -17,7 +17,8 @@ public class FacultyDTO {
     int id;
     String facultyId;
     String name;
-    List<ProgramOwnFacultyDTO> programs = new ArrayList<>();
+    @Builder.Default
+    List<FacultyOwnProgramDTO> programs = new ArrayList<>();
 
 
 }

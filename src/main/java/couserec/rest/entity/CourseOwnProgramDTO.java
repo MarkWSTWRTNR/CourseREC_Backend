@@ -14,4 +14,5 @@ public class CourseOwnProgramDTO {
     String programId;
     String name;
     String freeElective;
+
 }

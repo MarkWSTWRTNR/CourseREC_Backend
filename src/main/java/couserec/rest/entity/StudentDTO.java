@@ -20,5 +20,5 @@ public class StudentDTO {
     double gpa;
     double gpax;
     double majorgpax;
-    List<CourseOwnStudentDTO> courses;
+    List<StudentOwnCourseDTO> courses;
 }
