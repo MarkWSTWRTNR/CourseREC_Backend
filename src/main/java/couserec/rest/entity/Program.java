@@ -28,6 +28,7 @@ public class Program {
     Faculty faculty;
 
 
-    @OneToOne
-    Curriculum curriculum;
+    @OneToMany
+            @Builder.Default
+    List<Curriculum> curriculums = new ArrayList<Curriculum>();
 }

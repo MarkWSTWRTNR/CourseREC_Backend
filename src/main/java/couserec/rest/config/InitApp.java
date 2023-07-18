@@ -55,6 +55,22 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
         Program p = programRepository.save(Program.builder().name("SE").programId("01").build());
         Program p2 = programRepository.save(Program.builder().name("ani").programId("02").build());
         Faculty f = facultyRepository.save(Faculty.builder().facultyId("01").name("CAMT").build());
+        Curriculum se = curriculumRepository.save(Curriculum.builder()
+                .name("Software Engineer")
+                        .startYear("63")
+
+                .build());
+        se.setProgram(p);
+        p.getCurriculums().add(se);
+        Curriculum seold = curriculumRepository.save(Curriculum.builder()
+                .name("Software Engineer")
+                .startYear("58").build());
+        seold.setProgram(p);
+        p.getCurriculums().add(seold);
+        se.getGerclp().add(a);
+        a.getCurriculum().add(se);
+        se.getFoscc().add(b);
+        b.getCurriculum().add(se);
 
 
 //        f.getPrograms().add(p);

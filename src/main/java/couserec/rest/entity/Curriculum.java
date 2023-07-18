@@ -24,6 +24,7 @@ public class Curriculum {
     private String freeElective;
     @Column(unique = true)
     private String name;
+    String startYear;
 
 
 //    @ManyToMany(mappedBy = "curriculum")
