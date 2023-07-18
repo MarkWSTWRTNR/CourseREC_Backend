@@ -31,18 +31,47 @@ public class ProgramServiceImpl implements ProgramService{
         return programDao.saveProgram(program);
     }
     @Transactional
-    public Program addCourseToProgram(Program program){
+    public Program addCourseToProgram(Program program) {
         Program existingProgram = programDao.getProgramByProgramId(program.getProgramId());
 
-        List<Course> gerclp = new ArrayList<>();
-        for (Course course : program.getGerclp()){
+        for (Course course : program.getGerclp()) {
             Course existingCourse = courseDao.getCourseByCourseId(course.getCourseId());
-            gerclp.add(existingCourse);
+            existingProgram.getGerclp().add(existingCourse);
         }
-        existingProgram.setGerclp(gerclp);
 
-        return programDao.addCourseToProgram(existingProgram) ;
+        for (Course course : program.getGercIc()) {
+            Course existingCourse = courseDao.getCourseByCourseId(course.getCourseId());
+            existingProgram.getGercIc().add(existingCourse);
+        }
+
+        for (Course course : program.getGercac()) {
+            Course existingCourse = courseDao.getCourseByCourseId(course.getCourseId());
+            existingProgram.getGercac().add(existingCourse);
+        }
+
+        for (Course course : program.getGeec()) {
+            Course existingCourse = courseDao.getCourseByCourseId(course.getCourseId());
+            existingProgram.getGeec().add(existingCourse);
+        }
+
+        for (Course course : program.getFoscc()) {
+            Course existingCourse = courseDao.getCourseByCourseId(course.getCourseId());
+            existingProgram.getFoscc().add(existingCourse);
+        }
+
+        for (Course course : program.getFosmcrc()) {
+            Course existingCourse = courseDao.getCourseByCourseId(course.getCourseId());
+            existingProgram.getFosmcrc().add(existingCourse);
+        }
+
+        for (Course course : program.getFosme()) {
+            Course existingCourse = courseDao.getCourseByCourseId(course.getCourseId());
+            existingProgram.getFosme().add(existingCourse);
+        }
+
+        return programDao.addCourseToProgram(existingProgram);
     }
+
 
     public List<Program> getPrograms() {
         return programDao.getPrograms();
@@ -65,20 +94,6 @@ public class ProgramServiceImpl implements ProgramService{
         // Update the program's faculty
         Faculty faculty = facultyDao.getFacultyByFacultyId(program.getFaculty().getFacultyId());
         existingProgram.setFaculty(faculty);
-
-        List<Course> gerclp = new ArrayList<>();
-        for (Course course : program.getGerclp()){
-            Course existingCourse = courseDao.getCourseByCourseId(course.getCourseId());
-            gerclp.add(existingCourse);
-        }
-        existingProgram.setGerclp(gerclp);
-
-//        List<Course> gercIc = new ArrayList<>();
-//        for (Course course : program.getGercIc()){
-//            Course existingCourse = courseDao.getCourseByCourseId(course.getCourseId());
-//            gercIc.add(existingCourse);
-//        }
-//        existingProgram.setGerclp(gercIc);
 
         return programDao.updateProgram(existingProgram);
     }

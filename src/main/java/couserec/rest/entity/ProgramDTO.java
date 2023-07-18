@@ -18,8 +18,25 @@ public class ProgramDTO {
     String name;
     String freeElective;
     ProgramOwnFacultyDTO faculty;
+    //  General Education | Required courses | Learner Person
     @Builder.Default
-    List<CourseDTO> gerclp = new ArrayList<>();
-//    @Builder.Default
-//    List<CourseDTO> gercIc = new ArrayList<>();
+    List<ProgramOwnCourseDTO> gerclp = new ArrayList<>();
+    //   General Education | Required courses | Innovative Co-creator
+    @Builder.Default
+    List<ProgramOwnCourseDTO> gercIc = new ArrayList<>();
+    //    General Education | Required courses | Active Citizen
+    @Builder.Default
+    List<ProgramOwnCourseDTO> gercac = new ArrayList<>();
+    //    General Education | Elective courses
+    @Builder.Default
+    List<ProgramOwnCourseDTO> geec = new ArrayList<>();
+    //    Feild of Specialization| Core Courses
+    @Builder.Default
+    List<ProgramOwnCourseDTO> foscc = new ArrayList<>();
+    //    Feild of Specialization | Major Courses | Required Courses
+    @Builder.Default
+    List<ProgramOwnCourseDTO> fosmcrc = new ArrayList<>();
+    //    Feild of Specialization | Major Elective
+    @Builder.Default
+    List<ProgramOwnCourseDTO> fosme = new ArrayList<>();
 }

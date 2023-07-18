@@ -28,9 +28,30 @@ public class Program {
     @Builder.Default
     List<Course> gerclp = new ArrayList<>();
     //   General Education | Required courses | Innovative Co-creator
-//    @ManyToMany(mappedBy = "programList")
-//    @Builder.Default
-//    List<Course> gercIc = new ArrayList<>();
+    @ManyToMany
+    @Builder.Default
+    List<Course> gercIc = new ArrayList<>();
+    //    General Education | Required courses | Active Citizen
+    @Builder.Default
+    @ManyToMany
+    List<Course> gercac = new ArrayList<>();
+//    General Education | Elective courses
+    @Builder.Default
+    @ManyToMany
+    List<Course> geec = new ArrayList<>();
+//    Feild of Specialization| Core Courses
+    @Builder.Default
+    @ManyToMany
+    List<Course> foscc = new ArrayList<>();
+//    Feild of Specialization | Major Courses | Required Courses
+    @Builder.Default
+    @ManyToMany
+    List<Course> fosmcrc = new ArrayList<>();
+//    Feild of Specialization | Major Elective
+    @Builder.Default
+    @ManyToMany
+    List<Course> fosme = new ArrayList<>();
+
     @ManyToOne
     Faculty faculty;
 
