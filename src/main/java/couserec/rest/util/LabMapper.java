@@ -18,6 +18,7 @@ LabMapper INSTANCE = Mappers.getMapper(LabMapper.class);
     FacultyDTO getFacultyDto(Faculty faculty);
     List<FacultyDTO> getFacultyDto(List<Faculty> facultys);
     //Course
+    @Mapping(target = "prerequisite", source = "prerequisite")
     CourseDTO getCourseDto(Course course);
     List<CourseDTO> getCourseDto(List<Course> courses);
     //Student

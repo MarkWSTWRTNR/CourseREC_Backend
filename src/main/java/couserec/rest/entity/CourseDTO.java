@@ -18,6 +18,6 @@ public class CourseDTO {
     int credit;
     String gradingtype;
     String description;
-
+    List<CourseDTO> prerequisite;
     List<StudentOwnCourseDTO> students;
 }
