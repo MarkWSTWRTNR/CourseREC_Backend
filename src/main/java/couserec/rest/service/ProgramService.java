@@ -15,4 +15,6 @@ public interface ProgramService {
     String deleteProgram(int id);
 
     Program getProgramByProgramId(String programId);
+
+    Program addCourseToProgram(Program program);
 }

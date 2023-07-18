@@ -1,11 +1,11 @@
 package couserec.rest.config;
 
 import couserec.rest.entity.Course;
-import couserec.rest.entity.Curriculum;
+//import couserec.rest.entity.Curriculum;
 import couserec.rest.entity.Faculty;
 import couserec.rest.entity.Program;
 import couserec.rest.repository.CourseRepository;
-import couserec.rest.repository.CurriculumRepository;
+//import couserec.rest.repository.CurriculumRepository;
 import couserec.rest.repository.FacultyRepository;
 import couserec.rest.repository.ProgramRepository;
 import jakarta.transaction.Transactional;
@@ -27,8 +27,8 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
     @Autowired
     FacultyRepository facultyRepository;
 
-    @Autowired
-    CurriculumRepository curriculumRepository;
+//    @Autowired
+//    CurriculumRepository curriculumRepository;
     @Override
     @Transactional
     public void onApplicationEvent(ApplicationReadyEvent event) {

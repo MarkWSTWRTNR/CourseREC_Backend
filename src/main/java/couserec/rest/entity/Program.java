@@ -18,16 +18,26 @@ public class Program {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @EqualsAndHashCode.Exclude
-    private int id;
+    int id;
 
     @Column(unique = true)
-    private String programId;
-    private String name;
-
+    String programId;
+    String name;
+    String freeElective;
+    @Column(unique = true)
+    String curriculumName;
+    //  General Education | Required courses | Learner Person
+    @ManyToMany(mappedBy = "programList")
+    @Builder.Default
+    List<Course> gerclp = new ArrayList<>();
+    //   General Education | Required courses | Innovative Co-creator
+    @ManyToMany(mappedBy = "programList")
+    @Builder.Default
+    private List<Course> gercIc = new ArrayList<>();
     @ManyToOne
     Faculty faculty;
 
 
-    @OneToOne
-    Curriculum curriculum;
+//    @OneToOne
+//    Curriculum curriculum;
 }

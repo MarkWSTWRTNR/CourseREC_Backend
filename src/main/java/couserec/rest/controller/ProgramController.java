@@ -51,4 +51,9 @@ public class ProgramController {
         String deleteProgram = programService.deleteProgram(id);
         return ResponseEntity.ok(deleteProgram);
     }
+    @PutMapping("/addCourseToProgram")
+    public ResponseEntity<?> addCourseToProgram(@RequestBody Program program) {
+        Program addCourseToProgram = programService.addCourseToProgram(program);
+        return ResponseEntity.ok(LabMapper.INSTANCE.getProgramDto(addCourseToProgram));
+    }
 }

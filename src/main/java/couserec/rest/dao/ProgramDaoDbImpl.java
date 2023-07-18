@@ -1,7 +1,7 @@
 package couserec.rest.dao;
 
 
-import couserec.rest.entity.Curriculum;
+//import couserec.rest.entity.Curriculum;
 import couserec.rest.entity.Program;
 import couserec.rest.repository.ProgramRepository;
 import jakarta.persistence.OneToOne;
@@ -41,6 +41,9 @@ public class ProgramDaoDbImpl implements ProgramDao {
         programRepository.deleteById(id);
         return "Program removed !!"+id;
 
+    }
+    public Program addCourseToProgram(Program program){
+        return programRepository.save(program);
     }
 
     

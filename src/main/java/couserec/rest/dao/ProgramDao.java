@@ -16,4 +16,5 @@ public interface ProgramDao {
     Program getProgramByProgramId(String programId);
 
     String deleteProgram(int id);
+    Program addCourseToProgram(Program program);
 }

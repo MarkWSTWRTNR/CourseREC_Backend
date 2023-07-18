@@ -12,7 +12,9 @@ public interface LabMapper {
 LabMapper INSTANCE = Mappers.getMapper(LabMapper.class);
 
     //Program
+    @Mapping(target = "gerclp", source = "gerclp")
     ProgramDTO getProgramDto(Program program);
+
     List<ProgramDTO> getProgramDto(List<Program> programs);
     //Faculty
     FacultyDTO getFacultyDto(Faculty faculty);
