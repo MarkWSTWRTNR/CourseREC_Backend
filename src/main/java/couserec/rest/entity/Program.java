@@ -24,13 +24,13 @@ public class Program {
     @Column(unique = true)
     String curriculumName;
     //  General Education | Required courses | Learner Person
-    @ManyToMany(mappedBy = "programList")
+    @ManyToMany
     @Builder.Default
     List<Course> gerclp = new ArrayList<>();
     //   General Education | Required courses | Innovative Co-creator
-    @ManyToMany(mappedBy = "programList")
-    @Builder.Default
-    List<Course> gercIc = new ArrayList<>();
+//    @ManyToMany(mappedBy = "programList")
+//    @Builder.Default
+//    List<Course> gercIc = new ArrayList<>();
     @ManyToOne
     Faculty faculty;
 

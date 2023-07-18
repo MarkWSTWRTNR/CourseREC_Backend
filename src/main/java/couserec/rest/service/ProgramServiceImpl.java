@@ -73,12 +73,12 @@ public class ProgramServiceImpl implements ProgramService{
         }
         existingProgram.setGerclp(gerclp);
 
-        List<Course> gercIc = new ArrayList<>();
-        for (Course course : program.getGercIc()){
-            Course existingCourse = courseDao.getCourseByCourseId(course.getCourseId());
-            gercIc.add(existingCourse);
-        }
-        existingProgram.setGerclp(gercIc);
+//        List<Course> gercIc = new ArrayList<>();
+//        for (Course course : program.getGercIc()){
+//            Course existingCourse = courseDao.getCourseByCourseId(course.getCourseId());
+//            gercIc.add(existingCourse);
+//        }
+//        existingProgram.setGerclp(gercIc);
 
         return programDao.updateProgram(existingProgram);
     }

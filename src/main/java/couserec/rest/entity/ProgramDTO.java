@@ -20,6 +20,6 @@ public class ProgramDTO {
     ProgramOwnFacultyDTO faculty;
     @Builder.Default
     List<CourseDTO> gerclp = new ArrayList<>();
-    @Builder.Default
-    List<CourseDTO> gercIc = new ArrayList<>();
+//    @Builder.Default
+//    List<CourseDTO> gercIc = new ArrayList<>();
 }

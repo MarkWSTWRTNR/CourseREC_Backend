@@ -31,7 +31,7 @@ public class Course {
     @Builder.Default
     List<Course> prerequisite = new ArrayList<>();
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "gerclp")
     @Builder.Default
     List<Program> programList = new ArrayList<>();
 //    @ManyToMany
