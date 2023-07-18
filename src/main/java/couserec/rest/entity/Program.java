@@ -16,7 +16,7 @@ public class Program {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @EqualsAndHashCode.Exclude
     int id;
-
+    int credit;
     @Column(unique = true)
     String programId;
     String name;

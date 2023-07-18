@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CourseOwnProgramDTO {
     int id;
+    int credit;
     String programId;
     String name;
     String freeElective;

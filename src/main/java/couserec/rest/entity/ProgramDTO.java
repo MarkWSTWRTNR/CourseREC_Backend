@@ -14,6 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 public class ProgramDTO {
     int id;
+    int credit;
     String programId;
     String name;
     String freeElective;
