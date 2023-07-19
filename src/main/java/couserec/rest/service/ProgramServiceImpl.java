@@ -39,9 +39,9 @@ public class ProgramServiceImpl implements ProgramService{
             existingProgram.getGerclp().add(existingCourse);
         }
 
-        for (Course course : program.getGercIc()) {
+        for (Course course : program.getGercic()) {
             Course existingCourse = courseDao.getCourseByCourseId(course.getCourseId());
-            existingProgram.getGercIc().add(existingCourse);
+            existingProgram.getGercic().add(existingCourse);
         }
 
         for (Course course : program.getGercac()) {

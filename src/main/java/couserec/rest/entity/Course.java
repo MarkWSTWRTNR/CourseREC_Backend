@@ -36,9 +36,9 @@ public class Course {
     @Builder.Default
     List<Program> programGerclp = new ArrayList<>();
     //   General Education | Required courses | Innovative Co-creator
-    @ManyToMany(mappedBy = "gercIc")
+    @ManyToMany(mappedBy = "gercic")
     @Builder.Default
-    List<Program> programGercIc = new ArrayList<>();
+    List<Program> programGercic = new ArrayList<>();
     //    General Education | Required courses | Active Citizen
     @Builder.Default
     @ManyToMany(mappedBy = "gercac")

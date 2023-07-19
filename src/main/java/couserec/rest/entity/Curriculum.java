@@ -35,7 +35,7 @@
 ////    General Education | Required courses | Innovative Co-creator
 //    @Builder.Default
 //    @ManyToMany(mappedBy = "curriculum")
-//    private List<Course> gercIc = new ArrayList<>();
+//    private List<Course> gercic = new ArrayList<>();
 ////    General Education | Required courses | Active Citizen
 //    @Builder.Default
 //    @ManyToMany(mappedBy = "curriculum")

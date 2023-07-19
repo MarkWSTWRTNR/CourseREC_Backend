@@ -30,7 +30,7 @@ public class Program {
     //   General Education | Required courses | Innovative Co-creator
     @ManyToMany
     @Builder.Default
-    List<Course> gercIc = new ArrayList<>();
+    List<Course> gercic = new ArrayList<>();
     //    General Education | Required courses | Active Citizen
     @Builder.Default
     @ManyToMany

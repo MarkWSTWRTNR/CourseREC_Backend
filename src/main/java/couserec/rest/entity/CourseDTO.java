@@ -25,7 +25,7 @@ public class CourseDTO {
     List<CourseOwnProgramDTO> programGerclp = new ArrayList<>();
     //   General Education | Required courses | Innovative Co-creator
     @Builder.Default
-    List<CourseOwnProgramDTO> programGercIc = new ArrayList<>();
+    List<CourseOwnProgramDTO> programGercic = new ArrayList<>();
     //    General Education | Required courses | Active Citizen
     @Builder.Default
     List<CourseOwnProgramDTO> programGercac = new ArrayList<>();
