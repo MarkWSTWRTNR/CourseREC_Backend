@@ -19,6 +19,7 @@ public class ProgramDTO {
     String name;
     String freeElective;
     ProgramOwnFacultyDTO faculty;
+
     //  General Education | Required courses | Learner Person
     @Builder.Default
     List<ProgramOwnCourseDTO> gerclp = new ArrayList<>();

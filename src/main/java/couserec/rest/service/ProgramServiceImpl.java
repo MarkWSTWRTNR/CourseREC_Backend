@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@Transactional
 @Service
 public class ProgramServiceImpl implements ProgramService{
 
@@ -68,7 +68,7 @@ public class ProgramServiceImpl implements ProgramService{
             Course existingCourse = courseDao.getCourseByCourseId(course.getCourseId());
             existingProgram.getFosme().add(existingCourse);
         }
-
+        existingProgram.setFreeElective(program.getFreeElective());
         return programDao.addCourseToProgram(existingProgram);
     }
 
@@ -82,7 +82,7 @@ public class ProgramServiceImpl implements ProgramService{
     }
     @Transactional
     public Program updateProgram(Program program) {
-        Program existingProgram = programDao.getProgramById(program.getId());
+        Program existingProgram = programDao.getProgramByProgramId(program.getProgramId());
         if (existingProgram == null) {
             return null;
         }
@@ -90,7 +90,7 @@ public class ProgramServiceImpl implements ProgramService{
         // Update the program information
         existingProgram.setProgramId(program.getProgramId());
         existingProgram.setName(program.getName());
-        existingProgram.setFreeElective(program.getFreeElective());
+
         // Update the program's faculty
         Faculty faculty = facultyDao.getFacultyByFacultyId(program.getFaculty().getFacultyId());
         existingProgram.setFaculty(faculty);

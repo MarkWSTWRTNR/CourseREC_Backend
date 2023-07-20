@@ -6,15 +6,16 @@ import couserec.rest.entity.Faculty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-
+@Transactional
 @Service
 public class FacultyServiceImpl implements FacultyService{
 
     @Autowired
     FacultyDao facultyDao;
-
+    @Transactional
     public Faculty saveFaculty(Faculty faculty) {
         return facultyDao.saveFaculty(faculty);
     }
@@ -35,7 +36,7 @@ public class FacultyServiceImpl implements FacultyService{
 
 
     public Faculty updateFaculty(Faculty faculty) {
-        Faculty existingFaculty = facultyDao.getFacultyById(faculty.getId());
+        Faculty existingFaculty = facultyDao.getFacultyByFacultyId(faculty.getFacultyId());
         if (existingFaculty == null) {
             return null;
         }
