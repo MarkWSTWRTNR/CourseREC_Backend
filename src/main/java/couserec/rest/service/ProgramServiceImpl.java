@@ -13,6 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
+
 @Transactional
 @Service
 public class ProgramServiceImpl implements ProgramService{
@@ -34,41 +36,67 @@ public class ProgramServiceImpl implements ProgramService{
     public Program addCourseToProgram(Program program) {
         Program existingProgram = programDao.getProgramByProgramId(program.getProgramId());
 
-        for (Course course : program.getGerclp()) {
-            Course existingCourse = courseDao.getCourseByCourseId(course.getCourseId());
-            existingProgram.getGerclp().add(existingCourse);
+        if (existingProgram == null) {
+            // Program doesn't exist, return null or handle the error case.
+            return null;
         }
 
-        for (Course course : program.getGercic()) {
-            Course existingCourse = courseDao.getCourseByCourseId(course.getCourseId());
-            existingProgram.getGercic().add(existingCourse);
+        if (program.getGerclp() != null) {
+            for (Course course : program.getGerclp()) {
+                Course existingCourse = courseDao.getCourseByCourseId(course.getCourseId());
+                if (existingCourse != null && !existingProgram.getGerclp().contains(existingCourse)) {
+                    existingProgram.getGerclp().add(existingCourse);
+                }
+            }
         }
 
-        for (Course course : program.getGercac()) {
-            Course existingCourse = courseDao.getCourseByCourseId(course.getCourseId());
-            existingProgram.getGercac().add(existingCourse);
-            existingProgram.getGercac().remove(existingCourse);
-            existingCourse.getProgramGercac().remove(existingProgram);
+        if (program.getGercic() != null) {
+            for (Course course : program.getGercic()) {
+                Course existingCourse = courseDao.getCourseByCourseId(course.getCourseId());
+                if (existingCourse != null && !existingProgram.getGercic().contains(existingCourse)) {
+                    existingProgram.getGercic().add(existingCourse);
+                }
+            }
         }
-
-        for (Course course : program.getGeec()) {
-            Course existingCourse = courseDao.getCourseByCourseId(course.getCourseId());
-            existingProgram.getGeec().add(existingCourse);
+        if (program.getGercac() != null) {
+            for (Course course : program.getGercac()) {
+                Course existingCourse = courseDao.getCourseByCourseId(course.getCourseId());
+                if (existingCourse != null && !existingProgram.getGercac().contains(existingCourse)) {
+                    existingProgram.getGercac().add(existingCourse);
+                }
+            }
         }
-
-        for (Course course : program.getFoscc()) {
-            Course existingCourse = courseDao.getCourseByCourseId(course.getCourseId());
-            existingProgram.getFoscc().add(existingCourse);
+        if (program.getGeec() != null) {
+            for (Course course : program.getGeec()) {
+                Course existingCourse = courseDao.getCourseByCourseId(course.getCourseId());
+                if (existingCourse != null && !existingProgram.getGeec().contains(existingCourse)) {
+                    existingProgram.getGeec().add(existingCourse);
+                }
+            }
         }
-
-        for (Course course : program.getFosmcrc()) {
-            Course existingCourse = courseDao.getCourseByCourseId(course.getCourseId());
-            existingProgram.getFosmcrc().add(existingCourse);
+        if (program.getFoscc() != null) {
+            for (Course course : program.getFoscc()) {
+                Course existingCourse = courseDao.getCourseByCourseId(course.getCourseId());
+                if (existingCourse != null && !existingProgram.getFoscc().contains(existingCourse)) {
+                    existingProgram.getFoscc().add(existingCourse);
+                }
+            }
         }
-
-        for (Course course : program.getFosme()) {
-            Course existingCourse = courseDao.getCourseByCourseId(course.getCourseId());
-            existingProgram.getFosme().add(existingCourse);
+        if (program.getFosmcrc() != null) {
+            for (Course course : program.getFosmcrc()) {
+                Course existingCourse = courseDao.getCourseByCourseId(course.getCourseId());
+                if (existingCourse != null && !existingProgram.getFosmcrc().contains(existingCourse)) {
+                    existingProgram.getFosmcrc().add(existingCourse);
+                }
+            }
+        }
+        if (program.getFosme() != null) {
+            for (Course course : program.getFosme()) {
+                Course existingCourse = courseDao.getCourseByCourseId(course.getCourseId());
+                if (existingCourse != null && !existingProgram.getFosme().contains(existingCourse)) {
+                    existingProgram.getFosme().add(existingCourse);
+                }
+            }
         }
         existingProgram.setFreeElective(program.getFreeElective());
         return programDao.addCourseToProgram(existingProgram);

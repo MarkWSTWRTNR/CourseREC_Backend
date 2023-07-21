@@ -24,18 +24,11 @@ public class Program {
     @Column(unique = true)
     String curriculumName;
     //  General Education | Required courses | Learner Person
-    int gerclpCredit;
     @ManyToMany
     @Builder.Default
     List<Course> gerclp = new ArrayList<>();
     //   General Education | Required courses | Innovative Co-creator
-   @Transient
-    GroupCourse gerclpGC = GroupCourse.builder()
-            .groupName("Education ! Required asd")
-            .credit(15)
-            .courses(new ArrayList<>())
-            .build();
-    gerclpGC.getCourse()
+
     @ManyToMany
     @Builder.Default
     List<Course> gercic = new ArrayList<>();
