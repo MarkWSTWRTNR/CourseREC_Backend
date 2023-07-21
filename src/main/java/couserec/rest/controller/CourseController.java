@@ -26,11 +26,11 @@ public class CourseController {
 
         return ResponseEntity.ok(LabMapper.INSTANCE.getCourseDto(getCourse));
     }
-    @GetMapping("/courseById/{id}")
-    public ResponseEntity<?> getCourseById(@PathVariable int id){
-        Course getCourseById = courseService.getCourseById(id);
-        return ResponseEntity.ok(LabMapper.INSTANCE.getCourseDto(getCourseById));
-    }
+//    @GetMapping("/courseById/{id}")
+//    public ResponseEntity<?> getCourseById(@PathVariable int id){
+//        Course getCourseById = courseService.getCourseById(id);
+//        return ResponseEntity.ok(LabMapper.INSTANCE.getCourseDto(getCourseById));
+//    }
     @GetMapping("/courseByCourseId/{courseId}")
     public ResponseEntity<?> getCourseByCourseId(@PathVariable String courseId){
         Course getCourseByCourseId = courseService.getCourseByCourseId(courseId);

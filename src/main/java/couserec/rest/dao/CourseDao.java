@@ -8,7 +8,7 @@ public interface CourseDao {
     Course saveCourse(Course course);
 
     List<Course> getCourses();
-    Course getCourseById(int id);
+//    Course getCourseById(int id);
 
     Course getCourseByCourseId(String courseId);
 

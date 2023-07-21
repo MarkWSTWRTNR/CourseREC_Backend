@@ -22,10 +22,10 @@ public class CourseDaoDbImpl implements CourseDao{
     public List<Course> getCourses() {
         return courseRepository.findAll();
     }
-    @Override
-    public Course getCourseById(int id) {
-        return courseRepository.findById(id).orElse(null);
-    }
+//    @Override
+//    public Course getCourseById(int id) {
+//        return courseRepository.findById(id).orElse(null);
+//    }
 
     @Override
     public Course getCourseByCourseId(String courseId) {

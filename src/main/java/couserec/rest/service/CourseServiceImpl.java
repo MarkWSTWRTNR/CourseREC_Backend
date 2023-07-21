@@ -35,9 +35,9 @@ public class CourseServiceImpl implements CourseService {
         return courseDao.getCourses();
     }
 
-    public Course getCourseById(int id) {
-        return courseDao.getCourseById(id);
-    }
+//    public Course getCourseById(int id) {
+//        return courseDao.getCourseById(id);
+//    }
 
 
 
