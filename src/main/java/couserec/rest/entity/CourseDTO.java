@@ -19,7 +19,7 @@ public class CourseDTO {
     int credit;
     String gradingtype;
     String description;
-    List<Course> prerequisite;
+    List<CourseDTO> prerequisite;
     //  General Education | Required courses | Learner Person
     @Builder.Default
     List<CourseOwnProgramDTO> programGerclp = new ArrayList<>();

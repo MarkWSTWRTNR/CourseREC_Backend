@@ -23,6 +23,7 @@ public class CourseController {
     @GetMapping("/courses")
     public ResponseEntity<?> getCourses(){
         List<Course> getCourse = courseService.getCourses();
+
         return ResponseEntity.ok(LabMapper.INSTANCE.getCourseDto(getCourse));
     }
     @GetMapping("/courseById/{id}")

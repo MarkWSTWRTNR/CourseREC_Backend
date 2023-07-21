@@ -18,5 +18,5 @@ public class ProgramOwnCourseDTO {
     int credit;
     String gradingtype;
     String description;
-    List<Course> prerequisite;
+    List<ProgramOwnCourseDTO> prerequisite;
 }
