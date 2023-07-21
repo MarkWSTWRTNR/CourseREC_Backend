@@ -11,9 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Function;
 
 @Transactional
 @Service
@@ -41,6 +39,7 @@ public class ProgramServiceImpl implements ProgramService{
             return null;
         }
 
+
         if (program.getGerclp() != null) {
             for (Course course : program.getGerclp()) {
                 Course existingCourse = courseDao.getCourseByCourseId(course.getCourseId());
@@ -64,6 +63,7 @@ public class ProgramServiceImpl implements ProgramService{
                 if (existingCourse != null && !existingProgram.getGercac().contains(existingCourse)) {
                     existingProgram.getGercac().add(existingCourse);
                 }
+
             }
         }
         if (program.getGeec() != null) {
@@ -101,7 +101,33 @@ public class ProgramServiceImpl implements ProgramService{
         existingProgram.setFreeElective(program.getFreeElective());
         return programDao.addCourseToProgram(existingProgram);
     }
+    @Transactional
+    @Override
+    public Program removeCourseFromProgram(String programId, String courseId) {
+        Program existingProgram = programDao.getProgramByProgramId(programId);
 
+        if (existingProgram == null) {
+            // Program doesn't exist, return null or handle the error case.
+            return null;
+        }
+
+        // Remove the course from each section if it exists
+        removeCourseFromSection(existingProgram.getGerclp(), courseId);
+        removeCourseFromSection(existingProgram.getGercic(), courseId);
+        removeCourseFromSection(existingProgram.getGercac(), courseId);
+        removeCourseFromSection(existingProgram.getGeec(), courseId);
+        removeCourseFromSection(existingProgram.getFoscc(), courseId);
+        removeCourseFromSection(existingProgram.getFosmcrc(), courseId);
+        removeCourseFromSection(existingProgram.getFosme(), courseId);
+
+        return programDao.addCourseToProgram(existingProgram);
+    }
+
+    private void removeCourseFromSection(List<Course> courseList, String courseId) {
+        if (courseList != null) {
+            courseList.removeIf(course -> courseId.equals(course.getCourseId()));
+        }
+    }
 
     public List<Program> getPrograms() {
         return programDao.getPrograms();

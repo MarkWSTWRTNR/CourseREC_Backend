@@ -56,4 +56,9 @@ public class ProgramController {
         Program addCourseToProgram = programService.addCourseToProgram(program);
         return ResponseEntity.ok(LabMapper.INSTANCE.getProgramDto(addCourseToProgram));
     }
+    @PutMapping("/removeCourseFromProgram/{programId}/{courseId}")
+    public ResponseEntity<?> removeCourseFromProgram(@PathVariable String programId, @PathVariable String courseId) {
+        Program removeCourseFromProgram = programService.removeCourseFromProgram(programId,courseId);
+        return ResponseEntity.ok(LabMapper.INSTANCE.getProgramDto(removeCourseFromProgram));
+    }
 }
