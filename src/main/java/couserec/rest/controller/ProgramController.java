@@ -61,4 +61,9 @@ public class ProgramController {
         Program removeCourseFromProgram = programService.removeCourseFromProgram(programId,courseId);
         return ResponseEntity.ok(LabMapper.INSTANCE.getProgramDto(removeCourseFromProgram));
     }
+    @PutMapping("/updateProgramCredits/{programId}")
+    public ResponseEntity<?> updateProgramCredits(@PathVariable String programId, @RequestBody Program updatedProgram) {
+        Program programWithUpdatedCredits = programService.updateProgramCredits(programId, updatedProgram);
+        return ResponseEntity.ok(LabMapper.INSTANCE.getProgramDto(programWithUpdatedCredits));
+    }
 }

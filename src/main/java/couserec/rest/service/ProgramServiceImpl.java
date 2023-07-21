@@ -47,6 +47,7 @@ public class ProgramServiceImpl implements ProgramService{
                     existingProgram.getGerclp().add(existingCourse);
                 }
             }
+
         }
 
         if (program.getGercic() != null) {
@@ -121,6 +122,26 @@ public class ProgramServiceImpl implements ProgramService{
         removeCourseFromSection(existingProgram.getFosme(), courseId);
 
         return programDao.addCourseToProgram(existingProgram);
+    }
+    @Transactional
+    @Override
+    public Program updateProgramCredits(String programId, Program updatedProgram) {
+        Program existingProgram = programDao.getProgramByProgramId(programId);
+
+        if (existingProgram == null) {
+            // Program doesn't exist, return null or handle the error case.
+            return null;
+        }
+
+        // Update the credits for each section
+        existingProgram.setCreditGerclp(updatedProgram.getCreditGerclp());
+        existingProgram.setCreditGercic(updatedProgram.getCreditGercic());
+        // Update other section credits similarly
+
+        // You may want to validate the credit values before updating the program,
+        // for example, to ensure they are within valid ranges or not negative.
+
+        return programDao.updateProgram(existingProgram);
     }
 
     private void removeCourseFromSection(List<Course> courseList, String courseId) {

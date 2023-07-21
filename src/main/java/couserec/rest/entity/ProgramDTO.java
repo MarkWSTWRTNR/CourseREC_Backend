@@ -14,12 +14,17 @@ import java.util.List;
 @AllArgsConstructor
 public class ProgramDTO {
     int id;
-    int credit;
     String programId;
     String name;
     String freeElective;
     ProgramOwnFacultyDTO faculty;
-
+    int creditGerclp;
+    int creditGercic;
+    int creditGercac;
+    int creditGeec;
+    int creditFoscc;
+    int creditFosmcrc;
+    int creditFosme;
     //  General Education | Required courses | Learner Person
     @Builder.Default
     List<ProgramOwnCourseDTO> gerclp = new ArrayList<>();

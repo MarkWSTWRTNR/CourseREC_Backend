@@ -11,9 +11,15 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CourseOwnProgramDTO {
     int id;
-    int credit;
     String programId;
     String name;
     String freeElective;
-
+    String curriculumName;
+    int creditGerclp;
+    int creditGercic;
+    int creditGercac;
+    int creditGeec;
+    int creditFoscc;
+    int creditFosmcrc;
+    int creditFosme;
 }

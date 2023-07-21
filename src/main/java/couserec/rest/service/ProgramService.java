@@ -9,6 +9,9 @@ import java.util.List;
 public interface ProgramService {
     Program saveProgram(Program program);
 
+    @Transactional
+    Program updateProgramCredits(String programId, Program updatedProgram);
+
     List<Program> getPrograms();
     Program getProgramById(int id);
 

@@ -16,13 +16,19 @@ public class Program {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @EqualsAndHashCode.Exclude
     int id;
-    int credit;
+    int creditGerclp;
+    int creditGercic;
+    int creditGercac;
+    int creditGeec;
+    int creditFoscc;
+    int creditFosmcrc;
+    int creditFosme;
+
     @Column(unique = true)
     String programId;
     String name;
     String freeElective;
-    @Column(unique = true)
-    String curriculumName;
+
     //  General Education | Required courses | Learner Person
     @ManyToMany
     @Builder.Default
