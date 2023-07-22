@@ -23,7 +23,7 @@ public class Program {
     int creditFoscc;
     int creditFosmcrc;
     int creditFosme;
-
+    int creditFe;
     @Column(unique = true)
     String programId;
     String name;

@@ -136,6 +136,12 @@ public class ProgramServiceImpl implements ProgramService{
         // Update the credits for each section
         existingProgram.setCreditGerclp(updatedProgram.getCreditGerclp());
         existingProgram.setCreditGercic(updatedProgram.getCreditGercic());
+        existingProgram.setCreditGercac(updatedProgram.getCreditGercac());
+        existingProgram.setCreditGeec(updatedProgram.getCreditGeec());
+        existingProgram.setCreditFoscc(updatedProgram.getCreditFoscc());
+        existingProgram.setCreditFosmcrc(updatedProgram.getCreditFosmcrc());
+        existingProgram.setCreditFosme(updatedProgram.getCreditFosme());
+        existingProgram.setCreditFe(updatedProgram.getCreditFe());
         // Update other section credits similarly
 
         // You may want to validate the credit values before updating the program,

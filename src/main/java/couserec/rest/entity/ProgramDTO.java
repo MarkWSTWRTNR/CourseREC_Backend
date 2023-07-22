@@ -25,6 +25,7 @@ public class ProgramDTO {
     int creditFoscc;
     int creditFosmcrc;
     int creditFosme;
+    int creditFe;
     //  General Education | Required courses | Learner Person
     @Builder.Default
     List<ProgramOwnCourseDTO> gerclp = new ArrayList<>();

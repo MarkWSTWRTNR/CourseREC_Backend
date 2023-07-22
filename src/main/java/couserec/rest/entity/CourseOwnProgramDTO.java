@@ -22,4 +22,5 @@ public class CourseOwnProgramDTO {
     int creditFoscc;
     int creditFosmcrc;
     int creditFosme;
+    int creditFe;
 }
