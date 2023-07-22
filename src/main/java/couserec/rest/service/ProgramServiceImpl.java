@@ -6,7 +6,6 @@ import couserec.rest.dao.ProgramDao;
 import couserec.rest.entity.Course;
 import couserec.rest.entity.Faculty;
 import couserec.rest.entity.Program;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,7 +14,7 @@ import java.util.List;
 
 @Transactional
 @Service
-public class ProgramServiceImpl implements ProgramService{
+public class ProgramServiceImpl implements ProgramService {
 
     @Autowired
     ProgramDao programDao;
@@ -23,6 +22,7 @@ public class ProgramServiceImpl implements ProgramService{
     FacultyDao facultyDao;
     @Autowired
     CourseDao courseDao;
+
     @Transactional
     public Program saveProgram(Program program) {
         Faculty faculty = facultyDao.getFacultyByFacultyId(program.getFaculty().getFacultyId());
@@ -30,6 +30,7 @@ public class ProgramServiceImpl implements ProgramService{
         faculty.getPrograms().add(program);
         return programDao.saveProgram(program);
     }
+
     @Transactional
     public Program addCourseToProgram(Program program) {
         Program existingProgram = programDao.getProgramByProgramId(program.getProgramId());
@@ -102,7 +103,7 @@ public class ProgramServiceImpl implements ProgramService{
         existingProgram.setFreeElective(program.getFreeElective());
 
         if (program.getY1s1() != null) {
-            for (Course course : program.getY1s1()){
+            for (Course course : program.getY1s1()) {
                 Course existingCourse = courseDao.getCourseByCourseId(course.getCourseId());
                 if (existingCourse != null && !existingProgram.getY1s1().contains(existingCourse)) {
                     existingProgram.getY1s1().add(existingCourse);
@@ -110,7 +111,7 @@ public class ProgramServiceImpl implements ProgramService{
             }
         }
         if (program.getY1s2() != null) {
-            for (Course course : program.getY1s2()){
+            for (Course course : program.getY1s2()) {
                 Course existingCourse = courseDao.getCourseByCourseId(course.getCourseId());
                 if (existingCourse != null && !existingProgram.getY1s2().contains(existingCourse)) {
                     existingProgram.getY1s2().add(existingCourse);
@@ -118,7 +119,7 @@ public class ProgramServiceImpl implements ProgramService{
             }
         }
         if (program.getY2s1() != null) {
-            for (Course course : program.getY2s1()){
+            for (Course course : program.getY2s1()) {
                 Course existingCourse = courseDao.getCourseByCourseId(course.getCourseId());
                 if (existingCourse != null && !existingProgram.getY2s1().contains(existingCourse)) {
                     existingProgram.getY2s1().add(existingCourse);
@@ -126,7 +127,7 @@ public class ProgramServiceImpl implements ProgramService{
             }
         }
         if (program.getY2s2() != null) {
-            for (Course course : program.getY2s2()){
+            for (Course course : program.getY2s2()) {
                 Course existingCourse = courseDao.getCourseByCourseId(course.getCourseId());
                 if (existingCourse != null && !existingProgram.getY2s2().contains(existingCourse)) {
                     existingProgram.getY2s2().add(existingCourse);
@@ -134,7 +135,7 @@ public class ProgramServiceImpl implements ProgramService{
             }
         }
         if (program.getY3s1() != null) {
-            for (Course course : program.getY3s1()){
+            for (Course course : program.getY3s1()) {
                 Course existingCourse = courseDao.getCourseByCourseId(course.getCourseId());
                 if (existingCourse != null && !existingProgram.getY3s1().contains(existingCourse)) {
                     existingProgram.getY3s1().add(existingCourse);
@@ -142,7 +143,7 @@ public class ProgramServiceImpl implements ProgramService{
             }
         }
         if (program.getY3s2() != null) {
-            for (Course course : program.getY3s2()){
+            for (Course course : program.getY3s2()) {
                 Course existingCourse = courseDao.getCourseByCourseId(course.getCourseId());
                 if (existingCourse != null && !existingProgram.getY3s2().contains(existingCourse)) {
                     existingProgram.getY3s2().add(existingCourse);
@@ -150,7 +151,7 @@ public class ProgramServiceImpl implements ProgramService{
             }
         }
         if (program.getY4s1() != null) {
-            for (Course course : program.getY4s1()){
+            for (Course course : program.getY4s1()) {
                 Course existingCourse = courseDao.getCourseByCourseId(course.getCourseId());
                 if (existingCourse != null && !existingProgram.getY4s1().contains(existingCourse)) {
                     existingProgram.getY4s1().add(existingCourse);
@@ -158,7 +159,7 @@ public class ProgramServiceImpl implements ProgramService{
             }
         }
         if (program.getY4s2() != null) {
-            for (Course course : program.getY4s2()){
+            for (Course course : program.getY4s2()) {
                 Course existingCourse = courseDao.getCourseByCourseId(course.getCourseId());
                 if (existingCourse != null && !existingProgram.getY4s2().contains(existingCourse)) {
                     existingProgram.getY4s2().add(existingCourse);
@@ -167,6 +168,7 @@ public class ProgramServiceImpl implements ProgramService{
         }
         return programDao.addCourseToProgram(existingProgram);
     }
+
     @Transactional
     @Override
     public Program removeCourseFromProgram(String programId, String sectionType, String courseId) {
@@ -203,6 +205,28 @@ public class ProgramServiceImpl implements ProgramService{
             case "y1s1":
                 removeCourseFromSection(existingProgram.getY1s1(), courseId);
                 break;
+            case "y1s2":
+                removeCourseFromSection(existingProgram.getY1s2(), courseId);
+                break;
+            case "y2s1":
+                removeCourseFromSection(existingProgram.getY2s1(), courseId);
+                break;
+            case "y2s2":
+                removeCourseFromSection(existingProgram.getY2s2(), courseId);
+                break;
+            case "y3s1":
+                removeCourseFromSection(existingProgram.getY3s1(), courseId);
+                break;
+            case "y3s2":
+                removeCourseFromSection(existingProgram.getY3s2(), courseId);
+                break;
+            case "y4s1":
+                removeCourseFromSection(existingProgram.getY4s1(), courseId);
+                break;
+            case "y4s2":
+                removeCourseFromSection(existingProgram.getY4s2(), courseId);
+                break;
+
             // Add cases for other sections if needed
             default:
                 // Invalid sectionType, handle the error case if necessary
@@ -247,7 +271,6 @@ public class ProgramServiceImpl implements ProgramService{
     }
 
 
-
     public List<Program> getPrograms() {
         return programDao.getPrograms();
     }
@@ -255,6 +278,7 @@ public class ProgramServiceImpl implements ProgramService{
     public Program getProgramById(int id) {
         return programDao.getProgramById(id);
     }
+
     @Transactional
     public Program updateProgram(Program program) {
         Program existingProgram = programDao.getProgramByProgramId(program.getProgramId());
@@ -279,7 +303,7 @@ public class ProgramServiceImpl implements ProgramService{
     }
 
     @Override
-    public Program getProgramByProgramId(String programId){
+    public Program getProgramByProgramId(String programId) {
         return programDao.getProgramByProgramId(programId);
     }
 }
