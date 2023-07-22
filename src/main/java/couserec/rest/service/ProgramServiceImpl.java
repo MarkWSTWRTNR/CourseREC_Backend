@@ -169,7 +169,7 @@ public class ProgramServiceImpl implements ProgramService{
     }
     @Transactional
     @Override
-    public Program removeCourseFromProgram(String programId, String courseId) {
+    public Program removeCourseFromProgram(String programId, String sectionType, String courseId) {
         Program existingProgram = programDao.getProgramByProgramId(programId);
 
         if (existingProgram == null) {
@@ -177,23 +177,48 @@ public class ProgramServiceImpl implements ProgramService{
             return null;
         }
 
-        // Remove the course from each section if it exists
-        removeCourseFromSection(existingProgram.getGerclp(), courseId);
-        removeCourseFromSection(existingProgram.getGercic(), courseId);
-        removeCourseFromSection(existingProgram.getGercac(), courseId);
-        removeCourseFromSection(existingProgram.getGeec(), courseId);
-        removeCourseFromSection(existingProgram.getFoscc(), courseId);
-        removeCourseFromSection(existingProgram.getFosmcrc(), courseId);
-        removeCourseFromSection(existingProgram.getFosme(), courseId);
+        // Call the appropriate removeCourseFromSection based on the sectionType
+        switch (sectionType) {
+            case "gerclp":
+                removeCourseFromSection(existingProgram.getGerclp(), courseId);
+                break;
+            case "gercic":
+                removeCourseFromSection(existingProgram.getGercic(), courseId);
+                break;
+            case "gercac":
+                removeCourseFromSection(existingProgram.getGercac(), courseId);
+                break;
+            case "geec":
+                removeCourseFromSection(existingProgram.getGeec(), courseId);
+                break;
+            case "foscc":
+                removeCourseFromSection(existingProgram.getFoscc(), courseId);
+                break;
+            case "fosmcrc":
+                removeCourseFromSection(existingProgram.getFosmcrc(), courseId);
+                break;
+            case "fosme":
+                removeCourseFromSection(existingProgram.getFosme(), courseId);
+                break;
+            case "y1s1":
+                removeCourseFromSection(existingProgram.getY1s1(), courseId);
+                break;
+            // Add cases for other sections if needed
+            default:
+                // Invalid sectionType, handle the error case if necessary
+                break;
+        }
 
-        removeCourseFromSection(existingProgram.getY1s1(), courseId);
+        // Save the updated program with the removed course
         return programDao.addCourseToProgram(existingProgram);
     }
+
     private void removeCourseFromSection(List<Course> courseList, String courseId) {
         if (courseList != null) {
             courseList.removeIf(course -> courseId.equals(course.getCourseId()));
         }
     }
+
     @Transactional
     @Override
     public Program updateProgramCredits(String programId, Program updatedProgram) {

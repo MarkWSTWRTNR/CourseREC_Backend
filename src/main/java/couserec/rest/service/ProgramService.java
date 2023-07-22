@@ -24,5 +24,5 @@ public interface ProgramService {
     Program addCourseToProgram(Program program);
 
     @Transactional
-    Program removeCourseFromProgram(String programId, String courseId);
+    Program removeCourseFromProgram(String programId,  String sectionType, String courseId);
 }
