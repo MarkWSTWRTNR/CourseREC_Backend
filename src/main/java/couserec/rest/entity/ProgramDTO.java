@@ -1,5 +1,6 @@
 package couserec.rest.entity;
 
+import jakarta.persistence.ManyToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -47,4 +48,28 @@ public class ProgramDTO {
     //    Feild of Specialization | Major Elective
     @Builder.Default
     List<ProgramOwnCourseDTO> fosme = new ArrayList<>();
+
+    @Builder.Default
+    List<ProgramOwnCourseDTO> y1s1 = new ArrayList<>();
+
+    @Builder.Default
+    List<ProgramOwnCourseDTO> y1s2 = new ArrayList<>();
+
+    @Builder.Default
+    List<ProgramOwnCourseDTO> y2s1 = new ArrayList<>();
+
+    @Builder.Default
+    List<ProgramOwnCourseDTO> y2s2 = new ArrayList<>();
+
+    @Builder.Default
+    List<ProgramOwnCourseDTO> y3s1 = new ArrayList<>();
+
+    @Builder.Default
+    List<ProgramOwnCourseDTO> y3s2 = new ArrayList<>();
+
+    @Builder.Default
+    List<ProgramOwnCourseDTO> y4s1 = new ArrayList<>();
+
+    @Builder.Default
+    List<ProgramOwnCourseDTO> y4s2 = new ArrayList<>();
 }

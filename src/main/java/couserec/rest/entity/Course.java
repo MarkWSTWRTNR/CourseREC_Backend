@@ -62,4 +62,29 @@ public class Course {
 
     @ManyToMany(mappedBy = "courses")
     List<Student> students ;
+
+    @ManyToMany(mappedBy = "y1s1")
+    @Builder.Default
+    List<Program> Py1s1 = new ArrayList<>();
+    @ManyToMany(mappedBy = "y1s2")
+    @Builder.Default
+    List<Program> Py1s2 = new ArrayList<>();
+    @ManyToMany(mappedBy = "y2s1")
+    @Builder.Default
+    List<Program> Py2s1 = new ArrayList<>();
+    @ManyToMany(mappedBy = "y2s2")
+    @Builder.Default
+    List<Program> Py2s2 = new ArrayList<>();
+    @ManyToMany(mappedBy = "y3s1")
+    @Builder.Default
+    List<Program> Py3s1 = new ArrayList<>();
+    @ManyToMany(mappedBy = "y3s2")
+    @Builder.Default
+    List<Program> Py3s2 = new ArrayList<>();
+    @ManyToMany(mappedBy = "y4s1")
+    @Builder.Default
+    List<Program> Py4s1 = new ArrayList<>();
+    @ManyToMany(mappedBy = "y4s2")
+    @Builder.Default
+    List<Program> Py4s2 = new ArrayList<>();
 }

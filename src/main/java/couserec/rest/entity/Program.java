@@ -28,7 +28,30 @@ public class Program {
     String programId;
     String name;
     String freeElective;
-
+    @ManyToMany
+    @Builder.Default
+    List<Course> y1s1 = new ArrayList<>();
+    @ManyToMany
+    @Builder.Default
+    List<Course> y1s2 = new ArrayList<>();
+    @ManyToMany
+    @Builder.Default
+    List<Course> y2s1 = new ArrayList<>();
+    @ManyToMany
+    @Builder.Default
+    List<Course> y2s2 = new ArrayList<>();
+    @ManyToMany
+    @Builder.Default
+    List<Course> y3s1 = new ArrayList<>();
+    @ManyToMany
+    @Builder.Default
+    List<Course> y3s2 = new ArrayList<>();
+    @ManyToMany
+    @Builder.Default
+    List<Course> y4s1 = new ArrayList<>();
+    @ManyToMany
+    @Builder.Default
+    List<Course> y4s2 = new ArrayList<>();
     //  General Education | Required courses | Learner Person
     @ManyToMany
     @Builder.Default

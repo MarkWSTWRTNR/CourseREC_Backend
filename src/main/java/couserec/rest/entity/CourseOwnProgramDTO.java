@@ -14,7 +14,6 @@ public class CourseOwnProgramDTO {
     String programId;
     String name;
     String freeElective;
-    String curriculumName;
     int creditGerclp;
     int creditGercic;
     int creditGercac;

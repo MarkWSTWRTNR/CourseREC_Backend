@@ -42,4 +42,21 @@ public class CourseDTO {
     @Builder.Default
     List<CourseOwnProgramDTO> programFosme = new ArrayList<>();
     List<CourseOwnStudentDTO> students;
+
+    @Builder.Default
+    List<CourseOwnProgramDTO> Py1s1 = new ArrayList<>();
+    @Builder.Default
+    List<CourseOwnProgramDTO> Py1s2 = new ArrayList<>();
+    @Builder.Default
+    List<CourseOwnProgramDTO> Py2s1 = new ArrayList<>();
+    @Builder.Default
+    List<CourseOwnProgramDTO> Py2s2 = new ArrayList<>();
+    @Builder.Default
+    List<CourseOwnProgramDTO> Py3s1 = new ArrayList<>();
+    @Builder.Default
+    List<CourseOwnProgramDTO> Py3s2 = new ArrayList<>();
+    @Builder.Default
+    List<CourseOwnProgramDTO> Py4s1 = new ArrayList<>();
+    @Builder.Default
+    List<CourseOwnProgramDTO> Py4s2 = new ArrayList<>();
 }

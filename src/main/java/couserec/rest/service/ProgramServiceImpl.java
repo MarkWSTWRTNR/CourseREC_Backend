@@ -100,6 +100,71 @@ public class ProgramServiceImpl implements ProgramService{
             }
         }
         existingProgram.setFreeElective(program.getFreeElective());
+
+        if (program.getY1s1() != null) {
+            for (Course course : program.getY1s1()){
+                Course existingCourse = courseDao.getCourseByCourseId(course.getCourseId());
+                if (existingCourse != null && !existingProgram.getY1s1().contains(existingCourse)) {
+                    existingProgram.getY1s1().add(existingCourse);
+                }
+            }
+        }
+        if (program.getY1s2() != null) {
+            for (Course course : program.getY1s2()){
+                Course existingCourse = courseDao.getCourseByCourseId(course.getCourseId());
+                if (existingCourse != null && !existingProgram.getY1s2().contains(existingCourse)) {
+                    existingProgram.getY1s2().add(existingCourse);
+                }
+            }
+        }
+        if (program.getY2s1() != null) {
+            for (Course course : program.getY2s1()){
+                Course existingCourse = courseDao.getCourseByCourseId(course.getCourseId());
+                if (existingCourse != null && !existingProgram.getY2s1().contains(existingCourse)) {
+                    existingProgram.getY2s1().add(existingCourse);
+                }
+            }
+        }
+        if (program.getY2s2() != null) {
+            for (Course course : program.getY2s2()){
+                Course existingCourse = courseDao.getCourseByCourseId(course.getCourseId());
+                if (existingCourse != null && !existingProgram.getY2s2().contains(existingCourse)) {
+                    existingProgram.getY2s2().add(existingCourse);
+                }
+            }
+        }
+        if (program.getY3s1() != null) {
+            for (Course course : program.getY3s1()){
+                Course existingCourse = courseDao.getCourseByCourseId(course.getCourseId());
+                if (existingCourse != null && !existingProgram.getY3s1().contains(existingCourse)) {
+                    existingProgram.getY3s1().add(existingCourse);
+                }
+            }
+        }
+        if (program.getY3s2() != null) {
+            for (Course course : program.getY3s2()){
+                Course existingCourse = courseDao.getCourseByCourseId(course.getCourseId());
+                if (existingCourse != null && !existingProgram.getY3s2().contains(existingCourse)) {
+                    existingProgram.getY3s2().add(existingCourse);
+                }
+            }
+        }
+        if (program.getY4s1() != null) {
+            for (Course course : program.getY4s1()){
+                Course existingCourse = courseDao.getCourseByCourseId(course.getCourseId());
+                if (existingCourse != null && !existingProgram.getY4s1().contains(existingCourse)) {
+                    existingProgram.getY4s1().add(existingCourse);
+                }
+            }
+        }
+        if (program.getY4s2() != null) {
+            for (Course course : program.getY4s2()){
+                Course existingCourse = courseDao.getCourseByCourseId(course.getCourseId());
+                if (existingCourse != null && !existingProgram.getY4s2().contains(existingCourse)) {
+                    existingProgram.getY4s2().add(existingCourse);
+                }
+            }
+        }
         return programDao.addCourseToProgram(existingProgram);
     }
     @Transactional
@@ -121,7 +186,13 @@ public class ProgramServiceImpl implements ProgramService{
         removeCourseFromSection(existingProgram.getFosmcrc(), courseId);
         removeCourseFromSection(existingProgram.getFosme(), courseId);
 
+        removeCourseFromSection(existingProgram.getY1s1(), courseId);
         return programDao.addCourseToProgram(existingProgram);
+    }
+    private void removeCourseFromSection(List<Course> courseList, String courseId) {
+        if (courseList != null) {
+            courseList.removeIf(course -> courseId.equals(course.getCourseId()));
+        }
     }
     @Transactional
     @Override
@@ -150,11 +221,7 @@ public class ProgramServiceImpl implements ProgramService{
         return programDao.updateProgram(existingProgram);
     }
 
-    private void removeCourseFromSection(List<Course> courseList, String courseId) {
-        if (courseList != null) {
-            courseList.removeIf(course -> courseId.equals(course.getCourseId()));
-        }
-    }
+
 
     public List<Program> getPrograms() {
         return programDao.getPrograms();
