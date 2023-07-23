@@ -389,6 +389,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
 
 // Create GroupCourse instance for GE
         GroupCourse GESE = groupCourseRepository.save(GroupCourse.builder().groupName("GESE").credit(15).build());
+        GroupCourse FOSSE = groupCourseRepository.save(GroupCourse.builder().groupName("FOS").credit(15).build());
         GroupCourse GEDII = groupCourseRepository.save(GroupCourse.builder().groupName("GEDII").credit(15).build());
 
         Camt.getPrograms().add(SE);
@@ -398,12 +399,16 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
 
         SE.getGroupCourses().add(GESE);
         GESE.setPrograms(SE);
+        SE.getGroupCourses().add(FOSSE);
+        FOSSE.setPrograms(SE);
 
         DII.getGroupCourses().add(GEDII);
         GEDII.setPrograms(DII);
 
         GESE.getCourses().add(English1);
         English1.getGroupCourses().add(GESE);
+        FOSSE.getCourses().add(English2);
+        English2.getGroupCourses().add(FOSSE);
 
         GEDII.getCourses().add(English1);
         English1.getGroupCourses().add(GEDII);

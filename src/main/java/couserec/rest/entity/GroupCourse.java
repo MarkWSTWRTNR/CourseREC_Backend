@@ -18,6 +18,7 @@ public class GroupCourse {
     int id;
     String text;
     int credit;
+    @Column(unique = true)
     String groupName;
     @ManyToMany
             @Builder.Default
