@@ -370,8 +370,11 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
              .gradingtype("Letter Grading")
              .description("details")
              .build());
-
-     Faculty Camt = facultyRepository.save(Faculty.builder().facultyId("01").name("College of Arts, Media and Technology.").build());
+     English2.getPrerequisite().add(English1);
+     English3.getPrerequisite().add(English2);
+     English4.getPrerequisite().add(English3);
+     se201.getPrerequisite().add(se100);
+        Faculty Camt = facultyRepository.save(Faculty.builder().facultyId("01").name("College of Arts, Media and Technology.").build());
         Program SE = programRepository.save(Program.builder().name("Software Engineering").programId("01").build());
 
         Camt.getPrograms().add(SE);
