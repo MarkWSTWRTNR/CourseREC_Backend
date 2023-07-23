@@ -21,7 +21,8 @@ public class Program {
     String name;
 
     @OneToMany(mappedBy = "programs")
-    List<GroupCourse> groupCourses;
+            @Builder.Default
+    List<GroupCourse> groupCourses = new ArrayList<>();
     @ManyToOne
     Faculty faculty;
 

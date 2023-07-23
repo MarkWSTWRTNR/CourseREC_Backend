@@ -3,10 +3,12 @@ package couserec.rest.config;
 import couserec.rest.entity.Course;
 //import couserec.rest.entity.Curriculum;
 import couserec.rest.entity.Faculty;
+import couserec.rest.entity.GroupCourse;
 import couserec.rest.entity.Program;
 import couserec.rest.repository.CourseRepository;
 
 import couserec.rest.repository.FacultyRepository;
+import couserec.rest.repository.GroupCourseRepository;
 import couserec.rest.repository.ProgramRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,8 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
     ProgramRepository programRepository;
     @Autowired
     FacultyRepository facultyRepository;
+    @Autowired
+    GroupCourseRepository groupCourseRepository;
 
 //    @Autowired
 //    CurriculumRepository curriculumRepository;
@@ -376,11 +380,14 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
      se201.getPrerequisite().add(se100);
         Faculty Camt = facultyRepository.save(Faculty.builder().facultyId("01").name("College of Arts, Media and Technology.").build());
         Program SE = programRepository.save(Program.builder().name("Software Engineering").programId("01").build());
+        GroupCourse GE = groupCourseRepository.save(GroupCourse.builder().groupName("GE").credit(15).build());
 
         Camt.getPrograms().add(SE);
         SE.setFaculty(Camt);
-
-
+        SE.getGroupCourses().add(GE);
+        GE.setPrograms(SE);
+        GE.getCourses().add(English1);
+        English1.getPrograms().add(GE);
 //        f.getPrograms().add(p);
 //        p.setFaculty(f);
 //        f.getPrograms().add(p2);

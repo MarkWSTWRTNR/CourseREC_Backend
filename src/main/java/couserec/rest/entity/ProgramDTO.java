@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -16,7 +17,8 @@ public class ProgramDTO {
     int id;
     String programId;
     String name;
-    List<ProgramOwnGroupCourseDTO> groupCourses;
+    @Builder.Default
+    List<ProgramOwnGroupCourseDTO> groupCourses = new ArrayList<>();
     ProgramOwnFacultyDTO faculty;
 
 }
