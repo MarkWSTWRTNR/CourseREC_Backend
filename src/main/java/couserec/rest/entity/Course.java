@@ -61,7 +61,7 @@ public class Course {
     List<Program> programFosme = new ArrayList<>();
 
     @ManyToMany(mappedBy = "courses")
-    List<Student> students ;
+    List<FinishedCourse> finishedCourses;
 
     @ManyToMany(mappedBy = "y1s1")
     @Builder.Default

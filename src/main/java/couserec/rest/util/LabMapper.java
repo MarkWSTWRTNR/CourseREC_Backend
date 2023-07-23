@@ -1,8 +1,6 @@
 package couserec.rest.util;
 import couserec.rest.entity.*;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.Mappings;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
@@ -26,7 +24,7 @@ LabMapper INSTANCE = Mappers.getMapper(LabMapper.class);
     CourseDTO getCourseDto(Course course);
     List<CourseDTO> getCourseDto(List<Course> courses);
     //Student
-    StudentDTO getStudentDto(Student student);
-    List<StudentDTO> getStudentDto(List<Student> students);
+    FinishedCourseDTO getFinishedCourseDto(FinishedCourse finishedCourse);
+    List<FinishedCourseDTO> getFinishedCourseDto(List<FinishedCourse> finishedCourses);
 }
 

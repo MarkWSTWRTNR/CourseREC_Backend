@@ -5,20 +5,15 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class StudentDTO {
+public class FinishedCourseOwnCourseDTO {
     int id;
+    String courseId;
     String name;
-    String year;
-    String semester;
     int credit;
-    String grade;
-    double gpa;
-    double gpax;
-    double majorgpax;
-    List<StudentOwnCourseDTO> courses;
+    String gradingtype;
+    String description;
 }
