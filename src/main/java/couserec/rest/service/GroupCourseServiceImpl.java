@@ -3,6 +3,7 @@ package couserec.rest.service;
 import couserec.rest.dao.GroupCourseDao;
 import couserec.rest.dao.ProgramDao;
 import couserec.rest.entity.GroupCourse;
+import couserec.rest.entity.Program;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +21,8 @@ public class GroupCourseServiceImpl implements GroupCourseService {
     @Transactional
     @Override
     public GroupCourse saveGroupCourse(GroupCourse groupCourse){
+        Program program = programDao.getProgramByProgramId(groupCourse.getPrograms().getProgramId());
+        groupCourse.setPrograms(program);
         return groupCourseDao.saveGroupCourse(groupCourse);
     }
     @Override
@@ -33,6 +36,8 @@ public class GroupCourseServiceImpl implements GroupCourseService {
     @Override
     public GroupCourse updateGroupCourse(GroupCourse groupCourse){
         GroupCourse existingGroupCourse = groupCourseDao.getGroupCourseById(groupCourse.getId());
+        Program program = programDao.getProgramByProgramId(groupCourse.getPrograms().getProgramId());
+        existingGroupCourse.setPrograms(program);
         return groupCourseDao.updateGroupCourse(existingGroupCourse);
     }
     @Override

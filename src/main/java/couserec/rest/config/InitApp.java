@@ -380,55 +380,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
         Camt.getPrograms().add(SE);
         SE.setFaculty(Camt);
 
-        SE.setCreditGerclp(15);
-        SE.getGerclp().add(English1);
-        English1.getProgramGerclp().add(SE);
-        SE.getGerclp().add(English2);
-        English2.getProgramGerclp().add(SE);
-        SE.getGerclp().add(English3);
-        English3.getProgramGerclp().add(SE);
-        SE.getGerclp().add(English4);
-        English4.getProgramGerclp().add(SE);
-        SE.getGerclp().add(ModernLife);
-        ModernLife.getProgramGerclp().add(SE);
-        SE.getGerclp().add(InternetAndOnlineCommunity);
-        InternetAndOnlineCommunity.getProgramGerclp().add(SE);
 
-        SE.setCreditGercic(3);
-        SE.getGercic().add(Reasoning);
-        Reasoning.getProgramGercic().add(SE);
-        SE.getGercic().add(Psychology);
-        Psychology.getProgramGercic().add(SE);
-        SE.getGercic().add(ModernWorld);
-        ModernWorld.getProgramGercic().add(SE);
-        SE.getGercic().add(CriticalThinking);
-        CriticalThinking.getProgramGercic().add(SE);
-        SE.getGercic().add(IntroToEntreBusiness);
-        IntroToEntreBusiness.getProgramGercic().add(SE);
-
-        SE.setCreditGercac(3);
-        SE.getGercac().add(Citizenship);
-        Citizenship.getProgramGercac().add(SE);
-
-        SE.setCreditGeec(9);
-        SE.getGeec().add(Swimming);
-        Swimming.getProgramGeec().add(SE);
-        SE.getGeec().add(Badminton);
-        Badminton.getProgramGeec().add(SE);
-        SE.getGeec().add(Philosophy);
-        Philosophy.getProgramGeec().add(SE);
-        SE.getGeec().add(Equilibrium);
-        Equilibrium.getProgramGeec().add(SE);
-        SE.getGeec().add(Finance);
-        Finance.getProgramGeec().add(SE);
-        SE.getGeec().add(Lanna);
-        Lanna.getProgramGeec().add(SE);
-        SE.getGeec().add(Environmental);
-        Environmental.getProgramGeec().add(SE);
-        SE.getGeec().add(DoiSuthepStudy);
-        DoiSuthepStudy.getProgramGeec().add(SE);
-        SE.getGeec().add(Animation);
-        Animation.getProgramGeec().add(SE);
 //        f.getPrograms().add(p);
 //        p.setFaculty(f);
 //        f.getPrograms().add(p2);

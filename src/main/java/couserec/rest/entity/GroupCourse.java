@@ -19,8 +19,8 @@ public class GroupCourse {
     String text;
     int credit;
     String groupName;
-    @ManyToMany
-    List<Course> courses = new ArrayList<>();
-    @OneToOne(mappedBy = "groupCourses")
+//    @ManyToMany
+//    List<Course> courses = new ArrayList<>();
+    @ManyToOne
     Program programs;
 }

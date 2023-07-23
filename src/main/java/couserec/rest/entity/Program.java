@@ -20,8 +20,8 @@ public class Program {
     String programId;
     String name;
 
-    @OneToOne
-    GroupCourse groupCourses;
+    @OneToMany(mappedBy = "programs")
+    List<GroupCourse> groupCourses;
     @ManyToOne
     Faculty faculty;
 

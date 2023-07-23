@@ -18,6 +18,6 @@ public class GroupCourseDTO {
     String text;
     int credit;
     String groupName;
-    List<GroupCourseOwnCourseDTO> courses = new ArrayList<>();
+//    List<GroupCourseOwnCourseDTO> courses = new ArrayList<>();
     GroupCourseOwnProgramDTO programs;
 }
