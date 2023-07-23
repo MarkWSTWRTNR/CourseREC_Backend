@@ -378,34 +378,35 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
      English3.getPrerequisite().add(English2);
      English4.getPrerequisite().add(English3);
      se201.getPrerequisite().add(se100);
-        Faculty Camt = facultyRepository.save(Faculty.builder().facultyId("01").name("College of Arts, Media and Technology.").build());
+        // Create Faculty instances
+        Faculty Camt = facultyRepository.save(Faculty.builder().facultyId("01").name("College of Arts, Media, and Technology.").build());
+        Faculty ECON = facultyRepository.save(Faculty.builder().facultyId("02").name("ECON.").build());
+
+// Create Program instances
         Program SE = programRepository.save(Program.builder().name("Software Engineering").programId("01").build());
-        GroupCourse GE = groupCourseRepository.save(GroupCourse.builder().groupName("GE").credit(15).build());
+        Program DII = programRepository.save(Program.builder().name("DII").programId("02").build());
+        Program ECONP = programRepository.save(Program.builder().name("ECONP").programId("03").build());
+
+// Create GroupCourse instance for GE
+        GroupCourse GESE = groupCourseRepository.save(GroupCourse.builder().groupName("GESE").credit(15).build());
+        GroupCourse GEDII = groupCourseRepository.save(GroupCourse.builder().groupName("GEDII").credit(15).build());
 
         Camt.getPrograms().add(SE);
         SE.setFaculty(Camt);
-        SE.getGroupCourses().add(GE);
-        GE.setPrograms(SE);
-        GE.getCourses().add(English1);
-        English1.getPrograms().add(GE);
-//        f.getPrograms().add(p);
-//        p.setFaculty(f);
-//        f.getPrograms().add(p2);
-//        p2.setFaculty(f);
-//
-//        b.getPrerequisite().add(a);
-//        Curriculum ccl = curriculumRepository.save(Curriculum.builder().credit(30).name("GELP").build());
-//        ccl.getGerclp().add(a);
-//        a.setCurriculum(ccl);
+        Camt.getPrograms().add(DII);
+        DII.setFaculty(Camt);
 
-//        Course a = courseRepository.save(
-//                Course.builder()
-//                        .courseId("953331").name("A").build()
-//        );
-//        a.setName("hello");
-//        Course b = courseRepository.save(
-//                Course.builder().courseId("001001").name("Eng").build()
-//        );
-//        b.getPrerequisite().add(a);
+        SE.getGroupCourses().add(GESE);
+        GESE.setPrograms(SE);
+
+        DII.getGroupCourses().add(GEDII);
+        GEDII.setPrograms(DII);
+
+        GESE.getCourses().add(English1);
+        English1.getGroupCourses().add(GESE);
+
+        GEDII.getCourses().add(English1);
+        English1.getGroupCourses().add(GEDII);
+
     }
 }

@@ -33,7 +33,7 @@ public class Course {
 
     @ManyToMany(mappedBy = "courses")
             @Builder.Default
-    List<GroupCourse> programs = new ArrayList<>();
+    List<GroupCourse> groupCourses = new ArrayList<>();
 
     @ManyToMany(mappedBy = "courses")
     List<FinishedCourse> finishedCourses;
