@@ -73,6 +73,26 @@ public class GroupCourseServiceImpl implements GroupCourseService {
 
         return groupCourseDao.updateGroupCourse(existingGroupCourse);
     }
+    @Transactional
+    @Override
+    public GroupCourse removeCourseFromGroupCourse(GroupCourse groupCourse) {
+        GroupCourse existingGroupCourse = groupCourseDao.getGroupCourseById(groupCourse.getId());
+        if (existingGroupCourse == null) {
+            return null;
+        }
+
+        // Get the list of courses associated with the group course
+        List<Course> courses = existingGroupCourse.getCourses();
+
+        // Find and remove the course to be removed from the list
+        courses.removeIf(course -> course.getCourseId().equals(groupCourse.getCourses().get(0).getCourseId()));
+
+        // Update the list of courses associated with the group course
+        existingGroupCourse.setCourses(courses);
+
+        return groupCourseDao.updateGroupCourse(existingGroupCourse);
+}
+
     @Override
     public String deleteGroupCourse(int id) {
         return groupCourseDao.deleteGroupCourse(id);

@@ -1,5 +1,6 @@
 package couserec.rest.service;
 
+import couserec.rest.entity.Course;
 import couserec.rest.entity.GroupCourse;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,6 +15,10 @@ public interface GroupCourseService {
     GroupCourse getGroupCourseById(int id);
 
     GroupCourse updateGroupCourse(GroupCourse groupCourse);
+
+
+    @Transactional
+    GroupCourse removeCourseFromGroupCourse(GroupCourse groupCourse);
 
     String deleteGroupCourse(int id);
 }

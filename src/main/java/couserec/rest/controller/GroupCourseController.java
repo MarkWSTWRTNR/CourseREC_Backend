@@ -1,5 +1,6 @@
 package couserec.rest.controller;
 
+import couserec.rest.entity.Course;
 import couserec.rest.entity.GroupCourse;
 import couserec.rest.entity.GroupCourse;
 import couserec.rest.service.GroupCourseService;
@@ -30,6 +31,12 @@ public class GroupCourseController {
         // Save the update groupCourse
         GroupCourse updateGroupCourse = groupCourseService.updateGroupCourse(groupCourse);
         return ResponseEntity.ok(LabMapper.INSTANCE.getGroupCourseDto(updateGroupCourse));
+    }
+    @PutMapping("/removeCourseFromGroupCourse")
+    public ResponseEntity<?> removeCourseFromGroupCourse(@RequestBody GroupCourse groupCourse) {
+        GroupCourse removeCourseFromGroupCourse = groupCourseService.removeCourseFromGroupCourse(groupCourse);
+
+        return ResponseEntity.ok(LabMapper.INSTANCE.getGroupCourseDto(removeCourseFromGroupCourse));
     }
     @DeleteMapping("/deleteGroupCourse/{id}")
     public ResponseEntity<?> deleteGroupCourse(@PathVariable int id) {
