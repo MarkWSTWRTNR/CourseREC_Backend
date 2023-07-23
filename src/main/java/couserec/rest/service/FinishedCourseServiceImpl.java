@@ -23,7 +23,7 @@ public class FinishedCourseServiceImpl implements FinishedCourseService {
         List<Course> existingCourses = new ArrayList<>();
         for (Course course : finishedCourse.getCourses()) {
             Course existingCourse = courseDao.getCourseByCourseId(course.getCourseId());
-            if (existingCourse != null) {
+            if (existingCourse != null && !existingCourses.contains(existingCourse)) {
                 existingCourses.add(existingCourse);
             }
         }
@@ -46,7 +46,7 @@ public class FinishedCourseServiceImpl implements FinishedCourseService {
         List<Course> existingCourses = new ArrayList<>();
         for (Course course : finishedCourse.getCourses()) {
             Course existingCourse = courseDao.getCourseByCourseId(course.getCourseId());
-            if (existingCourse != null) {
+            if (existingCourse != null && !existingCourses.contains(existingCourse)) {
                 existingCourses.add(existingCourse);
             }
         }
