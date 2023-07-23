@@ -5,18 +5,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProgramOwnCourseDTO {
+public class ProgramOwnGroupCourseDTO {
     int id;
-    String courseId;
-    String name;
+    String text;
     int credit;
-    String gradingtype;
-    String description;
-    List<ProgramOwnCourseDTO> prerequisite;
+    String groupName;
 }

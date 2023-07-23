@@ -51,19 +51,4 @@ public class ProgramController {
         String deleteProgram = programService.deleteProgram(id);
         return ResponseEntity.ok(deleteProgram);
     }
-    @PutMapping("/addCourseToProgram")
-    public ResponseEntity<?> addCourseToProgram(@RequestBody Program program) {
-        Program addCourseToProgram = programService.addCourseToProgram(program);
-        return ResponseEntity.ok(LabMapper.INSTANCE.getProgramDto(addCourseToProgram));
-    }
-    @PutMapping("/removeCourseFromProgram/{programId}/{sectionType}/{courseId}")
-    public ResponseEntity<?> removeCourseFromProgram(@PathVariable String programId,@PathVariable String sectionType, @PathVariable String courseId) {
-        Program removeCourseFromProgram = programService.removeCourseFromProgram(programId,sectionType, courseId);
-        return ResponseEntity.ok(LabMapper.INSTANCE.getProgramDto(removeCourseFromProgram));
-    }
-    @PutMapping("/updateProgramCredits/{programId}")
-    public ResponseEntity<?> updateProgramCredits(@PathVariable String programId, @RequestBody Program updatedProgram) {
-        Program programWithUpdatedCredits = programService.updateProgramCredits(programId, updatedProgram);
-        return ResponseEntity.ok(LabMapper.INSTANCE.getProgramDto(programWithUpdatedCredits));
-    }
 }

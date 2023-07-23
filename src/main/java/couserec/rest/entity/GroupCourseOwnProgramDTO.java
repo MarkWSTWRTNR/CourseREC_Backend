@@ -9,17 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CourseOwnProgramDTO {
+public class GroupCourseOwnProgramDTO {
     int id;
     String programId;
     String name;
-    String freeElective;
-    int creditGerclp;
-    int creditGercic;
-    int creditGercac;
-    int creditGeec;
-    int creditFoscc;
-    int creditFosmcrc;
-    int creditFosme;
-    int creditFe;
 }

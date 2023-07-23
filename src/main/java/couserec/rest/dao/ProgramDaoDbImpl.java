@@ -40,10 +40,6 @@ public class ProgramDaoDbImpl implements ProgramDao {
     public String deleteProgram(int id){
         programRepository.deleteById(id);
         return "Program removed !!"+id;
-
-    }
-    public Program addCourseToProgram(Program program){
-        return programRepository.save(program);
     }
 
 }

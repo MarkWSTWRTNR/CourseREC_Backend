@@ -9,9 +9,6 @@ import java.util.List;
 public interface ProgramService {
     Program saveProgram(Program program);
 
-    @Transactional
-    Program updateProgramCredits(String programId, Program updatedProgram);
-
     List<Program> getPrograms();
     Program getProgramById(int id);
 
@@ -21,8 +18,4 @@ public interface ProgramService {
 
     Program getProgramByProgramId(String programId);
 
-    Program addCourseToProgram(Program program);
-
-    @Transactional
-    Program removeCourseFromProgram(String programId,  String sectionType, String courseId);
 }
