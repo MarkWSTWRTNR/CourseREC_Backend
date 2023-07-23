@@ -31,8 +31,9 @@ public class Course {
     @Builder.Default
     List<Course> prerequisite = new ArrayList<>();
 
-//    @ManyToMany(mappedBy = "courses")
-//    List<GroupCourse> programs = new ArrayList<>();
+    @ManyToMany(mappedBy = "courses")
+            @Builder.Default
+    List<GroupCourse> programs = new ArrayList<>();
 
     @ManyToMany(mappedBy = "courses")
     List<FinishedCourse> finishedCourses;

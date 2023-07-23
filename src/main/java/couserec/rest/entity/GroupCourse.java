@@ -19,8 +19,9 @@ public class GroupCourse {
     String text;
     int credit;
     String groupName;
-//    @ManyToMany
-//    List<Course> courses = new ArrayList<>();
+    @ManyToMany
+            @Builder.Default
+    List<Course> courses = new ArrayList<>();
     @ManyToOne
     Program programs;
 }

@@ -19,6 +19,8 @@ public class CourseDTO {
     String gradingtype;
     String description;
     List<CourseDTO> prerequisite;
+    @Builder.Default
+    List<CourseOwnGroupCourseDTO> programs = new ArrayList<>();
     List<CourseOwnFinishedCourseDTO> finishedCourses;
 
 
