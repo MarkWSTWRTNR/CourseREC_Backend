@@ -11,22 +11,21 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class Program {
+public class StandardStudyPlan {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @EqualsAndHashCode.Exclude
     int id;
+    String text;
+    int credit;
     @Column(unique = true)
-    String programId;
-    String name;
+    String yearAndSemester;
 
-    @OneToMany(mappedBy = "programs")
-            @Builder.Default
-    List<GroupCourse> groupCourses = new ArrayList<>();
-    @ManyToOne
-    Faculty faculty;
-
-    @OneToMany(mappedBy = "programs")
+    @ManyToMany
     @Builder.Default
-    List<StandardStudyPlan> standardStudyPlans = new ArrayList<>();
+    List<Course> courses = new ArrayList<>();
+
+    @ManyToOne
+    Program programs;
+
 }

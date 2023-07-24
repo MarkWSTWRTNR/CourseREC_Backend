@@ -20,5 +20,7 @@ public class ProgramDTO {
     @Builder.Default
     List<ProgramOwnGroupCourseDTO> groupCourses = new ArrayList<>();
     ProgramOwnFacultyDTO faculty;
+    @Builder.Default
+    List<ProgramOwnStandardStudyPlanDTO> standardStudyPlans = new ArrayList<>();
 
 }

@@ -38,4 +38,8 @@ public class Course {
     @ManyToMany(mappedBy = "courses")
     List<FinishedCourse> finishedCourses;
 
+    @ManyToMany(mappedBy = "courses")
+    @Builder.Default
+    List<StandardStudyPlan> standardStudyPlans = new ArrayList<>();
+
 }

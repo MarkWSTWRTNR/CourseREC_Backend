@@ -29,5 +29,8 @@ LabMapper INSTANCE = Mappers.getMapper(LabMapper.class);
 
     GroupCourseDTO getGroupCourseDto(GroupCourse groupCourse);
     List<GroupCourseDTO> getGroupCourseDto(List<GroupCourse> groupCourses);
+
+    StandardStudyPlanDTO getStandardStudyPlanDto(StandardStudyPlan standardStudyPlan);
+    List<StandardStudyPlanDTO> getStandardStudyPlanDto(List<StandardStudyPlan> standardStudyPlan);
 }
 
