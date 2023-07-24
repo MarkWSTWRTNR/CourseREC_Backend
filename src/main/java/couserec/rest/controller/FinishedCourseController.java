@@ -3,6 +3,7 @@ package couserec.rest.controller;
 import couserec.rest.entity.FinishedCourse;
 import couserec.rest.service.FinishedCourseService;
 import couserec.rest.util.LabMapper;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,7 +30,11 @@ public class FinishedCourseController {
         FinishedCourse updateFinishedCourse = finishedCourseService.updateStudentFinishedCourse(finishedCourse);
         return ResponseEntity.ok(LabMapper.INSTANCE.getFinishedCourseDto(updateFinishedCourse));
     }
-
+    @PutMapping("/removeCourseFromFinishedCourse")
+    public ResponseEntity<?> removeCourseFromFinishedCourse(@RequestBody FinishedCourse finishedCourse){
+        FinishedCourse removeCourseFormFinishedCourse = finishedCourseService.removeFinishedCourseFrom(finishedCourse);
+        return ResponseEntity.ok(LabMapper.INSTANCE.getFinishedCourseDto(removeCourseFormFinishedCourse));
+    }
     @DeleteMapping("/deleteFinishedCourse/{id}")
     public ResponseEntity<?> deleteFinishedCourse(@PathVariable int id){
         String deleteFinishedCourse = finishedCourseService.deleteFinishedCourse(id);
