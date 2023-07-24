@@ -12,7 +12,7 @@ public interface GroupCourseService {
 
     List<GroupCourse> getGroupCourses();
 
-    GroupCourse getGroupCourseById(int id);
+//    GroupCourse getGroupCourseById(int id);
 
     GroupCourse updateGroupCourse(GroupCourse groupCourse);
 

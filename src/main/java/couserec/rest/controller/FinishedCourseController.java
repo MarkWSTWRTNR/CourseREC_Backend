@@ -32,7 +32,7 @@ public class FinishedCourseController {
     }
     @PutMapping("/removeCourseFromFinishedCourse")
     public ResponseEntity<?> removeCourseFromFinishedCourse(@RequestBody FinishedCourse finishedCourse){
-        FinishedCourse removeCourseFormFinishedCourse = finishedCourseService.removeFinishedCourseFrom(finishedCourse);
+        FinishedCourse removeCourseFormFinishedCourse = finishedCourseService.removeCourseFromFinishedCourse(finishedCourse);
         return ResponseEntity.ok(LabMapper.INSTANCE.getFinishedCourseDto(removeCourseFormFinishedCourse));
     }
     @DeleteMapping("/deleteFinishedCourse/{id}")

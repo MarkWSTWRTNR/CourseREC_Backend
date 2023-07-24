@@ -43,10 +43,10 @@ public class GroupCourseServiceImpl implements GroupCourseService {
     public List<GroupCourse> getGroupCourses() {
         return groupCourseDao.getGroupCourses();
     }
-    @Override
-    public GroupCourse getGroupCourseById(int id) {
-        return groupCourseDao.getGroupCourseById(id);
-    }
+//    @Override
+//    public GroupCourse getGroupCourseById(int id) {
+//        return groupCourseDao.getGroupCourseById(id);
+//    }
     @Transactional
     @Override
     public GroupCourse updateGroupCourse(GroupCourse groupCourse) {

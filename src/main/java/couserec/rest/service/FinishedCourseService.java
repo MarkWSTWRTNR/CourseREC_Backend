@@ -11,7 +11,7 @@ public interface FinishedCourseService {
 
     FinishedCourse updateStudentFinishedCourse(FinishedCourse finishedCourse);
 
-    FinishedCourse removeFinishedCourseFrom(FinishedCourse finishedCourse);
+    FinishedCourse removeCourseFromFinishedCourse(FinishedCourse finishedCourse);
 
     String deleteFinishedCourse(int id);
 }

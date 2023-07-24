@@ -55,7 +55,7 @@ public class FinishedCourseServiceImpl implements FinishedCourseService {
         return finishedCourseDao.updateStudentFinishedCourse(existingFinishedCourse);
     }
     @Override
-    public FinishedCourse removeFinishedCourseFrom(FinishedCourse finishedCourse){
+    public FinishedCourse removeCourseFromFinishedCourse(FinishedCourse finishedCourse){
         FinishedCourse existingFinishedCourse = finishedCourseDao.getStudentFinishedCourseById(finishedCourse.getId());
         if (existingFinishedCourse == null){
             return null;
