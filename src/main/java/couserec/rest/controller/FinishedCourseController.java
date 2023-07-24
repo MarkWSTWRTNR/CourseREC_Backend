@@ -30,5 +30,10 @@ public class FinishedCourseController {
         return ResponseEntity.ok(LabMapper.INSTANCE.getFinishedCourseDto(updateFinishedCourse));
     }
 
+    @DeleteMapping("/deleteFinishedCourse/{id}")
+    public ResponseEntity<?> deleteFinishedCourse(@PathVariable int id){
+        String deleteFinishedCourse = finishedCourseService.deleteFinishedCourse(id);
+        return ResponseEntity.ok(deleteFinishedCourse);
+    }
 
 }

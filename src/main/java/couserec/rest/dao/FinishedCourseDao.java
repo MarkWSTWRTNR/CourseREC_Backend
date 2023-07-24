@@ -13,4 +13,6 @@ public interface FinishedCourseDao {
     FinishedCourse updateStudentFinishedCourse(FinishedCourse finishedCourse);
 
     FinishedCourse getStudentFinishedCourseById(int id);
+
+    String deleteFinishedCourse(int id);
 }

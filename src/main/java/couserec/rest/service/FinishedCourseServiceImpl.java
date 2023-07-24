@@ -55,4 +55,8 @@ public class FinishedCourseServiceImpl implements FinishedCourseService {
         return finishedCourseDao.updateStudentFinishedCourse(existingFinishedCourse);
     }
 
+    @Override
+    public String deleteFinishedCourse(int id) {
+        return finishedCourseDao.deleteFinishedCourse(id);
+    }
 }

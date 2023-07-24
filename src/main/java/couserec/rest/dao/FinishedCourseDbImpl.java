@@ -31,5 +31,9 @@ public class FinishedCourseDbImpl implements FinishedCourseDao {
     public FinishedCourse getStudentFinishedCourseById(int id) {
         return finishedCourseRepository.findById(id).orElse(null);
     }
-
+    @Override
+    public String deleteFinishedCourse(int id){
+        finishedCourseRepository.deleteById(id);
+        return "FinishedCourse removed !!" + id;
+    }
 }
