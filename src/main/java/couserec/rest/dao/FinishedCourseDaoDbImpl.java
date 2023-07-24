@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository
 @Profile("db")
-public class FinishedCourseDbImpl implements FinishedCourseDao {
+public class FinishedCourseDaoDbImpl implements FinishedCourseDao {
 
     @Autowired
     FinishedCourseRepository finishedCourseRepository;
