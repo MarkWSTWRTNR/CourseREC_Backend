@@ -1,15 +1,9 @@
 package couserec.rest.config;
 
-import couserec.rest.entity.Course;
+import couserec.rest.entity.*;
 //import couserec.rest.entity.Curriculum;
-import couserec.rest.entity.Faculty;
-import couserec.rest.entity.GroupCourse;
-import couserec.rest.entity.Program;
-import couserec.rest.repository.CourseRepository;
+import couserec.rest.repository.*;
 
-import couserec.rest.repository.FacultyRepository;
-import couserec.rest.repository.GroupCourseRepository;
-import couserec.rest.repository.ProgramRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -27,6 +21,8 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
     FacultyRepository facultyRepository;
     @Autowired
     GroupCourseRepository groupCourseRepository;
+    @Autowired
+    StandardStudyPlanRepository standardStudyPlanRepository;
 
 //    @Autowired
 //    CurriculumRepository curriculumRepository;
@@ -392,6 +388,9 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
         GroupCourse FOSSE = groupCourseRepository.save(GroupCourse.builder().groupName("FOS").credit(15).build());
         GroupCourse GEDII = groupCourseRepository.save(GroupCourse.builder().groupName("GEDII").credit(15).build());
 
+        StandardStudyPlan Y1S1SE = standardStudyPlanRepository.save(StandardStudyPlan.builder().yearAndSemester("Year1 Semester1").credit(75).build());
+        StandardStudyPlan Y1S1DII = standardStudyPlanRepository.save(StandardStudyPlan.builder().yearAndSemester("Year1 Semester1").credit(75).build());
+
         Camt.getPrograms().add(SE);
         SE.setFaculty(Camt);
         Camt.getPrograms().add(DII);
@@ -401,9 +400,13 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
         GESE.setPrograms(SE);
         SE.getGroupCourses().add(FOSSE);
         FOSSE.setPrograms(SE);
+        SE.getStandardStudyPlans().add(Y1S1SE);
+        Y1S1SE.setPrograms(SE);
 
         DII.getGroupCourses().add(GEDII);
         GEDII.setPrograms(DII);
+        DII.getStandardStudyPlans().add(Y1S1DII);
+        Y1S1DII.setPrograms(DII);
 
         GESE.getCourses().add(English1);
         English1.getGroupCourses().add(GESE);
@@ -413,5 +416,10 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
         GEDII.getCourses().add(English1);
         English1.getGroupCourses().add(GEDII);
 
+        Y1S1SE.getCourses().add(se100);
+        se100.getStandardStudyPlans().add(Y1S1SE);
+
+        Y1S1DII.getCourses().add(se211);
+        se211.getStandardStudyPlans().add(Y1S1DII);
     }
 }

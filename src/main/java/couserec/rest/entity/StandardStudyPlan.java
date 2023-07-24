@@ -18,7 +18,6 @@ public class StandardStudyPlan {
     int id;
     String text;
     int credit;
-    @Column(unique = true)
     String yearAndSemester;
 
     @ManyToMany
