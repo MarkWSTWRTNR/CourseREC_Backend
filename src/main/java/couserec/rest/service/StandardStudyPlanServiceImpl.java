@@ -23,20 +23,31 @@ public class StandardStudyPlanServiceImpl implements StandardStudyPlanService{
     CourseDao courseDao;
     @Transactional
     @Override
-    public StandardStudyPlan saveStandardStudyPlan(StandardStudyPlan groupCourse){
-        Program program = programDao.getProgramByProgramId(groupCourse.getPrograms().getProgramId());
-        groupCourse.setPrograms(program);
+    public StandardStudyPlan saveStandardStudyPlan(StandardStudyPlan standardStudyPlan) {
+        Program program = programDao.getProgramByProgramId(standardStudyPlan.getPrograms().getProgramId());
+        standardStudyPlan.setPrograms(program);
 
         List<Course> courses = new ArrayList<>();
-        for(Course course : groupCourse.getCourses()){
+        for (Course course : standardStudyPlan.getCourses()) {
             Course existingCourse = courseDao.getCourseByCourseId(course.getCourseId());
-            if (existingCourse != null && !courses.contains(existingCourse)){
+
+            // Check if the course already exists in any of the program's standard study plans
+            boolean isDuplicate = false;
+            for (StandardStudyPlan existingStudyPlan : program.getStandardStudyPlans()) {
+                if (existingStudyPlan.getCourses().contains(existingCourse)) {
+                    isDuplicate = true;
+                    System.out.println("Course already exists in another standard study plan of Program " + program.getProgramId());
+                    break;
+                }
+            }
+            if (!isDuplicate) {
                 courses.add(existingCourse);
             }
         }
-        groupCourse.setCourses(courses);
-        return standardStudyPlanDao.saveStandardStudyPlan(groupCourse);
+        standardStudyPlan.setCourses(courses);
+        return standardStudyPlanDao.saveStandardStudyPlan(standardStudyPlan);
     }
+
     @Override
     public List<StandardStudyPlan> getStandardStudyPlans() {
         return standardStudyPlanDao.getStandardStudyPlans();
@@ -55,22 +66,30 @@ public class StandardStudyPlanServiceImpl implements StandardStudyPlanService{
         existingStandardStudyPlan.setYearAndSemester(groupCourse.getYearAndSemester());
         existingStandardStudyPlan.setCredit(groupCourse.getCredit());
         existingStandardStudyPlan.setText(groupCourse.getText());
-
         Program program = programDao.getProgramByProgramId(groupCourse.getPrograms().getProgramId());
         existingStandardStudyPlan.setPrograms(program);
-
-        // Update the list of courses associated with the group course
-        List<Course> courses = new ArrayList<>();
+        // Update the list of courses associated with the standard study plan
+        List<Course> coursesToAdd = new ArrayList<>();
         for (Course course : groupCourse.getCourses()) {
             Course existingCourse = courseDao.getCourseByCourseId(course.getCourseId());
-            if (existingCourse != null && !courses.contains(existingCourse)) {
-                courses.add(existingCourse);
+
+            // Check if the course already exists in any standard study plan of the program (excluding the current one being updated)
+            boolean isDuplicate = false;
+            for (StandardStudyPlan otherStandardStudyPlan : program.getStandardStudyPlans()) {
+                if (!otherStandardStudyPlan.equals(existingStandardStudyPlan) && otherStandardStudyPlan.getCourses().contains(existingCourse)) {
+                    isDuplicate = true;
+                    System.out.println("Course already exists in another standard study plan of Program " + program.getProgramId());
+                    break;
+                }
+            }
+            if (!isDuplicate) {
+                coursesToAdd.add(existingCourse);
             }
         }
-        existingStandardStudyPlan.setCourses(courses);
-
+        existingStandardStudyPlan.setCourses(coursesToAdd);
         return standardStudyPlanDao.updateStandardStudyPlan(existingStandardStudyPlan);
     }
+
     @Transactional
     @Override
     public StandardStudyPlan removeCourseFromStandardStudyPlan(StandardStudyPlan groupCourse) {

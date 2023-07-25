@@ -62,32 +62,46 @@ public class GroupCourseServiceImpl implements GroupCourseService {
 //    public GroupCourse getGroupCourseById(int id) {
 //        return groupCourseDao.getGroupCourseById(id);
 //    }
-    @Transactional
-    @Override
-    public GroupCourse updateGroupCourse(GroupCourse groupCourse) {
-        GroupCourse existingGroupCourse = groupCourseDao.getGroupCourseById(groupCourse.getId());
-        if (existingGroupCourse == null) {
-           return null;
-        }
-        existingGroupCourse.setGroupName(groupCourse.getGroupName());
-        existingGroupCourse.setCredit(groupCourse.getCredit());
-        existingGroupCourse.setText(groupCourse.getText());
+@Transactional
+@Override
+public GroupCourse updateGroupCourse(GroupCourse groupCourse) {
+    GroupCourse existingGroupCourse = groupCourseDao.getGroupCourseById(groupCourse.getId());
+    if (existingGroupCourse == null) {
+        return null;
+    }
 
-        Program program = programDao.getProgramByProgramId(groupCourse.getPrograms().getProgramId());
-        existingGroupCourse.setPrograms(program);
+    existingGroupCourse.setGroupName(groupCourse.getGroupName());
+    existingGroupCourse.setCredit(groupCourse.getCredit());
+    existingGroupCourse.setText(groupCourse.getText());
 
-        // Update the list of courses associated with the group course
-        List<Course> courses = new ArrayList<>();
-        for (Course course : groupCourse.getCourses()) {
-            Course existingCourse = courseDao.getCourseByCourseId(course.getCourseId());
-            if (existingCourse != null && !courses.contains(existingCourse)) {
-                courses.add(existingCourse);
+    Program program = programDao.getProgramByProgramId(groupCourse.getPrograms().getProgramId());
+    existingGroupCourse.setPrograms(program);
+
+    // Update the list of courses associated with the group course
+    List<Course> coursesToAdd = new ArrayList<>();
+    for (Course course : groupCourse.getCourses()) {
+        Course existingCourse = courseDao.getCourseByCourseId(course.getCourseId());
+
+        // Check if the course already exists in any group course of the program (excluding the current one being updated)
+        boolean isDuplicate = false;
+        for (GroupCourse otherGroupCourse : program.getGroupCourses()) {
+            if (!otherGroupCourse.equals(existingGroupCourse) && otherGroupCourse.getCourses().contains(existingCourse)) {
+                isDuplicate = true;
+                System.out.println("Course already exists in another group course of Program " + program.getProgramId());
+                break;
             }
         }
-        existingGroupCourse.setCourses(courses);
 
-        return groupCourseDao.updateGroupCourse(existingGroupCourse);
+        if (!isDuplicate) {
+            coursesToAdd.add(existingCourse);
+        }
     }
+
+    existingGroupCourse.setCourses(coursesToAdd);
+    return groupCourseDao.updateGroupCourse(existingGroupCourse);
+}
+
+
     @Transactional
     @Override
     public GroupCourse removeCourseFromGroupCourse(GroupCourse groupCourse) {
