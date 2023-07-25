@@ -381,12 +381,12 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
 // Create Program instances
         Program SE = programRepository.save(Program.builder().name("Software Engineering").programId("01").build());
         Program DII = programRepository.save(Program.builder().name("DII").programId("02").build());
-        Program ECONP = programRepository.save(Program.builder().name("ECONP").programId("03").build());
+
 
 // Create GroupCourse instance for GE
-        GroupCourse GESE = groupCourseRepository.save(GroupCourse.builder().groupName("GESE").credit(15).build());
-        GroupCourse FOSSE = groupCourseRepository.save(GroupCourse.builder().groupName("FOS").credit(15).build());
-        GroupCourse GEDII = groupCourseRepository.save(GroupCourse.builder().groupName("GEDII").credit(15).build());
+        GroupCourse GESE = groupCourseRepository.save(GroupCourse.builder().groupName("General Education | Required courses | Learner Pereson").credit(15).build());
+        GroupCourse FOSCCSE = groupCourseRepository.save(GroupCourse.builder().groupName("Feild of Specialization| Core Courses").credit(15).build());
+        GroupCourse GEDII = groupCourseRepository.save(GroupCourse.builder().groupName("General Education | Required courses | Learner Pereson").credit(15).build());
 
         StandardStudyPlan Y1S1SE = standardStudyPlanRepository.save(StandardStudyPlan.builder().yearAndSemester("Year1 Semester1").credit(75).build());
         StandardStudyPlan Y1S1DII = standardStudyPlanRepository.save(StandardStudyPlan.builder().yearAndSemester("Year1 Semester1").credit(75).build());
@@ -398,8 +398,8 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
 
         SE.getGroupCourses().add(GESE);
         GESE.setPrograms(SE);
-        SE.getGroupCourses().add(FOSSE);
-        FOSSE.setPrograms(SE);
+        SE.getGroupCourses().add(FOSCCSE);
+        FOSCCSE.setPrograms(SE);
         SE.getStandardStudyPlans().add(Y1S1SE);
         Y1S1SE.setPrograms(SE);
 
@@ -410,8 +410,8 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
 
         GESE.getCourses().add(English1);
         English1.getGroupCourses().add(GESE);
-        FOSSE.getCourses().add(English2);
-        English2.getGroupCourses().add(FOSSE);
+        FOSCCSE.getCourses().add(English2);
+        English2.getGroupCourses().add(FOSCCSE);
 
         GEDII.getCourses().add(English1);
         English1.getGroupCourses().add(GEDII);
