@@ -30,15 +30,30 @@ public class GroupCourseServiceImpl implements GroupCourseService {
         groupCourse.setPrograms(program);
 
         List<Course> courses = new ArrayList<>();
-       for(Course course : groupCourse.getCourses()){
-           Course existingCourse = courseDao.getCourseByCourseId(course.getCourseId());
-           if (existingCourse != null && !courses.contains(existingCourse)){
-               courses.add(existingCourse);
-           }
-       }
-       groupCourse.setCourses(courses);
+        for (Course course : groupCourse.getCourses()) {
+            Course existingCourse = courseDao.getCourseByCourseId(course.getCourseId());
+
+            // Check if the course already exists in any of the program's group courses
+            boolean isDuplicate = false;
+            for (GroupCourse existingGroupCourse : program.getGroupCourses()) {
+                if (existingGroupCourse.getCourses().contains(existingCourse)) {
+                    isDuplicate = true;
+                    System.out.println("Course already exists in another group course of Program " + program.getProgramId());
+                    break;
+                }
+            }
+
+            if (!isDuplicate) {
+                // Add the course to the list if it doesn't exist in any other group course of the program
+                courses.add(existingCourse);
+            }
+        }
+
+        groupCourse.setCourses(courses);
         return groupCourseDao.saveGroupCourse(groupCourse);
     }
+
+
     @Override
     public List<GroupCourse> getGroupCourses() {
         return groupCourseDao.getGroupCourses();

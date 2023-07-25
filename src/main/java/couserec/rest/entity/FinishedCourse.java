@@ -14,7 +14,7 @@ public class FinishedCourse {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @EqualsAndHashCode.Exclude
-    private int id;
+    int id;
 
     String name;
     String year;
