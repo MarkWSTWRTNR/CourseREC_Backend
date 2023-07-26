@@ -32,5 +32,8 @@ LabMapper INSTANCE = Mappers.getMapper(LabMapper.class);
 
     StandardStudyPlanDTO getStandardStudyPlanDto(StandardStudyPlan standardStudyPlan);
     List<StandardStudyPlanDTO> getStandardStudyPlanDto(List<StandardStudyPlan> standardStudyPlan);
+
+    CommentDTO getCommentDto(Comment comment);
+    List<CommentDTO> getCommentDto(List<Comment> comment);
 }
 

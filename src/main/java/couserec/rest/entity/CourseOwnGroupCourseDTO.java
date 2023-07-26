@@ -14,4 +14,5 @@ public class CourseOwnGroupCourseDTO {
     String text;
     int credit;
     String groupName;
+    GroupCourseOwnProgramDTO programs;
 }
