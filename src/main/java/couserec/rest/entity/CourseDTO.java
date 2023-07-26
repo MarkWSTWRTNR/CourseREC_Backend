@@ -20,7 +20,7 @@ public class CourseDTO {
     String description;
     List<CourseDTO> prerequisite;
     @Builder.Default
-    List<CourseOwnGroupCourseDTO> programs = new ArrayList<>();
+    List<CourseOwnGroupCourseDTO> groupCourses = new ArrayList<>();
     List<CourseOwnFinishedCourseDTO> finishedCourses;
     @Builder.Default
     List<CourseOwnStandardStudyPlanDTO> standardStudyPlans = new ArrayList<>();
