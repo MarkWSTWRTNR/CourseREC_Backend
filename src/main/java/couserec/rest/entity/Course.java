@@ -42,4 +42,7 @@ public class Course {
     @Builder.Default
     List<StandardStudyPlan> standardStudyPlans = new ArrayList<>();
 
+    @OneToMany(mappedBy = "course")
+    List<Comment> comments;
+
 }

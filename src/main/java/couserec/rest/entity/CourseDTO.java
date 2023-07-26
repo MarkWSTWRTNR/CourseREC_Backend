@@ -24,6 +24,6 @@ public class CourseDTO {
     List<CourseOwnFinishedCourseDTO> finishedCourses;
     @Builder.Default
     List<CourseOwnStandardStudyPlanDTO> standardStudyPlans = new ArrayList<>();
-
+    List<CommentDTO> comments;
 
 }

@@ -13,4 +13,5 @@ import lombok.*;
 public class CommentDTO {
     int id;
     String comment;
+    CourseDTO course;
 }

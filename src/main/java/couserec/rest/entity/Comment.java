@@ -14,4 +14,7 @@ public class Comment {
     @EqualsAndHashCode.Exclude
     int id;
     String comment;
+
+    @ManyToOne
+    Course course;
 }
