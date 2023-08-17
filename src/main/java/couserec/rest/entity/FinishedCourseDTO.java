@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 @Data
 @Builder
@@ -20,5 +21,6 @@ public class FinishedCourseDTO {
     double gpa;
     double gpax;
     double majorgpax;
-    List<FinishedCourseOwnCourseDTO> courses;
+    @Builder.Default
+    List<FinishedCourseOwnCourseDTO> courses =new ArrayList<>();
 }

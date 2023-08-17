@@ -34,6 +34,7 @@ public class FinishedCourseServiceImpl implements FinishedCourseService {
     public List<FinishedCourse> getStudentFinishedCourse(){
         return finishedCourseDao.getStudentFinishedCourse();
     }
+
     @Override
     public FinishedCourse updateStudentFinishedCourse(FinishedCourse finishedCourse) {
         FinishedCourse existingFinishedCourse = finishedCourseDao.getStudentFinishedCourseById(finishedCourse.getId());

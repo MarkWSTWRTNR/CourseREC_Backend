@@ -36,7 +36,8 @@ public class Course {
     List<GroupCourse> groupCourses = new ArrayList<>();
 
     @ManyToMany(mappedBy = "courses")
-    List<FinishedCourse> finishedCourses;
+            @Builder.Default
+    List<FinishedCourse> finishedCourses = new ArrayList<>();
 
     @ManyToMany(mappedBy = "courses")
     @Builder.Default

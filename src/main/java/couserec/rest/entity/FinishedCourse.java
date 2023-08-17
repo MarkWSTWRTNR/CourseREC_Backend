@@ -3,6 +3,7 @@ package couserec.rest.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -26,5 +27,6 @@ public class FinishedCourse {
     double majorgpax;
 
     @ManyToMany
-    List<Course> courses;
+            @Builder.Default
+    List<Course> courses =new ArrayList<>();
 }

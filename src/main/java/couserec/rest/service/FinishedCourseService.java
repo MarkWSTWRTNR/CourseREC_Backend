@@ -9,6 +9,8 @@ public interface FinishedCourseService {
 
     List<FinishedCourse> getStudentFinishedCourse();
 
+
+
     FinishedCourse updateStudentFinishedCourse(FinishedCourse finishedCourse);
 
     FinishedCourse removeCourseFromFinishedCourse(FinishedCourse finishedCourse);

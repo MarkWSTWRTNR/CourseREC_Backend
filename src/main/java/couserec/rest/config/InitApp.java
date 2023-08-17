@@ -24,8 +24,9 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
     @Autowired
     StandardStudyPlanRepository standardStudyPlanRepository;
 
-//    @Autowired
-//    CurriculumRepository curriculumRepository;
+    @Autowired
+    FinishedCourseRepository finishedCourseRepository;
+
     @Override
     @Transactional
     public void onApplicationEvent(ApplicationReadyEvent event) {
@@ -390,6 +391,14 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
 
         StandardStudyPlan Y1S1SE = standardStudyPlanRepository.save(StandardStudyPlan.builder().yearAndSemester("Year1 Semester1").credit(75).build());
         StandardStudyPlan Y1S1DII = standardStudyPlanRepository.save(StandardStudyPlan.builder().yearAndSemester("Year1 Semester1").credit(75).build());
+
+        FinishedCourse Y1S1 = finishedCourseRepository.save(FinishedCourse.builder().year("1").semester("1").build());
+        Y1S1.getCourses().add(se234);
+        se234.getFinishedCourses().add(Y1S1);
+        Y1S1.getCourses().add(se211);
+        se211.getFinishedCourses().add(Y1S1);
+        Y1S1.getCourses().add(se212);
+        se212.getFinishedCourses().add(Y1S1);
 
         Camt.getPrograms().add(SE);
         SE.setFaculty(Camt);
