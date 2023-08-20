@@ -51,18 +51,5 @@ public class ChatGPTController {
 
         return chatGPTResponse.getChoices().get(0).getMessage().getContent();
     }
-
-    private List<String> extractCoursesFromPrompt(String prompt) {
-        // A simple method to extract course names from the prompt.
-        // This can be enhanced with more advanced parsing logic.
-        String[] words = prompt.split(" ");
-        List<String> courses = new ArrayList<>();
-        for (String word : words) {
-            if (word.startsWith("se")) { // assuming course names start with "se"
-                courses.add(word);
-            }
-        }
-        return courses;
-    }
 }
 
