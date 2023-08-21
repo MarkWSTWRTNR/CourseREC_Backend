@@ -4,6 +4,10 @@ import couserec.rest.entity.Course;
 import couserec.rest.repository.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -46,4 +50,10 @@ public class CourseDaoDbImpl implements CourseDao{
         return "Course removed !!"+id;
 
     }
+
+    @Override
+    public Page<Course> getCourses(Integer pageSize, Integer page) {
+        return courseRepository.findAll(PageRequest.of(page-1,pageSize));
+    }
+
 }

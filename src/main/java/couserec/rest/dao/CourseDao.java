@@ -1,6 +1,8 @@
 package couserec.rest.dao;
 
 import couserec.rest.entity.Course;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -15,4 +17,6 @@ public interface CourseDao {
     Course updateCourse(Course course);
 
     String deleteCourse(int id);
+    Page<Course> getCourses(Integer pageSize, Integer page);
+
 }

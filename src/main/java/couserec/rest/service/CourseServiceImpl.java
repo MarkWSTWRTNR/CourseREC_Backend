@@ -3,7 +3,7 @@ package couserec.rest.service;
 import couserec.rest.dao.CourseDao;
 import couserec.rest.entity.Course;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -76,5 +76,10 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public Course getCourseByCourseId(String courseId) {
         return courseDao.getCourseByCourseId(courseId);
+    }
+
+    @Override
+    public Page<Course> getCourses(Integer pageSize, Integer page){
+        return courseDao.getCourses(pageSize, page);
     }
 }
