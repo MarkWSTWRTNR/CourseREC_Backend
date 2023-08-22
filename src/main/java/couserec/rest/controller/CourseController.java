@@ -23,18 +23,12 @@ public class  CourseController {
         Course addCourse = courseService.saveCourse(course);
         return ResponseEntity.ok(LabMapper.INSTANCE.getCourseDto(addCourse));
     }
-//    @GetMapping("/courses")
-//    public ResponseEntity<?> getCourses(){
-//        List<Course> getCourse = courseService.getCourses();
-//
-//        return ResponseEntity.ok(LabMapper.INSTANCE.getCourseDto(getCourse));
-//    }
     @GetMapping("/courses")
     public ResponseEntity<?> getCourses(
             @RequestParam(value = "_limit", required = false) Integer perPage,
             @RequestParam(value = "_page", required = false) Integer page) {
 
-        perPage = perPage == null ? 3 : perPage;
+        perPage = perPage == null ? 12 : perPage;
         page = page == null ? 1 : page;
 
         Page<Course> pageOutput = courseService.getCourses(perPage, page);
@@ -45,11 +39,6 @@ public class  CourseController {
     }
 
 
-    //    @GetMapping("/courseById/{id}")
-//    public ResponseEntity<?> getCourseById(@PathVariable int id){
-//        Course getCourseById = courseService.getCourseById(id);
-//        return ResponseEntity.ok(LabMapper.INSTANCE.getCourseDto(getCourseById));
-//    }
     @GetMapping("/courseByCourseId/{courseId}")
     public ResponseEntity<?> getCourseByCourseId(@PathVariable String courseId){
         Course getCourseByCourseId = courseService.getCourseByCourseId(courseId);
