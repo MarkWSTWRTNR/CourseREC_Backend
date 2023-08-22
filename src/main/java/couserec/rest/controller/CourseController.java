@@ -37,7 +37,12 @@ public class  CourseController {
         responseHeader.set("x-total-count", String.valueOf(pageOutput.getTotalElements()));
         return new ResponseEntity<>(LabMapper.INSTANCE.getCourseDto(pageOutput.getContent()), responseHeader, HttpStatus.OK);
     }
+    @GetMapping("/allCourse")
+    public ResponseEntity<?> getCourses(){
+        List<Course> getCourse = courseService.getCourses();
 
+        return ResponseEntity.ok(LabMapper.INSTANCE.getCourseDto(getCourse));
+    }
 
     @GetMapping("/courseByCourseId/{courseId}")
     public ResponseEntity<?> getCourseByCourseId(@PathVariable String courseId){
