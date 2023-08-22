@@ -1,11 +1,11 @@
 package couserec.rest.service;
 
-import couserec.rest.dao.CourseDao;
-import couserec.rest.dao.ProgramDao;
-import couserec.rest.dao.StandardStudyPlanDao;
-import couserec.rest.entity.Course;
-import couserec.rest.entity.StandardStudyPlan;
-import couserec.rest.entity.Program;
+import couserec.rest.dao.course.CourseDao;
+import couserec.rest.dao.program.ProgramDao;
+import couserec.rest.dao.standardStudyPlan.StandardStudyPlanDao;
+import couserec.rest.entity.course.Course;
+import couserec.rest.entity.standardStudyPlan.StandardStudyPlan;
+import couserec.rest.entity.program.Program;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

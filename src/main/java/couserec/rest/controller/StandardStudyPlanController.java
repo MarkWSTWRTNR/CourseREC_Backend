@@ -1,6 +1,6 @@
 package couserec.rest.controller;
 
-import couserec.rest.entity.StandardStudyPlan;
+import couserec.rest.entity.standardStudyPlan.StandardStudyPlan;
 import couserec.rest.service.StandardStudyPlanService;
 import couserec.rest.util.LabMapper;
 import org.springframework.beans.factory.annotation.Autowired;

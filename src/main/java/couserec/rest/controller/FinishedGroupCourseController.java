@@ -1,6 +1,6 @@
 package couserec.rest.controller;
 
-import couserec.rest.entity.FinishedGroupCourse;
+import couserec.rest.entity.finishedGroupCourse.FinishedGroupCourse;
 import couserec.rest.service.FinishedGroupCourseService;
 import couserec.rest.util.LabMapper;
 import org.springframework.beans.factory.annotation.Autowired;

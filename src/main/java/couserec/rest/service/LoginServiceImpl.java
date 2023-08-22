@@ -1,7 +1,7 @@
 package couserec.rest.service;
 
-import couserec.rest.entity.User;
-import couserec.rest.entity.UserRole;
+import couserec.rest.entity.user.User;
+import couserec.rest.entity.user.UserRole;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;

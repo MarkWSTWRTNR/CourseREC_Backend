@@ -1,6 +1,6 @@
 package couserec.rest.service;
 
-import couserec.rest.entity.User;
+import couserec.rest.entity.user.User;
 
 import java.util.Map;
 

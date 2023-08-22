@@ -1,6 +1,6 @@
 package couserec.rest.service;
 
-import couserec.rest.entity.FinishedGroupCourse;
+import couserec.rest.entity.finishedGroupCourse.FinishedGroupCourse;
 
 import java.util.List;
 

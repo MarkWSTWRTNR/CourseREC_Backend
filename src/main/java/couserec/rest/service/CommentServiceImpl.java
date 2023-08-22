@@ -1,7 +1,7 @@
 package couserec.rest.service;
 
-import couserec.rest.dao.CommentDao;
-import couserec.rest.entity.Comment;
+import couserec.rest.dao.comment.CommentDao;
+import couserec.rest.entity.comment.Comment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

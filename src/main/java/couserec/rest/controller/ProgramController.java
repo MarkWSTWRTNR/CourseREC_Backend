@@ -1,10 +1,7 @@
 package couserec.rest.controller;
 
-import couserec.rest.entity.Faculty;
-import couserec.rest.entity.Program;
+import couserec.rest.entity.program.Program;
 
-import couserec.rest.repository.FacultyRepository;
-import couserec.rest.repository.ProgramRepository;
 import couserec.rest.service.ProgramService;
 
 

@@ -1,10 +1,9 @@
 package couserec.rest.service;
 
-import couserec.rest.dao.FacultyDao;
-import couserec.rest.entity.Faculty;
+import couserec.rest.dao.faculty.FacultyDao;
+import couserec.rest.entity.faculty.Faculty;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

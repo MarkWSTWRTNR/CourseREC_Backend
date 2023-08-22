@@ -1,9 +1,9 @@
 package couserec.rest.service;
 
-import couserec.rest.dao.CourseDao;
-import couserec.rest.dao.FinishedGroupCourseDao;
-import couserec.rest.entity.Course;
-import couserec.rest.entity.FinishedGroupCourse;
+import couserec.rest.dao.course.CourseDao;
+import couserec.rest.dao.finishedGroupCourse.FinishedGroupCourseDao;
+import couserec.rest.entity.course.Course;
+import couserec.rest.entity.finishedGroupCourse.FinishedGroupCourse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

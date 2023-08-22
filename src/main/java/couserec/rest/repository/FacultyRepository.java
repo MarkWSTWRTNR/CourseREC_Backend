@@ -1,7 +1,7 @@
 package couserec.rest.repository;
 
 
-import couserec.rest.entity.Faculty;
+import couserec.rest.entity.faculty.Faculty;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

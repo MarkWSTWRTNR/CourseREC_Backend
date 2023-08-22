@@ -1,7 +1,6 @@
 package couserec.rest.repository;
 
-import couserec.rest.entity.GroupCourse;
-import couserec.rest.entity.StandardStudyPlan;
+import couserec.rest.entity.standardStudyPlan.StandardStudyPlan;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

@@ -1,6 +1,6 @@
 package couserec.rest.controller;
 
-import couserec.rest.entity.Comment;
+import couserec.rest.entity.comment.Comment;
 import couserec.rest.service.CommentService;
 import couserec.rest.util.LabMapper;
 import org.springframework.beans.factory.annotation.Autowired;

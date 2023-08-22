@@ -1,7 +1,6 @@
 package couserec.rest.controller;
 
-import couserec.rest.entity.User;
-import couserec.rest.entity.UserRole;
+import couserec.rest.entity.user.User;
 import couserec.rest.repository.UserRepository;
 import couserec.rest.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;

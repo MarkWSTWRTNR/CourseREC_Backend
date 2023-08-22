@@ -2,8 +2,8 @@ package couserec.rest.controller;
 
 import couserec.rest.entity.ChatGPT.dto.ChatGPTRequest;
 import couserec.rest.entity.ChatGPT.dto.ChatGPTResponse;
-import couserec.rest.entity.Course;
-import couserec.rest.entity.FinishedGroupCourse;
+import couserec.rest.entity.course.Course;
+import couserec.rest.entity.finishedGroupCourse.FinishedGroupCourse;
 import couserec.rest.service.FinishedGroupCourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

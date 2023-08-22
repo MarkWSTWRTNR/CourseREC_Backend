@@ -1,6 +1,6 @@
 package couserec.rest.service;
 
-import couserec.rest.entity.StandardStudyPlan;
+import couserec.rest.entity.standardStudyPlan.StandardStudyPlan;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;

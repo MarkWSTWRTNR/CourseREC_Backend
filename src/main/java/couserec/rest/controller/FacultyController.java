@@ -1,6 +1,6 @@
 package couserec.rest.controller;
 
-import couserec.rest.entity.Faculty;
+import couserec.rest.entity.faculty.Faculty;
 
 import couserec.rest.service.FacultyService;
 

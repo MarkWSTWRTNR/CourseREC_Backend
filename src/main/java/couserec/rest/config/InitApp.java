@@ -1,7 +1,12 @@
 package couserec.rest.config;
 
-import couserec.rest.entity.*;
 //import couserec.rest.entity.Curriculum;
+import couserec.rest.entity.course.Course;
+import couserec.rest.entity.faculty.Faculty;
+import couserec.rest.entity.finishedGroupCourse.FinishedGroupCourse;
+import couserec.rest.entity.groupCourse.GroupCourse;
+import couserec.rest.entity.program.Program;
+import couserec.rest.entity.standardStudyPlan.StandardStudyPlan;
 import couserec.rest.repository.*;
 
 import jakarta.transaction.Transactional;

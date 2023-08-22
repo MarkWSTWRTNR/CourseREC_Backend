@@ -1,7 +1,6 @@
 package couserec.rest.service;
 
-import couserec.rest.entity.Faculty;
-import couserec.rest.entity.Faculty;
+import couserec.rest.entity.faculty.Faculty;
 
 import java.util.List;
 

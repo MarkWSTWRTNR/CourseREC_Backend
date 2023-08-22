@@ -1,6 +1,6 @@
 package couserec.rest.repository;
 
-import couserec.rest.entity.FinishedGroupCourse;
+import couserec.rest.entity.finishedGroupCourse.FinishedGroupCourse;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

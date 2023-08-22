@@ -1,6 +1,6 @@
 package couserec.rest.service;
 
-import couserec.rest.entity.Comment;
+import couserec.rest.entity.comment.Comment;
 
 import java.util.List;
 

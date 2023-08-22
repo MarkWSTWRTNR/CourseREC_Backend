@@ -1,11 +1,9 @@
 package couserec.rest.service;
 
-import couserec.rest.entity.Course;
+import couserec.rest.entity.course.Course;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface CourseService {
     Course saveCourse(Course course);

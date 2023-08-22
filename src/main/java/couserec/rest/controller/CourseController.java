@@ -1,6 +1,6 @@
 package couserec.rest.controller;
 
-import couserec.rest.entity.Course;
+import couserec.rest.entity.course.Course;
 import couserec.rest.service.CourseService;
 import couserec.rest.util.LabMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController

@@ -1,7 +1,6 @@
 package couserec.rest.service;
 
-import couserec.rest.entity.Course;
-import couserec.rest.entity.GroupCourse;
+import couserec.rest.entity.groupCourse.GroupCourse;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
