@@ -24,8 +24,8 @@ LabMapper INSTANCE = Mappers.getMapper(LabMapper.class);
     CourseDTO getCourseDto(Course course);
     List<CourseDTO> getCourseDto(List<Course> courses);
     //Student
-    FinishedCourseDTO getFinishedCourseDto(FinishedCourse finishedCourse);
-    List<FinishedCourseDTO> getFinishedCourseDto(List<FinishedCourse> finishedCourses);
+    FinishedGroupCourseDTO getFinishedGroupCourseDto(FinishedGroupCourse finishedGroupCourse);
+    List<FinishedGroupCourseDTO> getFinishedGroupCourseDto(List<FinishedGroupCourse> finishedGroupCours);
 
     GroupCourseDTO getGroupCourseDto(GroupCourse groupCourse);
     List<GroupCourseDTO> getGroupCourseDto(List<GroupCourse> groupCourses);

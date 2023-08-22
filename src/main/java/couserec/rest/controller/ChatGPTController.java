@@ -3,14 +3,13 @@ package couserec.rest.controller;
 import couserec.rest.entity.ChatGPT.dto.ChatGPTRequest;
 import couserec.rest.entity.ChatGPT.dto.ChatGPTResponse;
 import couserec.rest.entity.Course;
-import couserec.rest.entity.FinishedCourse;
-import couserec.rest.service.FinishedCourseService;
+import couserec.rest.entity.FinishedGroupCourse;
+import couserec.rest.service.FinishedGroupCourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
@@ -30,18 +29,18 @@ public class ChatGPTController {
     @Autowired
     private RestTemplate template;
     @Autowired
-    private FinishedCourseService finishedCourseService;
+    private FinishedGroupCourseService finishedGroupCourseService;
 
     @GetMapping("/chat")
     public ResponseEntity<Map<String, Object>> chat() {
 
-        List<FinishedCourse> finishedCourses = finishedCourseService.getStudentFinishedCourse();
+        List<FinishedGroupCourse> finishedGroupCours = finishedGroupCourseService.getFinishedGroupCourse();
 
         StringBuilder promptBuilder = new StringBuilder("If I have finished these subjects:");
         List<String> finishedCourseNames = new ArrayList<>();
 
-        for (FinishedCourse finishedCourse : finishedCourses) {
-            for (Course course : finishedCourse.getCourses()) {
+        for (FinishedGroupCourse finishedGroupCourse : finishedGroupCours) {
+            for (Course course : finishedGroupCourse.getCourses()) {
                 promptBuilder.append(" ").append(course.getName()).append(",");
                 finishedCourseNames.add(course.getName());
             }

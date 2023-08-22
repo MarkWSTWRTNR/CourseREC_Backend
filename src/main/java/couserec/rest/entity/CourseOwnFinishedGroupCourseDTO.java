@@ -9,11 +9,14 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class FinishedCourseOwnCourseDTO {
+public class CourseOwnFinishedGroupCourseDTO {
     int id;
-    String courseId;
     String name;
+    String year;
+    String semester;
     int credit;
-    String gradingtype;
-    String description;
+    String grade;
+    double gpa;
+    double gpax;
+    double majorgpax;
 }

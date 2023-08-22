@@ -21,7 +21,7 @@ public class CourseDTO {
     List<CourseDTO> prerequisite;
     @Builder.Default
     List<CourseOwnGroupCourseDTO> groupCourses = new ArrayList<>();
-    List<CourseOwnFinishedCourseDTO> finishedCourses;
+    List<CourseOwnFinishedGroupCourseDTO> finishedGroupCourse;
     @Builder.Default
     List<CourseOwnStandardStudyPlanDTO> standardStudyPlans = new ArrayList<>();
     List<CommentDTO> comments;

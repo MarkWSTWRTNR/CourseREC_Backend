@@ -11,7 +11,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class FinishedCourseDTO {
+public class FinishedGroupCourseDTO {
     int id;
     String name;
     String year;
@@ -22,5 +22,5 @@ public class FinishedCourseDTO {
     double gpax;
     double majorgpax;
     @Builder.Default
-    List<FinishedCourseOwnCourseDTO> courses =new ArrayList<>();
+    List<FinishedGroupCourseOwnCourseDTO> courses =new ArrayList<>();
 }
