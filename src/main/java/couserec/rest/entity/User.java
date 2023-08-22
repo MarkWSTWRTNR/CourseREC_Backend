@@ -1,9 +1,6 @@
 package couserec.rest.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Data
@@ -20,6 +17,7 @@ public class User {
 
     private String username;
     private String password;
-
+    @Enumerated(EnumType.STRING)
+    private UserRole role;
 }
 

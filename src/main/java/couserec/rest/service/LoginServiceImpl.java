@@ -1,5 +1,7 @@
 package couserec.rest.service;
 
+import couserec.rest.entity.User;
+import couserec.rest.entity.UserRole;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
@@ -57,6 +59,14 @@ public class LoginServiceImpl implements LoginService {
             return response.getBody();
         } else {
             throw new RuntimeException("Failed to fetch user information.");
+        }
+    }
+@Override
+    public void assignUserRole(User user, String username) {
+        if ("wongsathorn_w".equals(username)) {
+            user.setRole(UserRole.ROLE_ADMIN);
+        } else {
+            user.setRole(UserRole.ROLE_STUDENT);
         }
     }
 }
