@@ -395,7 +395,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
         StandardStudyPlan Y1S1DII = standardStudyPlanRepository.save(StandardStudyPlan.builder().yearAndSemester("Year1 Semester1").credit(75).build());
 
         FinishedGroupCourse Y1S1 = finishedGroupCourseRepository.save(FinishedGroupCourse.builder().year("1").semester("1").build());
-
+        FinishedGroupCourse Y1S2 = finishedGroupCourseRepository.save(FinishedGroupCourse.builder().year("1").semester("2").build());
         User pon = userRepository.save(User.builder().username("phonkrit_c").password("632115031").role(UserRole.ROLE_STUDENT).build());
         User mark = userRepository.save(User.builder().username("wongsathorn_w").password("632115035").role(UserRole.ROLE_ADMIN).build());
         pon.getFinishedGroupCourses().add(Y1S1);
@@ -406,6 +406,11 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
         se211.getFinishedGroupCourses().add(Y1S1);
         Y1S1.getCourses().add(se212);
         se212.getFinishedGroupCourses().add(Y1S1);
+
+        mark.getFinishedGroupCourses().add(Y1S2);
+        Y1S2.getUsers().add(mark);
+        Y1S2.getCourses().add(se234);
+        se234.getFinishedGroupCourses().add(Y1S2);
 
         Camt.getPrograms().add(SE);
         SE.setFaculty(Camt);
