@@ -29,5 +29,37 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
     }
+    @PostMapping("/{username}/completedCourses")
+    public ResponseEntity<?> saveCompletedCourseForUser(@PathVariable String username, @RequestBody FinishedGroupCourse finishedGroupCourse) {
+        FinishedGroupCourse savedCourse = userService.saveCompletedCourse(username, finishedGroupCourse);
+        if (savedCourse != null) {
+            FinishedGroupCourseDTO savedCourseDTO = LabMapper.INSTANCE.getFinishedGroupCourseDto(savedCourse);
+            return ResponseEntity.ok(savedCourseDTO);
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @PutMapping("/{username}/completedCourses/{groupId}")
+    public ResponseEntity<?> updateCompletedCourseForUser(@PathVariable String username, @PathVariable int groupId, @RequestBody FinishedGroupCourse finishedGroupCourse) {
+        FinishedGroupCourse updatedCourse = userService.updateCompletedCourse(username, groupId, finishedGroupCourse);
+        if (updatedCourse != null) {
+            FinishedGroupCourseDTO updatedCourseDTO = LabMapper.INSTANCE.getFinishedGroupCourseDto(updatedCourse);
+            return ResponseEntity.ok(updatedCourseDTO);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @DeleteMapping("/{username}/completedCourses/{groupId}")
+    public ResponseEntity<?> deleteCompletedCourseForUser(@PathVariable String username, @PathVariable int groupId) {
+        String result = userService.deleteCompletedCourse(username, groupId);
+        if (result != null) {
+            return ResponseEntity.ok(result);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 
 }
