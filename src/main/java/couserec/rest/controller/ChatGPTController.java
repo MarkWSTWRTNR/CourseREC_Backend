@@ -5,12 +5,11 @@ import couserec.rest.entity.ChatGPT.dto.ChatGPTResponse;
 import couserec.rest.entity.Course;
 import couserec.rest.entity.FinishedGroupCourse;
 import couserec.rest.service.FinishedGroupCourseService;
+import couserec.rest.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
@@ -21,6 +20,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/bot")
 public class ChatGPTController {
+
     @Value("${openai.model}")
     private String model;
     @Value("${openai.api.url}")
@@ -30,16 +30,18 @@ public class ChatGPTController {
     private RestTemplate template;
     @Autowired
     private FinishedGroupCourseService finishedGroupCourseService;
+    @Autowired
+    private UserService userService;
 
-    @GetMapping("/chat")
-    public ResponseEntity<Map<String, Object>> chat() {
+    @GetMapping("/{username}/chat")
+    public ResponseEntity<Map<String, Object>> chat(@PathVariable String username) {
 
-        List<FinishedGroupCourse> finishedGroupCours = finishedGroupCourseService.getFinishedGroupCourse();
+        List<FinishedGroupCourse> finishedGroupCourses = userService.getCompletedCoursesByUsername(username);
 
         StringBuilder promptBuilder = new StringBuilder("If I have finished these subjects:");
         List<String> finishedCourseNames = new ArrayList<>();
 
-        for (FinishedGroupCourse finishedGroupCourse : finishedGroupCours) {
+        for (FinishedGroupCourse finishedGroupCourse : finishedGroupCourses) {
             for (Course course : finishedGroupCourse.getCourses()) {
                 promptBuilder.append(" ").append(course.getName()).append(",");
                 finishedCourseNames.add(course.getName());
@@ -60,4 +62,5 @@ public class ChatGPTController {
         return ResponseEntity.ok(responseMap);
     }
 }
+
 
