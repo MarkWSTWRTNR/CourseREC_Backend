@@ -29,4 +29,7 @@ public class FinishedGroupCourse {
     @ManyToMany
             @Builder.Default
     List<Course> courses =new ArrayList<>();
+    @ManyToMany
+    @Builder.Default
+    List<User> users = new ArrayList<>();
 }

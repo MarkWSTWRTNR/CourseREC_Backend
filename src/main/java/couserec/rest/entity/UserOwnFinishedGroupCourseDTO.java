@@ -5,13 +5,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.List;
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class FinishedGroupCourseDTO {
+public class UserOwnFinishedGroupCourseDTO {
     int id;
     String name;
     String year;
@@ -21,8 +19,4 @@ public class FinishedGroupCourseDTO {
     double gpa;
     double gpax;
     double majorgpax;
-    @Builder.Default
-    List<FinishedGroupCourseOwnCourseDTO> courses =new ArrayList<>();
-    @Builder.Default
-    List<FinishedGroupCourseOwnUserDTO> users = new ArrayList<>();
 }

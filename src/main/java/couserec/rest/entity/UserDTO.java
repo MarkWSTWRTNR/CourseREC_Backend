@@ -5,17 +5,12 @@ import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
-
 @Data
 @Builder
-@Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
+public class UserDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @EqualsAndHashCode.Exclude
     private Long id;
 
     private String username;
@@ -23,8 +18,6 @@ public class User {
     @Enumerated(EnumType.STRING)
     private UserRole role;
 
-    @ManyToMany
     @Builder.Default
-    List<FinishedGroupCourse> finishedGroupCourses = new ArrayList<>();
+    List<UserOwnFinishedGroupCourseDTO> finishedGroupCourses = new ArrayList<>();
 }
-
