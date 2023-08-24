@@ -12,5 +12,6 @@ import lombok.NoArgsConstructor;
 public class UserOwnCommentDTO {
     int id;
     String comment;
+    int ratingScore;
     CourseDTO course;
 }

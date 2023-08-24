@@ -10,6 +10,7 @@ import lombok.*;
 public class CommentDTO {
     int id;
     String comment;
+    int ratingScore;
     CommentOwnCourseDTO course;
     CommentOwnUserDTO user;
 }

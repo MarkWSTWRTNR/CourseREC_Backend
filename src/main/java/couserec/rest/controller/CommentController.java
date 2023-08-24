@@ -16,11 +16,6 @@ public class CommentController {
     @Autowired
     CommentService commentService;
 
-//    @PostMapping("/addComment")
-//    public ResponseEntity<?> addComment(@RequestBody Comment comment) {
-//        Comment addComment = commentService.saveComment(comment);
-//        return ResponseEntity.ok(LabMapper.INSTANCE.getCommentDto(addComment));
-//    }
     @GetMapping("/comments")
     public ResponseEntity<?> getComments(){
         List<Comment> getComment = commentService.getComments();
