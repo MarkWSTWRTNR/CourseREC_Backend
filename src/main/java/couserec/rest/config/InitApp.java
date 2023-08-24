@@ -407,11 +407,6 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
         Y1S1.getCourses().add(se212);
         se212.getFinishedGroupCourses().add(Y1S1);
 
-        mark.getFinishedGroupCourses().add(Y1S2);
-        Y1S2.getUsers().add(mark);
-        Y1S2.getCourses().add(se234);
-        se234.getFinishedGroupCourses().add(Y1S2);
-
         Camt.getPrograms().add(SE);
         SE.setFaculty(Camt);
         Camt.getPrograms().add(DII);
