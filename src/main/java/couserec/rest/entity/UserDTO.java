@@ -17,7 +17,8 @@ public class UserDTO {
     private String password;
     @Enumerated(EnumType.STRING)
     private UserRole role;
-
+    @Builder.Default
+    List<UserOwnCommentDTO> comments = new ArrayList<>();
     @Builder.Default
     List<UserOwnFinishedGroupCourseDTO> finishedGroupCourses = new ArrayList<>();
 }

@@ -1,8 +1,9 @@
 package couserec.rest.controller;
 
+import couserec.rest.entity.Comment;
+import couserec.rest.entity.CommentDTO;
 import couserec.rest.entity.FinishedGroupCourse;
 import couserec.rest.entity.FinishedGroupCourseDTO;
-import couserec.rest.entity.User;
 import couserec.rest.service.UserService;
 import couserec.rest.util.LabMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/users") // Assuming a base endpoint for users
@@ -29,6 +31,7 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
     }
+
     @PostMapping("/{username}/completedCourses")
     public ResponseEntity<?> saveCompletedCourseForUser(@PathVariable String username, @RequestBody FinishedGroupCourse finishedGroupCourse) {
         FinishedGroupCourse savedCourse = userService.saveCompletedCourse(username, finishedGroupCourse);
@@ -61,5 +64,31 @@ public class UserController {
         }
     }
 
+    @PostMapping("/{username}/comments")
+    public ResponseEntity<CommentDTO> saveCommentForUser(
+            @PathVariable String username,
+            @RequestBody Comment comment) {
+
+        Comment savedComment = userService.saveCommentForUser(username, comment);
+
+        if (savedComment != null) {
+            CommentDTO savedCommentDTO = LabMapper.INSTANCE.getCommentDto(savedComment);
+            return ResponseEntity.ok(savedCommentDTO);
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @DeleteMapping("/{username}/comments/{id}")
+    public ResponseEntity<String> deleteCommentForUser(
+            @PathVariable String username,
+            @PathVariable int id) {
+        String result = userService.deleteCommentForUser(username, id);
+        if (result != null) {
+            return ResponseEntity.ok(result);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
 }

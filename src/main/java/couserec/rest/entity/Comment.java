@@ -17,4 +17,6 @@ public class Comment {
 
     @ManyToOne
     Course course;
+    @ManyToOne
+    User user;
 }
