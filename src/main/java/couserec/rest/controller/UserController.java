@@ -27,9 +27,8 @@ public class UserController {
         if (completedCourses != null && !completedCourses.isEmpty()) {
             List<FinishedGroupCourseDTO> completedCoursesDTO = LabMapper.INSTANCE.getFinishedGroupCourseDto(completedCourses);
             return ResponseEntity.ok(completedCoursesDTO);
-        } else {
-            return ResponseEntity.notFound().build();
         }
+        return null;
     }
 
     @PostMapping("/{username}/completedCourses")

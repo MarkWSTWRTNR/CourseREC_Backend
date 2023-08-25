@@ -22,8 +22,6 @@ public class UserServiceImpl implements UserService {
     private FinishedGroupCourseService finishedGroupCourseService;
     @Autowired
     private CommentService commentService;
-    @Autowired
-    private CourseDao courseDao;
     @Override
     public List<FinishedGroupCourse> getCompletedCoursesByUsername(String username) {
         User user = userRepository.findByUsername(username).orElse(null);
