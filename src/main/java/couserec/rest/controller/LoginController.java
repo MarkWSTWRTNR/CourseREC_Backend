@@ -1,7 +1,6 @@
 package couserec.rest.controller;
 
 import couserec.rest.entity.User;
-import couserec.rest.entity.UserRole;
 import couserec.rest.repository.UserRepository;
 import couserec.rest.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,12 +51,11 @@ public class LoginController {
                 responseMap.put("role", user.getRole());
                 return ResponseEntity.ok(responseMap);
             } else {
-                // User doesn't exist, create a new user and assign role
+
                 User newUser = new User();
                 newUser.setUsername(cmuitaccountName);
                 newUser.setPassword(studentId);
 
-                // Assign role based on username using the service method
                 loginService.assignUserRole(newUser, cmuitaccountName);
 
                 userRepository.save(newUser);

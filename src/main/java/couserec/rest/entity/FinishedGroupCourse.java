@@ -20,7 +20,7 @@ public class FinishedGroupCourse {
     String name;
     String year;
     String semester;
-    int credit;
+    int credit; // accumulate credit
     String grade;
     double gpa;
     double gpax;
