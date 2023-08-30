@@ -1,5 +1,6 @@
 package couserec.rest.service;
 
+import couserec.rest.dao.CourseDao;
 import couserec.rest.dao.UserDao;
 import couserec.rest.entity.*;
 import couserec.rest.repository.CourseRepository;
@@ -23,7 +24,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private CommentService commentService;
     @Autowired
-    private CourseRepository courseRepository;
+    private CourseDao courseDao;
     @Override
     public List<FinishedGroupCourse> getCompletedCoursesByUsername(String username) {
         User user = userDao.getUsername(username).orElse(null);
@@ -121,7 +122,7 @@ public class UserServiceImpl implements UserService {
         User user = userDao.getUsername(username)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
 
-        Course course = courseRepository.getCourseByCourseId(courseId);
+        Course course = courseDao.getCourseByCourseId(courseId);
         if (course == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Course not found");
         }
@@ -150,7 +151,7 @@ public class UserServiceImpl implements UserService {
         User user = userDao.getUsername(username)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
 
-        Course course = courseRepository.getCourseByCourseId(courseId);
+        Course course = courseDao.getCourseByCourseId(courseId);
         if (course == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Course not found");
         }
