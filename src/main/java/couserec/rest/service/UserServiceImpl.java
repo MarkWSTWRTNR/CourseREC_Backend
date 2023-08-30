@@ -1,15 +1,14 @@
 package couserec.rest.service;
 
-import couserec.rest.dao.CourseDao;
-import couserec.rest.entity.Comment;
-import couserec.rest.entity.Course;
-import couserec.rest.entity.FinishedGroupCourse;
-import couserec.rest.entity.User;
+import couserec.rest.entity.*;
+import couserec.rest.repository.CourseRepository;
 import couserec.rest.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,6 +21,8 @@ public class UserServiceImpl implements UserService {
     private FinishedGroupCourseService finishedGroupCourseService;
     @Autowired
     private CommentService commentService;
+    @Autowired
+    private CourseRepository courseRepository;
     @Override
     public List<FinishedGroupCourse> getCompletedCoursesByUsername(String username) {
         User user = userRepository.findByUsername(username).orElse(null);
@@ -111,5 +112,32 @@ public class UserServiceImpl implements UserService {
             }
         }
         return "User not found";
+    }
+
+    @Transactional
+    @Override
+    public void addCourseGrade(String username, String courseId, Grade grade) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+
+        Course course = courseRepository.getCourseByCourseId(courseId);
+        if (course == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Course not found");
+        }
+
+        user.addCourseGrade(course, grade);
+    }
+
+    public void removeCourseGrade(String username, String courseId) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+
+        Course course = courseRepository.getCourseByCourseId(courseId);
+        if (course == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Course not found");
+        }
+
+        user.removeCourseGrade(course);
+        userRepository.save(user);
     }
 }

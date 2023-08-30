@@ -9,10 +9,5 @@ import java.util.List;
 public interface CourseRepository extends JpaRepository<Course, Integer> {
 
     Course getCourseByCourseId(String courseId);
-
-//    Course findByName(Course name);
-//
-//    Course findByDescription(Course description);
-
     List<Course> findAll();
 }

@@ -1,11 +1,9 @@
 package couserec.rest.controller;
 
-import couserec.rest.entity.Comment;
-import couserec.rest.entity.CommentDTO;
-import couserec.rest.entity.FinishedGroupCourse;
-import couserec.rest.entity.FinishedGroupCourseDTO;
+import couserec.rest.entity.*;
 import couserec.rest.service.UserService;
 import couserec.rest.util.LabMapper;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -89,5 +87,19 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
     }
+    @PostMapping("/{username}/courses/{courseId}/setGrade")
+    public ResponseEntity<String> setGradeForCourse(
+            @PathVariable String username,
+            @PathVariable String courseId,
+            @RequestBody GradeRequestBody gradeRequestBody) {
 
+        userService.addCourseGrade(username, courseId, gradeRequestBody.getGrade());
+        return ResponseEntity.ok("Grade set successfully.");
+    }
+
+
+    @Data // Create a simple class to wrap the grade in the request body
+    private static class GradeRequestBody {
+        private Grade grade;
+    }
 }

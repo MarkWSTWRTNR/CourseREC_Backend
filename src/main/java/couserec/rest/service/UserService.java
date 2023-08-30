@@ -2,6 +2,7 @@ package couserec.rest.service;
 
 import couserec.rest.entity.Comment;
 import couserec.rest.entity.FinishedGroupCourse;
+import couserec.rest.entity.Grade;
 
 import java.util.List;
 
@@ -19,4 +20,6 @@ public interface UserService {
 
 
     String deleteCommentForUser(String username, int id);
+
+    void addCourseGrade(String username, String courseId, Grade grade);
 }
