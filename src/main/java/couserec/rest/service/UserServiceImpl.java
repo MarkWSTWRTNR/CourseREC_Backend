@@ -3,8 +3,6 @@ package couserec.rest.service;
 import couserec.rest.dao.CourseDao;
 import couserec.rest.dao.UserDao;
 import couserec.rest.entity.*;
-import couserec.rest.repository.CourseRepository;
-import couserec.rest.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -158,6 +156,29 @@ public class UserServiceImpl implements UserService {
 
         user.getUserCourseGrades().removeIf(userCourseGrade -> userCourseGrade.getCourse().equals(course));
 
-        // Save the user entity at the appropriate place in your service logic
     }
+    @Override
+    public double calculateGPA(String username) {
+        User user = userDao.getUsername(username).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+
+        List<UserCourseGrade> courseGrades = user.getUserCourseGrades();
+
+        double totalGradePoints = 0.0;
+        int totalCredits = 0;
+
+        for (UserCourseGrade userCourseGrade : courseGrades) {
+            double gradeValue = userCourseGrade.getGrade().getValue();
+            int courseCredits = userCourseGrade.getCourse().getCredit();
+
+            totalGradePoints += gradeValue * courseCredits;
+            totalCredits += courseCredits;
+        }
+
+        if (totalCredits == 0) {
+            return 0.0; // To avoid division by zero
+        }
+
+        return totalGradePoints / totalCredits;
+    }
+
 }

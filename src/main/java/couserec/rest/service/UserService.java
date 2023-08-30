@@ -26,4 +26,6 @@ public interface UserService {
 
     @Transactional
     void removeCourseGrade(String username, String courseId);
+
+    double calculateGPA(String username);
 }

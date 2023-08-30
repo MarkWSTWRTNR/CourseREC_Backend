@@ -63,7 +63,7 @@ public class UserController {
     }
 
     @PostMapping("/{username}/comments")
-    public ResponseEntity<CommentDTO> saveCommentForUser(
+    public ResponseEntity<?> saveCommentForUser(
             @PathVariable String username,
             @RequestBody Comment comment) {
 
@@ -78,7 +78,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{username}/comments/{id}")
-    public ResponseEntity<String> deleteCommentForUser(
+    public ResponseEntity<?> deleteCommentForUser(
             @PathVariable String username,
             @PathVariable int id) {
         String result = userService.deleteCommentForUser(username, id);
@@ -89,7 +89,7 @@ public class UserController {
         }
     }
     @PostMapping("/{username}/courses/{courseId}/setGrade")
-    public ResponseEntity<String> setGradeForCourse(
+    public ResponseEntity<?> setGradeForCourse(
             @PathVariable String username,
             @PathVariable String courseId,
             @RequestBody GradeRequestBody gradeRequestBody) {
@@ -105,7 +105,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{username}/courses/{courseId}/removeGrade")
-    public ResponseEntity<String> removeCourseGrade(
+    public ResponseEntity<?> removeCourseGrade(
             @PathVariable String username,
             @PathVariable String courseId) {
 
@@ -116,6 +116,11 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("An error occurred while removing the course grade: " + ex.getMessage());
         }
+    }
+    @GetMapping("/{username}/gpa")
+    public ResponseEntity<?> getUserGPA(@PathVariable String username) {
+        double gpa = userService.calculateGPA(username);
+        return ResponseEntity.ok(gpa);
     }
 
 }
