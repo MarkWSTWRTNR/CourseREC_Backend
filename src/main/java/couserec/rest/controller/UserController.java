@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
@@ -117,10 +118,15 @@ public class UserController {
                     .body("An error occurred while removing the course grade: " + ex.getMessage());
         }
     }
-    @GetMapping("/{username}/gpa")
-    public ResponseEntity<?> getUserGPA(@PathVariable String username) {
-        double gpa = userService.calculateGPA(username);
-        return ResponseEntity.ok(gpa);
+    @GetMapping("/{username}/calculateGPAAndCredit")
+    public ResponseEntity<Map<String, Double>> calculateGPAAndCreditForUser(@PathVariable String username) {
+        Map<String, Double> result = userService.calculateGPAAndCredit(username);
+        if (!result.isEmpty()) {
+            return ResponseEntity.ok(result);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
+
 
 }

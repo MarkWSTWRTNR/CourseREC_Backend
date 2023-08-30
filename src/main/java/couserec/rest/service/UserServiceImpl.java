@@ -9,8 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -158,27 +157,35 @@ public class UserServiceImpl implements UserService {
 
     }
     @Override
-    public double calculateGPA(String username) {
+    public Map<String, Double> calculateGPAAndCredit(String username) {
         User user = userDao.getUsername(username).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
 
-        List<UserCourseGrade> courseGrades = user.getUserCourseGrades();
+        List<UserCourseGrade> userCourseGrades = user.getUserCourseGrades();
 
-        double totalGradePoints = 0.0;
-        int totalCredits = 0;
+        double weightedGradeSum = 0.0;
+        int totalCreditHours = 0;
 
-        for (UserCourseGrade userCourseGrade : courseGrades) {
+        for (UserCourseGrade userCourseGrade : userCourseGrades) {
+            Course course = userCourseGrade.getCourse();
+            int creditHours = course.getCredit();
             double gradeValue = userCourseGrade.getGrade().getValue();
-            int courseCredits = userCourseGrade.getCourse().getCredit();
 
-            totalGradePoints += gradeValue * courseCredits;
-            totalCredits += courseCredits;
+            weightedGradeSum += gradeValue * creditHours;
+            totalCreditHours += creditHours;
         }
 
-        if (totalCredits == 0) {
-            return 0.0; // To avoid division by zero
+        if (totalCreditHours == 0) {
+            // Return an appropriate value when no credit hours are found (e.g., user has no grades)
+            return Collections.emptyMap();
         }
 
-        return totalGradePoints / totalCredits;
+        double gpa = weightedGradeSum / totalCreditHours;
+
+        Map<String, Double> result = new HashMap<>();
+        result.put("gpa", gpa);
+        result.put("earnedCredit", (double) totalCreditHours);
+
+        return result;
     }
 
 }

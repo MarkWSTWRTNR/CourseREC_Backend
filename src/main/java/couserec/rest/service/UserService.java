@@ -6,6 +6,7 @@ import couserec.rest.entity.Grade;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 public interface UserService {
 
@@ -27,5 +28,5 @@ public interface UserService {
     @Transactional
     void removeCourseGrade(String username, String courseId);
 
-    double calculateGPA(String username);
+    Map<String, Double> calculateGPAAndCredit(String username);
 }
