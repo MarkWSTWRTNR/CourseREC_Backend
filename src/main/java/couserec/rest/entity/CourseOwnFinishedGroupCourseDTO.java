@@ -14,9 +14,5 @@ public class CourseOwnFinishedGroupCourseDTO {
     String name;
     String year;
     String semester;
-    int credit;
-    String grade;
-    double gpa;
-    double gpax;
-    double majorgpax;
+
 }

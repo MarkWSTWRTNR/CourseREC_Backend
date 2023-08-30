@@ -47,5 +47,6 @@ public class Course {
     List<Comment> comments;
 
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<UserCourseGrade> userCourseGrades = new ArrayList<>();
+    @Builder.Default
+    List<UserCourseGrade> userCourseGrades = new ArrayList<>();
 }

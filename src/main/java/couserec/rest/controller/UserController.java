@@ -5,6 +5,7 @@ import couserec.rest.service.UserService;
 import couserec.rest.util.LabMapper;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -102,4 +103,19 @@ public class UserController {
     private static class GradeRequestBody {
         private Grade grade;
     }
+
+    @DeleteMapping("/{username}/courses/{courseId}/removeGrade")
+    public ResponseEntity<String> removeCourseGrade(
+            @PathVariable String username,
+            @PathVariable String courseId) {
+
+        try {
+            userService.removeCourseGrade(username, courseId);
+            return ResponseEntity.ok("Course grade removed successfully.");
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("An error occurred while removing the course grade: " + ex.getMessage());
+        }
+    }
+
 }

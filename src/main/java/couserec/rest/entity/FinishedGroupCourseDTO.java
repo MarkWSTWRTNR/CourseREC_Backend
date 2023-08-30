@@ -16,11 +16,7 @@ public class FinishedGroupCourseDTO {
     String name;
     String year;
     String semester;
-    int credit;
-    String grade;
-    double gpa;
-    double gpax;
-    double majorgpax;
+
     @Builder.Default
     List<FinishedGroupCourseOwnCourseDTO> courses =new ArrayList<>();
     @Builder.Default

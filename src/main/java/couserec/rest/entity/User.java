@@ -15,10 +15,10 @@ import java.util.Map;
 @AllArgsConstructor
 public class User {
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "users")
     @Builder.Default
     List<FinishedGroupCourse> finishedGroupCourses = new ArrayList<>();
-    @OneToMany
+    @OneToMany(mappedBy = "user")
     @Builder.Default
     List<Comment> comments = new ArrayList<>();
     @Id
@@ -31,34 +31,7 @@ public class User {
     private UserRole role;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
     private List<UserCourseGrade> userCourseGrades = new ArrayList<>();
-    public void addCourseGrade(Course course, Grade newGrade) {
-        // Find an existing grade for the same course
-        UserCourseGrade existingGrade = userCourseGrades.stream()
-                .filter(grade -> grade.getCourse().equals(course))
-                .findFirst()
-                .orElse(null);
-
-        if (existingGrade != null) {
-            // Update the existing grade with the new value
-            existingGrade.setGrade(newGrade);
-        } else {
-            // Create a new grade instance and associate it with the user and course
-            UserCourseGrade userCourseGrade = new UserCourseGrade();
-            userCourseGrade.setUser(this);
-            userCourseGrade.setCourse(course);
-            userCourseGrade.setGrade(newGrade);
-
-            userCourseGrades.add(userCourseGrade);
-            course.getUserCourseGrades().add(userCourseGrade);
-        }
-    }
-
-
-    public void removeCourseGrade(Course course) {
-        userCourseGrades.removeIf(userCourseGrade -> userCourseGrade.getCourse().equals(course));
-        course.getUserCourseGrades().removeIf(userCourseGrade -> userCourseGrade.getUser().equals(this));
-    }
-
 }
 
