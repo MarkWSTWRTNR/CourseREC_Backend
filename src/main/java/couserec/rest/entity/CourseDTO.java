@@ -25,5 +25,7 @@ public class CourseDTO {
     @Builder.Default
     List<CourseOwnStandardStudyPlanDTO> standardStudyPlans = new ArrayList<>();
     List<CourseOwnCommentDTO> comments;
+    @Builder.Default
+    List<CourseOwnUserCourseGradeDTO> userCourseGrades = new ArrayList<>();
 
 }
