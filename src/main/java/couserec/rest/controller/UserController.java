@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Map;
@@ -90,20 +91,22 @@ public class UserController {
         }
     }
     @PostMapping("/{username}/courses/{courseId}/setGrade")
-    public ResponseEntity<?> setGradeForCourse(
+    public ResponseEntity<?> addCourseGrade(
             @PathVariable String username,
             @PathVariable String courseId,
-            @RequestBody GradeRequestBody gradeRequestBody) {
+            @RequestBody UserCourseGrade grade) {
 
-        userService.addCourseGrade(username, courseId, gradeRequestBody.getGrade());
-        return ResponseEntity.ok("Grade set successfully.");
+        try {
+            UserCourseGrade userCourseGrade = userService.addCourseGrade(username, courseId, grade.getGrade());
+            UserCourseGradeDTO userCourseGradeDTO = LabMapper.INSTANCE.getUserCourseGradeDTO(userCourseGrade);
+            return ResponseEntity.ok(userCourseGradeDTO);
+        } catch (ResponseStatusException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
 
-    @Data // Create a simple class to wrap the grade in the request body
-    private static class GradeRequestBody {
-        private Grade grade;
-    }
+
 
     @DeleteMapping("/{username}/courses/{courseId}/removeGrade")
     public ResponseEntity<?> removeCourseGrade(

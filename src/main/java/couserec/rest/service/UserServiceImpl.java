@@ -115,7 +115,7 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
-    public void addCourseGrade(String username, String courseId, Grade grade) {
+    public UserCourseGrade addCourseGrade(String username, String courseId, Grade grade) {
         User user = userDao.getUsername(username)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
 
@@ -131,6 +131,7 @@ public class UserServiceImpl implements UserService {
 
         if (existingGrade != null) {
             existingGrade.setGrade(grade);
+            return existingGrade; // Return the existing grade that was updated
         } else {
             UserCourseGrade userCourseGrade = new UserCourseGrade();
             userCourseGrade.setUser(user);
@@ -139,6 +140,8 @@ public class UserServiceImpl implements UserService {
 
             user.getUserCourseGrades().add(userCourseGrade);
             course.getUserCourseGrades().add(userCourseGrade);
+
+            return userCourseGrade; // Return the newly added grade
         }
     }
 
