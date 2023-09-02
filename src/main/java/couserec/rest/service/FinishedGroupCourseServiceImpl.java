@@ -76,13 +76,13 @@ public class FinishedGroupCourseServiceImpl implements FinishedGroupCourseServic
     }
 
     @Override
-    public List<Map<String, Double>> calculateGroupGPAAndCreditForAllGroups() {
+    public Map<Integer, Map<String, Double>> calculateGroupGPAAndCreditForAllGroups() {
         List<FinishedGroupCourse> finishedGroupCourses = finishedGroupCourseDao.getFinishedGroupCourse();
-        List<Map<String, Double>> results = new ArrayList<>();
+        Map<Integer, Map<String, Double>> results = new HashMap<>();
 
         for (FinishedGroupCourse groupCourse : finishedGroupCourses) {
             Map<String, Double> result = calculateGroupGPAAndCredit(groupCourse);
-            results.add(result);
+            results.put(groupCourse.getId(), result);
         }
 
         return results;

@@ -41,8 +41,9 @@ public class FinishedGroupCourseController {
         return ResponseEntity.ok(deleteFinishedGroupCourse);
     }
     @GetMapping("/calculateAllGroupGPAAndCredit")
-    public ResponseEntity<List<Map<String, Double>>> calculateAllGroupGPAAndCredit() {
-        List<Map<String, Double>> results = finishedGroupCourseService.calculateGroupGPAAndCreditForAllGroups();
+    public ResponseEntity<Map<Integer, Map<String, Double>>> calculateAllGroupGPAAndCredit() {
+        Map<Integer, Map<String, Double>> results = finishedGroupCourseService.calculateGroupGPAAndCreditForAllGroups();
         return ResponseEntity.ok(results);
     }
+
 }

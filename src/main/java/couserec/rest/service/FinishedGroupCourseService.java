@@ -19,5 +19,5 @@ public interface FinishedGroupCourseService {
     String deleteFinishedGroupCourse(int id);
 
 
-    List<Map<String, Double>> calculateGroupGPAAndCreditForAllGroups();
+    Map<Integer, Map<String, Double>> calculateGroupGPAAndCreditForAllGroups();
 }
