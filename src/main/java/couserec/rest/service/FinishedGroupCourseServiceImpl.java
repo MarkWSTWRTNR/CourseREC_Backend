@@ -2,14 +2,16 @@ package couserec.rest.service;
 
 import couserec.rest.dao.CourseDao;
 import couserec.rest.dao.FinishedGroupCourseDao;
+import couserec.rest.dao.UserCourseGradeDao;
 import couserec.rest.entity.Course;
 import couserec.rest.entity.FinishedGroupCourse;
+import couserec.rest.entity.User;
+import couserec.rest.entity.UserCourseGrade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class FinishedGroupCourseServiceImpl implements FinishedGroupCourseService {
@@ -17,6 +19,8 @@ public class FinishedGroupCourseServiceImpl implements FinishedGroupCourseServic
     FinishedGroupCourseDao finishedGroupCourseDao;
     @Autowired
     CourseDao courseDao;
+    @Autowired
+    UserCourseGradeDao userCourseGradeDao;
     @Override
     @Transactional
     public FinishedGroupCourse saveFinishedGroupCourse(FinishedGroupCourse finishedGroupCourse){
@@ -69,5 +73,51 @@ public class FinishedGroupCourseServiceImpl implements FinishedGroupCourseServic
     @Override
     public String deleteFinishedGroupCourse(int id) {
         return finishedGroupCourseDao.deleteFinishedGroupCourse(id);
+    }
+
+    @Override
+    public List<Map<String, Double>> calculateGroupGPAAndCreditForAllGroups() {
+        List<FinishedGroupCourse> finishedGroupCourses = finishedGroupCourseDao.getFinishedGroupCourse();
+        List<Map<String, Double>> results = new ArrayList<>();
+
+        for (FinishedGroupCourse groupCourse : finishedGroupCourses) {
+            Map<String, Double> result = calculateGroupGPAAndCredit(groupCourse);
+            results.add(result);
+        }
+
+        return results;
+    }
+
+    public Map<String, Double> calculateGroupGPAAndCredit(FinishedGroupCourse finishedGroupCourse) {
+        List<Course> courses = finishedGroupCourse.getCourses();
+        List<User> users = finishedGroupCourse.getUsers();
+
+        double weightedGradeSum = 0.0;
+        int totalCreditHours = 0;
+
+        for (Course course : courses) {
+            for (User user : users) {
+                UserCourseGrade userCourseGrade = userCourseGradeDao.getByUserAndCourse(user, course);
+                if (userCourseGrade != null) {
+                    double courseGrade = userCourseGrade.getGrade().getValue();
+                    int creditHours = course.getCredit();
+                    weightedGradeSum += courseGrade * creditHours;
+                    totalCreditHours += creditHours;
+                }
+            }
+        }
+
+        if (totalCreditHours == 0) {
+            // Return an appropriate value when no credit hours are found (e.g., no courses in the group)
+            return Collections.emptyMap();
+        }
+
+        double groupGPA = weightedGradeSum / totalCreditHours;
+
+        Map<String, Double> result = new HashMap<>();
+        result.put("groupGPA", groupGPA);
+        result.put("groupEarnedCredit", (double) totalCreditHours);
+
+        return result;
     }
 }
