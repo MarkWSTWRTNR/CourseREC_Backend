@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CourseOwnFinishedGroupCourseDTO {
     int id;
-    String name;
     String year;
     String semester;
 

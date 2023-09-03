@@ -13,7 +13,6 @@ import java.util.List;
 @AllArgsConstructor
 public class FinishedGroupCourseDTO {
     int id;
-    String name;
     String year;
     String semester;
 
