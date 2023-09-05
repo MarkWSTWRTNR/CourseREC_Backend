@@ -59,17 +59,17 @@ public class FinishedGroupCourseServiceImpl implements FinishedGroupCourseServic
 
         return finishedGroupCourseDao.updateFinishedGroupCourse(existingFinishedGroupCourse);
     }
-    @Override
-    public FinishedGroupCourse removeCourseFromFinishedGroupCourse(FinishedGroupCourse finishedGroupCourse){
-        FinishedGroupCourse existingFinishedGroupCourse = finishedGroupCourseDao.getFinishedGroupCourseById(finishedGroupCourse.getId());
-        if (existingFinishedGroupCourse == null){
-            return null;
-        }
-        List<Course> courses = existingFinishedGroupCourse.getCourses();
-        courses.removeIf(course -> course.getCourseId().equals(finishedGroupCourse.getCourses().get(0).getCourseId()));
-        existingFinishedGroupCourse.setCourses(courses);
-        return finishedGroupCourseDao.updateFinishedGroupCourse(existingFinishedGroupCourse);
-    }
+//    @Override
+//    public FinishedGroupCourse removeCourseFromFinishedGroupCourse(FinishedGroupCourse finishedGroupCourse){
+//        FinishedGroupCourse existingFinishedGroupCourse = finishedGroupCourseDao.getFinishedGroupCourseById(finishedGroupCourse.getId());
+//        if (existingFinishedGroupCourse == null){
+//            return null;
+//        }
+//        List<Course> courses = existingFinishedGroupCourse.getCourses();
+//        courses.removeIf(course -> course.getCourseId().equals(finishedGroupCourse.getCourses().get(0).getCourseId()));
+//        existingFinishedGroupCourse.setCourses(courses);
+//        return finishedGroupCourseDao.updateFinishedGroupCourse(existingFinishedGroupCourse);
+//    }
     @Override
     public String deleteFinishedGroupCourse(int id) {
         return finishedGroupCourseDao.deleteFinishedGroupCourse(id);

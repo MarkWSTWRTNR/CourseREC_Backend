@@ -14,7 +14,7 @@ public interface FinishedGroupCourseService {
 
     FinishedGroupCourse updateFinishedGroupCourse(FinishedGroupCourse finishedGroupCourse);
 
-    FinishedGroupCourse removeCourseFromFinishedGroupCourse(FinishedGroupCourse finishedGroupCourse);
+//    FinishedGroupCourse removeCourseFromFinishedGroupCourse(FinishedGroupCourse finishedGroupCourse);
 
     String deleteFinishedGroupCourse(int id);
 

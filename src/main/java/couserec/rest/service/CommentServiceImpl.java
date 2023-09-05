@@ -35,10 +35,10 @@ public class CommentServiceImpl implements CommentService{
     public List<Comment> getComments(){
         return commentDao.getComment();
     }
-    @Override
-    public Comment getCommentById(int id){
-        return commentDao.getCommentById(id);
-    }
+//    @Override
+//    public Comment getCommentById(int id){
+//        return commentDao.getCommentById(id);
+//    }
     @Override
     public String deleteComment(int id){
         return commentDao.deleteComment(id);

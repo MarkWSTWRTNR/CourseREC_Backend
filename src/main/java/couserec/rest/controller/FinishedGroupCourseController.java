@@ -30,11 +30,11 @@ public class FinishedGroupCourseController {
         FinishedGroupCourse updateFinishedGroupCourse = finishedGroupCourseService.updateFinishedGroupCourse(finishedGroupCourse);
         return ResponseEntity.ok(LabMapper.INSTANCE.getFinishedGroupCourseDto(updateFinishedGroupCourse));
     }
-    @PutMapping("/removeCourseFromFinishedGroupCourse")
-    public ResponseEntity<?> removeFinishedGroupCourse(@RequestBody FinishedGroupCourse finishedGroupCourse){
-        FinishedGroupCourse removeCourseFormFinishedGroupCourse = finishedGroupCourseService.removeCourseFromFinishedGroupCourse(finishedGroupCourse);
-        return ResponseEntity.ok(LabMapper.INSTANCE.getFinishedGroupCourseDto(removeCourseFormFinishedGroupCourse));
-    }
+//    @PutMapping("/removeCourseFromFinishedGroupCourse")
+//    public ResponseEntity<?> removeFinishedGroupCourse(@RequestBody FinishedGroupCourse finishedGroupCourse){
+//        FinishedGroupCourse removeCourseFormFinishedGroupCourse = finishedGroupCourseService.removeCourseFromFinishedGroupCourse(finishedGroupCourse);
+//        return ResponseEntity.ok(LabMapper.INSTANCE.getFinishedGroupCourseDto(removeCourseFormFinishedGroupCourse));
+//    }
     @DeleteMapping("/deleteFinishedGroupCourse/{id}")
     public ResponseEntity<?> deleteFinishedGroupCourse(@PathVariable int id){
         String deleteFinishedGroupCourse = finishedGroupCourseService.deleteFinishedGroupCourse(id);
