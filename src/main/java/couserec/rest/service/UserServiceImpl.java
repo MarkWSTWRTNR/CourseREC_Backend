@@ -1,6 +1,7 @@
 package couserec.rest.service;
 
 import couserec.rest.dao.CourseDao;
+import couserec.rest.dao.FinishedGroupCourseDao;
 import couserec.rest.dao.UserCourseGradeDao;
 import couserec.rest.dao.UserDao;
 import couserec.rest.entity.*;
@@ -17,6 +18,8 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserDao userDao;
+    @Autowired
+    private FinishedGroupCourseDao finishedGroupCourseDao;
     @Autowired
     private FinishedGroupCourseService finishedGroupCourseService;
     @Autowired
@@ -180,18 +183,23 @@ public class UserServiceImpl implements UserService {
     public Map<String, Double> calculateGPAAndCredit(String username) {
         User user = userDao.getUsername(username).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
 
-        List<UserCourseGrade> userCourseGrades = user.getUserCourseGrades();
+        List<FinishedGroupCourse> finishedGroupCourses = finishedGroupCourseDao.getFinishedGroupCourse();
 
         double weightedGradeSum = 0.0;
         int totalCreditHours = 0;
 
-        for (UserCourseGrade userCourseGrade : userCourseGrades) {
-            Course course = userCourseGrade.getCourse();
-            int creditHours = course.getCredit();
-            double gradeValue = userCourseGrade.getGrade().getValue();
+        for (FinishedGroupCourse groupCourse : finishedGroupCourses) {
+            if (groupCourse.getUsers().contains(user)) {
+                Map<String, Double> groupResult = finishedGroupCourseService.calculateGroupGPAAndCredit(groupCourse);
 
-            weightedGradeSum += gradeValue * creditHours;
-            totalCreditHours += creditHours;
+                // Extract group GPA and earned credit from the result
+                double groupGPA = groupResult.get("groupGPA");
+                double groupEarnedCredit = groupResult.get("groupEarnedCredit");
+
+                // Update the weightedGradeSum and totalCreditHours with group data
+                weightedGradeSum += groupGPA * groupEarnedCredit;
+                totalCreditHours += groupEarnedCredit;
+            }
         }
 
         if (totalCreditHours == 0) {

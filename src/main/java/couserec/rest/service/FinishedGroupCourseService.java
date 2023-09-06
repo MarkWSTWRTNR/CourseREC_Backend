@@ -20,4 +20,6 @@ public interface FinishedGroupCourseService {
 
 
     Map<Integer, Map<String, Double>> calculateGroupGPAAndCreditForAllGroups();
+
+    Map<String, Double> calculateGroupGPAAndCredit(FinishedGroupCourse finishedGroupCourse);
 }

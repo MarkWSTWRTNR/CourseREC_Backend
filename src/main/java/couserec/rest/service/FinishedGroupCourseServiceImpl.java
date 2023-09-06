@@ -88,6 +88,7 @@ public class FinishedGroupCourseServiceImpl implements FinishedGroupCourseServic
         return results;
     }
 
+    @Override
     public Map<String, Double> calculateGroupGPAAndCredit(FinishedGroupCourse finishedGroupCourse) {
         List<Course> courses = finishedGroupCourse.getCourses();
         List<User> users = finishedGroupCourse.getUsers();
