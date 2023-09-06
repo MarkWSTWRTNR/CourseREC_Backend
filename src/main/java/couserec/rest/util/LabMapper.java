@@ -36,7 +36,7 @@ LabMapper INSTANCE = Mappers.getMapper(LabMapper.class);
     CommentDTO getCommentDto(Comment comment);
     List<CommentDTO> getCommentDto(List<Comment> comment);
     UserDTO getUserDTO(User user);
-    List<UserDTO> getUserDto(List<User> user);
+//    List<UserDTO> getUserDto(List<User> user);
 
     UserCourseGradeDTO getUserCourseGradeDTO(UserCourseGrade userCourseGrade);
 }
