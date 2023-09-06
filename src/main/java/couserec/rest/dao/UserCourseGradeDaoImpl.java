@@ -18,4 +18,9 @@ public class UserCourseGradeDaoImpl implements UserCourseGradeDao {
     public UserCourseGrade getByUserAndCourse(User user, Course course){
         return userCourseGradeRepository.getByUserAndCourse(user,course);
     }
+
+    @Override
+    public void deleteUserCourseGrade(Long id) {
+        userCourseGradeRepository.deleteById(id);
+    }
 }

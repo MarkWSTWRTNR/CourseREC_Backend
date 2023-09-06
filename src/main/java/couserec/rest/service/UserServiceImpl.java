@@ -1,6 +1,7 @@
 package couserec.rest.service;
 
 import couserec.rest.dao.CourseDao;
+import couserec.rest.dao.UserCourseGradeDao;
 import couserec.rest.dao.UserDao;
 import couserec.rest.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,8 @@ public class UserServiceImpl implements UserService {
     private CommentService commentService;
     @Autowired
     private CourseDao courseDao;
+    @Autowired
+    private UserCourseGradeDao userCourseGradeDao;
     @Override
     public List<FinishedGroupCourse> getCompletedCoursesByUsername(String username) {
         User user = userDao.getUsername(username).orElse(null);
@@ -71,9 +74,23 @@ public class UserServiceImpl implements UserService {
                     .findFirst()
                     .orElse(null);
             if (existingCourse != null) {
+                // Remove associated course grades from users
+                for (Course course : existingCourse.getCourses()) {
+                    UserCourseGrade userCourseGrade = userCourseGradeDao.getByUserAndCourse(user, course);
+                    if (userCourseGrade != null) {
+                        // Delete the course grade
+                        user.getUserCourseGrades().remove(userCourseGrade);
+                        course.getUserCourseGrades().remove(userCourseGrade);
+                        userCourseGradeDao.deleteUserCourseGrade(userCourseGrade.getId());
+                    }
+                }
+
+                // Remove the completed course from the user
                 user.getFinishedGroupCourses().remove(existingCourse);
                 existingCourse.getUsers().remove(user);
                 userDao.save(user);
+
+                // Delete the completed course
                 return finishedGroupCourseService.deleteFinishedGroupCourse(groupId);
             }
         }

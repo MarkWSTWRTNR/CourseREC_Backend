@@ -7,4 +7,6 @@ import couserec.rest.entity.UserCourseGrade;
 public interface UserCourseGradeDao {
 
     UserCourseGrade getByUserAndCourse(User user, Course course);
+
+    void deleteUserCourseGrade(Long id);
 }
