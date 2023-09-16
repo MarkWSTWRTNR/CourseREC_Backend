@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.text.DecimalFormat;
 import java.util.*;
 
 @Service
@@ -206,11 +207,14 @@ public class UserServiceImpl implements UserService {
             // Return an appropriate value when no credit hours are found (e.g., user has no grades)
             return Collections.emptyMap();
         }
-
         double gpa = weightedGradeSum / totalCreditHours;
 
+        // Format GPA to have two decimal places
+        DecimalFormat decimalFormat = new DecimalFormat("0.00");
+        double formattedGPA = Double.parseDouble(decimalFormat.format(gpa));
+
         Map<String, Double> result = new HashMap<>();
-        result.put("gpa", gpa);
+        result.put("gpa", formattedGPA);
         result.put("earnedCredit", (double) totalCreditHours);
 
         return result;

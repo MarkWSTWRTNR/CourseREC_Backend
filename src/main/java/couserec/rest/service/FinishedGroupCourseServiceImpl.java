@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.DecimalFormat;
 import java.util.*;
 
 @Service
@@ -113,10 +114,15 @@ public class FinishedGroupCourseServiceImpl implements FinishedGroupCourseServic
             return Collections.emptyMap();
         }
 
+        // Calculate group GPA
         double groupGPA = weightedGradeSum / totalCreditHours;
 
+        // Format group GPA to have two decimal places
+        DecimalFormat decimalFormat = new DecimalFormat("0.00");
+        double formattedGroupGPA = Double.parseDouble(decimalFormat.format(groupGPA));
+
         Map<String, Double> result = new HashMap<>();
-        result.put("groupGPA", groupGPA);
+        result.put("groupGPA", formattedGroupGPA);
         result.put("groupEarnedCredit", (double) totalCreditHours);
 
         return result;
