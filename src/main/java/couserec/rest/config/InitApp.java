@@ -395,9 +395,9 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
         StandardStudyPlan Y1S1DII = standardStudyPlanRepository.save(StandardStudyPlan.builder().yearAndSemester("Year1 Semester1").credit(75).build());
 
         FinishedGroupCourse Y1S1 = finishedGroupCourseRepository.save(FinishedGroupCourse.builder().year("1").semester("1").build());
-        FinishedGroupCourse Y1S2 = finishedGroupCourseRepository.save(FinishedGroupCourse.builder().year("1").semester("2").build());
+
         User pon = userRepository.save(User.builder().username("phonkrit_c").password("632115031").role(UserRole.ROLE_STUDENT).build());
-        User mark = userRepository.save(User.builder().username("wongsathorn_w").password("632115035").role(UserRole.ROLE_ADMIN).build());
+
         pon.getFinishedGroupCourses().add(Y1S1);
         Y1S1.getUsers().add(pon);
         Y1S1.getCourses().add(se234);
@@ -406,6 +406,8 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
         se211.getFinishedGroupCourses().add(Y1S1);
         Y1S1.getCourses().add(se212);
         se212.getFinishedGroupCourses().add(Y1S1);
+        Y1S1.getCourses().add(English1);
+        English1.getFinishedGroupCourses().add(Y1S1);
 
         Camt.getPrograms().add(SE);
         SE.setFaculty(Camt);
@@ -428,6 +430,8 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
         English1.getGroupCourses().add(GESE);
         FOSCCSE.getCourses().add(English2);
         English2.getGroupCourses().add(FOSCCSE);
+        GESE.getCourses().add(se211);
+        se211.getGroupCourses().add(GESE);
 
         GEDII.getCourses().add(English1);
         English1.getGroupCourses().add(GEDII);
