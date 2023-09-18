@@ -1,7 +1,9 @@
 package couserec.rest.controller;
 
 import couserec.rest.entity.FinishedGroupCourse;
+import couserec.rest.entity.GroupCourse;
 import couserec.rest.service.FinishedGroupCourseService;
+import couserec.rest.service.GroupCourseService;
 import couserec.rest.util.LabMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -45,5 +47,17 @@ public class FinishedGroupCourseController {
         Map<Integer, Map<String, Double>> results = finishedGroupCourseService.calculateGroupGPAAndCreditForAllGroups();
         return ResponseEntity.ok(results);
     }
+    @Autowired
+    private GroupCourseService groupCourseService;
 
+    @GetMapping("/{finishedGroupId}/total-credits")
+    public ResponseEntity<Map<String, Integer>> calculateTotalCreditsForFinishedGroupCourse(@PathVariable int finishedGroupId) {
+        Map<String, Integer> result = finishedGroupCourseService.calculateTotalCreditsForFinishedGroupCourse(finishedGroupId);
+
+        if (result.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(result);
+    }
 }

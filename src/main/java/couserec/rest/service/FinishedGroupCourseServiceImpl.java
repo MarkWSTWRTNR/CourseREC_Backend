@@ -3,10 +3,7 @@ package couserec.rest.service;
 import couserec.rest.dao.CourseDao;
 import couserec.rest.dao.FinishedGroupCourseDao;
 import couserec.rest.dao.UserCourseGradeDao;
-import couserec.rest.entity.Course;
-import couserec.rest.entity.FinishedGroupCourse;
-import couserec.rest.entity.User;
-import couserec.rest.entity.UserCourseGrade;
+import couserec.rest.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -124,6 +121,56 @@ public class FinishedGroupCourseServiceImpl implements FinishedGroupCourseServic
         Map<String, Double> result = new HashMap<>();
         result.put("groupGPA", formattedGroupGPA);
         result.put("groupEarnedCredit", (double) totalCreditHours);
+
+        return result;
+    }
+    @Autowired
+    GroupCourseService groupCourseService;
+//    @Override
+//    public int calculateTotalCreditsInGroupCourse(FinishedGroupCourse finishedGroupCourse) {
+//        int totalCredits = 0;
+//
+//        // Retrieve the GroupCourses and check if the courses in the FinishedGroupCourse are present
+//        List<GroupCourse> groupCourses = groupCourseService.getGroupCourses();
+//
+//        for (GroupCourse groupCourse : groupCourses) {
+//            for (Course course : finishedGroupCourse.getCourses()) {
+//                if (groupCourse.getCourses().contains(course)) {
+//                    totalCredits += course.getCredit();
+//                    break; // No need to check other GroupCourses for this course
+//                }
+//            }
+//        }
+//
+//        return totalCredits;
+//    }
+
+//    @Override
+//    public FinishedGroupCourse getFinishedGroupCourseById(int finishedGroupId) {
+//        return finishedGroupCourseDao.getFinishedGroupCourseById(finishedGroupId);
+//    }
+    @Override
+    public Map<String, Integer> calculateTotalCreditsForFinishedGroupCourse(int finishedGroupId) {
+        FinishedGroupCourse finishedGroupCourse = finishedGroupCourseDao.getFinishedGroupCourseById(finishedGroupId);
+
+        if (finishedGroupCourse == null) {
+            return Collections.emptyMap();
+        }
+
+        Map<String, Integer> result = new HashMap<>();
+        int totalCredits = 0;
+
+        List<GroupCourse> groupCourses = groupCourseService.getGroupCourses();
+
+        for (GroupCourse groupCourse : groupCourses) {
+            for (Course course : finishedGroupCourse.getCourses()) {
+                if (groupCourse.getCourses().contains(course)) {
+                    totalCredits += course.getCredit();
+                    result.put(groupCourse.getGroupName(), totalCredits);
+                    break; // No need to check other GroupCourses for this course
+                }
+            }
+        }
 
         return result;
     }

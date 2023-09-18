@@ -390,7 +390,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
         GroupCourse GESE = groupCourseRepository.save(GroupCourse.builder().groupName("General Education | Required courses | Learner Pereson").credit(15).build());
         GroupCourse FOSCCSE = groupCourseRepository.save(GroupCourse.builder().groupName("Feild of Specialization| Core Courses").credit(15).build());
         GroupCourse GEDII = groupCourseRepository.save(GroupCourse.builder().groupName("General Education | Required courses | Learner Pereson").credit(15).build());
-
+        GroupCourse FOSCCDII = groupCourseRepository.save(GroupCourse.builder().groupName("Feild of Specialization| Core Courses").credit(15).build());
         StandardStudyPlan Y1S1SE = standardStudyPlanRepository.save(StandardStudyPlan.builder().yearAndSemester("Year1 Semester1").credit(75).build());
         StandardStudyPlan Y1S1DII = standardStudyPlanRepository.save(StandardStudyPlan.builder().yearAndSemester("Year1 Semester1").credit(75).build());
 
@@ -425,7 +425,10 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
         GEDII.setPrograms(DII);
         DII.getStandardStudyPlans().add(Y1S1DII);
         Y1S1DII.setPrograms(DII);
-
+        DII.getGroupCourses().add(FOSCCDII);
+        FOSCCDII.setPrograms(DII);
+        FOSCCDII.getCourses().add(English2);
+        English2.getGroupCourses().add(FOSCCDII);
         GESE.getCourses().add(English1);
         English1.getGroupCourses().add(GESE);
         FOSCCSE.getCourses().add(English2);

@@ -59,10 +59,10 @@ public class GroupCourseServiceImpl implements GroupCourseService {
     public List<GroupCourse> getGroupCourses() {
         return groupCourseDao.getGroupCourses();
     }
-    @Override
-    public GroupCourse getGroupCourseById(int id) {
-        return groupCourseDao.getGroupCourseById(id);
-    }
+//    @Override
+//    public GroupCourse getGroupCourseById(int id) {
+//        return groupCourseDao.getGroupCourseById(id);
+//    }
 @Transactional
 @Override
 public GroupCourse updateGroupCourse(GroupCourse groupCourse) {
@@ -127,24 +127,24 @@ public GroupCourse updateGroupCourse(GroupCourse groupCourse) {
     public String deleteGroupCourse(int id) {
         return groupCourseDao.deleteGroupCourse(id);
     }
-    @Autowired
-    private FinishedGroupCourseService finishedGroupCourseService;
-    @Override
-    public int calculateTotalCreditForGroupCourse(GroupCourse groupCourse) {
-        int totalCredit = 0;
-
-        // Iterate through the courses in the GroupCourse
-        for (Course course : groupCourse.getCourses()) {
-            // Check if the course exists in any FinishedGroupCourse
-            for (FinishedGroupCourse finishedGroupCourse : finishedGroupCourseService.getFinishedGroupCourse()) {
-                if (finishedGroupCourse.getCourses().contains(course)) {
-                    // If the course is in a FinishedGroupCourse, accumulate its credits
-                    totalCredit += course.getCredit();
-                    break; // No need to check other FinishedGroupCourses for this course
-                }
-            }
-        }
-
-        return totalCredit;
-    }
+//    @Autowired
+//    private FinishedGroupCourseService finishedGroupCourseService;
+//    @Override
+//    public int calculateTotalCreditForGroupCourse(GroupCourse groupCourse) {
+//        int totalCredit = 0;
+//
+//        // Iterate through the courses in the GroupCourse
+//        for (Course course : groupCourse.getCourses()) {
+//            // Check if the course exists in any FinishedGroupCourse
+//            for (FinishedGroupCourse finishedGroupCourse : finishedGroupCourseService.getFinishedGroupCourse()) {
+//                if (finishedGroupCourse.getCourses().contains(course)) {
+//                    // If the course is in a FinishedGroupCourse, accumulate its credits
+//                    totalCredit += course.getCredit();
+//                    break; // No need to check other FinishedGroupCourses for this course
+//                }
+//            }
+//        }
+//
+//        return totalCredit;
+//    }
 }
