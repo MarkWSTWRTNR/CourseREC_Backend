@@ -43,4 +43,16 @@ public class GroupCourseController {
         String deleteGroupCourse = groupCourseService.deleteGroupCourse(id);
         return ResponseEntity.ok(deleteGroupCourse);
     }
+    @GetMapping("/{groupId}/total-credits")
+    public ResponseEntity<String> calculateTotalCreditsForGroupCourse(@PathVariable int groupId) {
+        GroupCourse groupCourse = groupCourseService.getGroupCourseById(groupId);
+
+        if (groupCourse == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        int totalCredits = groupCourseService.calculateTotalCreditForGroupCourse(groupCourse);
+
+        return ResponseEntity.ok("Total credits for GroupCourse " + groupCourse.getGroupName() + ": " + totalCredits);
+    }
 }

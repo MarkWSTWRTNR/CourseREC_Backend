@@ -12,7 +12,7 @@ public interface GroupCourseService {
 
     List<GroupCourse> getGroupCourses();
 
-//    GroupCourse getGroupCourseById(int id);
+    GroupCourse getGroupCourseById(int id);
 
     GroupCourse updateGroupCourse(GroupCourse groupCourse);
 
@@ -21,4 +21,6 @@ public interface GroupCourseService {
     GroupCourse removeCourseFromGroupCourse(GroupCourse groupCourse);
 
     String deleteGroupCourse(int id);
+
+    int calculateTotalCreditForGroupCourse(GroupCourse groupCourse);
 }
