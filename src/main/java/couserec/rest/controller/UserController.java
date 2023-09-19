@@ -151,15 +151,12 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
     }
-    @GetMapping("/{username}/group-course/{groupCourseId}")
-    public ResponseEntity<Map<String, Integer>> calculateCourseCreditTracking(
-            @PathVariable String username,
-            @PathVariable int groupCourseId
-    ) {
-        Map<String, Integer> creditTracking = userService.calculateCourseCreditTracking(username, groupCourseId);
-        if (!creditTracking.isEmpty()) {
-            return ResponseEntity.ok(creditTracking);
-        } else {
+    @GetMapping("/{username}/course-credit-tracking")
+    public ResponseEntity<Map<String, Integer>> getCourseCreditTracking(@PathVariable String username) {
+        try {
+            Map<String, Integer> courseCreditTracking = userService.calculateCourseCreditTracking(username);
+            return ResponseEntity.ok(courseCreditTracking);
+        } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }
     }

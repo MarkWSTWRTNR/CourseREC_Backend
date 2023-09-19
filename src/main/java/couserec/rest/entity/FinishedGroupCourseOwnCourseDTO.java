@@ -21,4 +21,6 @@ public class FinishedGroupCourseOwnCourseDTO {
     String description;
     @Builder.Default
     List<CourseOwnUserCourseGradeDTO> userCourseGrades = new ArrayList<>();
+    @Builder.Default
+    List<CourseOwnGroupCourseDTO> groupCourses = new ArrayList<>();
 }

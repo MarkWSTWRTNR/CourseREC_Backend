@@ -28,6 +28,7 @@ public class UserServiceImpl implements UserService {
     private UserCourseGradeDao userCourseGradeDao;
     @Autowired
     private ProgramDao programDao;
+
     @Transactional // Ensure the method is executed within a transaction
     @Override
     public User setUserProgram(String username, Program program) {
@@ -99,6 +100,7 @@ public class UserServiceImpl implements UserService {
         }
         return null;
     }
+
     @Override
     public String deleteCompletedCourse(String username, int groupId) {
         User user = userDao.getUsername(username).orElse(null);
@@ -143,7 +145,6 @@ public class UserServiceImpl implements UserService {
         }
         return null;
     }
-
 
 
     @Override
@@ -196,6 +197,7 @@ public class UserServiceImpl implements UserService {
             return userCourseGrade; // Return the newly added grade
         }
     }
+
     @Transactional
     @Override
     public void removeCourseGrade(String username, String courseId) {
@@ -250,37 +252,33 @@ public class UserServiceImpl implements UserService {
 
         return result;
     }
+
     @Autowired
     GroupCourseDao groupCourseDao;
+
     @Override
-    public Map<String, Integer> calculateCourseCreditTracking(String username, int groupCourseId) {
+    public Map<String, Integer> calculateCourseCreditTracking(String username) {
         User user = userDao.getUserByUsername(username);
         if (user == null) {
             return null;
         }
 
-        GroupCourse groupCourse = groupCourseDao.getGroupCourseById(groupCourseId);
-        if (groupCourse == null) {
-            return null;
-        }
-
+        Program userProgram = user.getPrograms();
+        List<GroupCourse> groupCourses = groupCourseDao.getGroupCourses();
         Map<String, Integer> courseCreditTracking = new HashMap<>();
 
-        for (Course course : groupCourse.getCourses()) {
-            int credit = 0;
-            for (FinishedGroupCourse finishedGroupCourse : user.getFinishedGroupCourses()) {
-                if (finishedGroupCourse.getCourses().contains(course)) {
-                    credit += course.getCredit();
+        for (FinishedGroupCourse finishedGroupCourse : user.getFinishedGroupCourses()) {
+            for (Course course : finishedGroupCourse.getCourses()) {
+                for (GroupCourse groupCourse : course.getGroupCourses()) {
+                    if (groupCourses.contains(groupCourse) && groupCourse.getPrograms().equals(userProgram)) {
+                        String programName = groupCourse.getPrograms().getName();
+                        String groupCourseName = groupCourse.getGroupName();
+                        String key = programName + " | " + groupCourseName;
+
+                        courseCreditTracking.merge(key, course.getCredit(), Integer::sum);
+                    }
                 }
             }
-
-            // Add credit to the corresponding program and group course name
-            String programName = groupCourse.getPrograms().getName();
-            String groupCourseName = groupCourse.getGroupName();
-            String key = programName + " | " + groupCourseName;
-
-            // Update or add the credit for the program and group course
-            courseCreditTracking.merge(key, credit, Integer::sum);
         }
 
         return courseCreditTracking;
