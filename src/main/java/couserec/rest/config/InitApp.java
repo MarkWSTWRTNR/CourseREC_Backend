@@ -132,6 +132,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
         Course se493 = courseRepository.save(Course.builder().courseId("953493").name("Special Topics in Cooperative Education 2").credit(3).gradingtype("Letter Grading").description("3(0-9-0)").build());
         Course se494 = courseRepository.save(Course.builder().courseId("953494").name("Selected Topics in Software Engineering 1").credit(3).gradingtype("Letter Grading").description("3(3-0-6)").build());
         Course se495 = courseRepository.save(Course.builder().courseId("953495").name("Selected Topics in Software Engineering 2").credit(3).gradingtype("Letter Grading").description("3(3-0-6)").build());
+        Course SWFEDL = courseRepository.save(Course.builder().courseId("953111").name("Software For Everyday Life").credit(3).gradingtype("Letter Grading").description("3(3-0-6)").build());
 
         //Set Course prerequisite
         ENGL102.getPrerequisite().add(ENGL101);

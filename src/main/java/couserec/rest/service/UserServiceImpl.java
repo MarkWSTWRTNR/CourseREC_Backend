@@ -269,8 +269,11 @@ public class UserServiceImpl implements UserService {
 
         for (FinishedGroupCourse finishedGroupCourse : user.getFinishedGroupCourses()) {
             for (Course course : finishedGroupCourse.getCourses()) {
+                boolean courseBelongsToProgram = false; // Flag to check if the course belongs to the program
                 for (GroupCourse groupCourse : course.getGroupCourses()) {
                     if (groupCourses.contains(groupCourse) && groupCourse.getPrograms().equals(userProgram)) {
+                        // Course belongs to the program
+                        courseBelongsToProgram = true;
                         String programName = groupCourse.getPrograms().getName();
                         String groupCourseName = groupCourse.getGroupName();
                         String key = programName + " | " + groupCourseName;
@@ -282,11 +285,20 @@ public class UserServiceImpl implements UserService {
                         courseCreditTracking.put(key, totalCredit + " / " + groupCourse.getCredit());
                     }
                 }
+
+                if (!courseBelongsToProgram) {
+                    // Course is a free elective
+                    String key = "Free Elective";
+                    String existingCredit = courseCreditTracking.getOrDefault(key, "0");
+                    int totalCredit = Integer.parseInt(existingCredit) + course.getCredit();
+                    courseCreditTracking.put(key, totalCredit + "");
+                }
             }
         }
 
         return courseCreditTracking;
     }
+
 
 
 }
