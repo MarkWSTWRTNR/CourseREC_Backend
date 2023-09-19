@@ -257,7 +257,7 @@ public class UserServiceImpl implements UserService {
     GroupCourseDao groupCourseDao;
 
     @Override
-    public Map<String, Integer> calculateCourseCreditTracking(String username) {
+    public Map<String, String> calculateCourseCreditTracking(String username) {
         User user = userDao.getUserByUsername(username);
         if (user == null) {
             return null;
@@ -265,7 +265,7 @@ public class UserServiceImpl implements UserService {
 
         Program userProgram = user.getPrograms();
         List<GroupCourse> groupCourses = groupCourseDao.getGroupCourses();
-        Map<String, Integer> courseCreditTracking = new HashMap<>();
+        Map<String, String> courseCreditTracking = new HashMap<>();
 
         for (FinishedGroupCourse finishedGroupCourse : user.getFinishedGroupCourses()) {
             for (Course course : finishedGroupCourse.getCourses()) {
@@ -275,7 +275,11 @@ public class UserServiceImpl implements UserService {
                         String groupCourseName = groupCourse.getGroupName();
                         String key = programName + " | " + groupCourseName;
 
-                        courseCreditTracking.merge(key, course.getCredit(), Integer::sum);
+                        // Calculate the total credit earned for the GroupCourse
+                        String existingCredit = courseCreditTracking.getOrDefault(key, "0 / " + groupCourse.getCredit());
+                        String[] parts = existingCredit.split(" / ");
+                        int totalCredit = Integer.parseInt(parts[0]) + course.getCredit();
+                        courseCreditTracking.put(key, totalCredit + " / " + groupCourse.getCredit());
                     }
                 }
             }
@@ -283,4 +287,6 @@ public class UserServiceImpl implements UserService {
 
         return courseCreditTracking;
     }
+
+
 }

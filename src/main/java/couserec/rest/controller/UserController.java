@@ -152,9 +152,9 @@ public class UserController {
         }
     }
     @GetMapping("/{username}/course-credit-tracking")
-    public ResponseEntity<Map<String, Integer>> getCourseCreditTracking(@PathVariable String username) {
+    public ResponseEntity<?> getCourseCreditTracking(@PathVariable String username) {
         try {
-            Map<String, Integer> courseCreditTracking = userService.calculateCourseCreditTracking(username);
+            Map<String, String> courseCreditTracking = userService.calculateCourseCreditTracking(username);
             return ResponseEntity.ok(courseCreditTracking);
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
