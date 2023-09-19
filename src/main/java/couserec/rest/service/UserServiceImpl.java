@@ -14,9 +14,9 @@ import java.util.*;
 
 @Service
 public class UserServiceImpl implements UserService {
-
     @Autowired
     private UserDao userDao;
+
     @Autowired
     private FinishedGroupCourseDao finishedGroupCourseDao;
     @Autowired
@@ -54,6 +54,10 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
+    @Override
+    public User getUserByUsername(String username) {
+        return userDao.getUserByUsername(username);
+    }
 
 
     @Override
@@ -64,6 +68,7 @@ public class UserServiceImpl implements UserService {
         }
         return null;
     }
+
     @Override
     public FinishedGroupCourse saveCompletedCourse(String username, FinishedGroupCourse finishedGroupCourse) {
         User user = userDao.getUsername(username).orElse(null);
@@ -95,7 +100,6 @@ public class UserServiceImpl implements UserService {
         }
         return null;
     }
-
     @Override
     public String deleteCompletedCourse(String username, int groupId) {
         User user = userDao.getUsername(username).orElse(null);
@@ -127,6 +131,7 @@ public class UserServiceImpl implements UserService {
         }
         return null;
     }
+
     @Override
     public Comment saveCommentForUser(String username, Comment comment) {
         User user = userDao.getUsername(username).orElse(null);
@@ -192,7 +197,6 @@ public class UserServiceImpl implements UserService {
             return userCourseGrade; // Return the newly added grade
         }
     }
-
     @Transactional
     @Override
     public void removeCourseGrade(String username, String courseId) {
@@ -207,6 +211,7 @@ public class UserServiceImpl implements UserService {
         user.getUserCourseGrades().removeIf(userCourseGrade -> userCourseGrade.getCourse().equals(course));
 
     }
+
     @Override
     public Map<String, Double> calculateGPAAndCredit(String username) {
         User user = userDao.getUsername(username).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));

@@ -29,4 +29,6 @@ public interface UserService {
     void removeCourseGrade(String username, String courseId);
 
     Map<String, Double> calculateGPAAndCredit(String username);
+
+    User getUserByUsername(String username);
 }

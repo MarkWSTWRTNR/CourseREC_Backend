@@ -141,5 +141,14 @@ public class UserController {
         }
 
     }
-
+    @GetMapping("/{username}")
+    public ResponseEntity<?> getUserByUsername(@PathVariable String username) {
+        User user = userService.getUserByUsername(username);
+        if (user != null) {
+            UserDTO getUserDTO = LabMapper.INSTANCE.getUserDTO(user);
+            return ResponseEntity.ok(getUserDTO);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }
