@@ -29,4 +29,9 @@ public class Program {
     @OneToMany(mappedBy = "programs")
     @Builder.Default
     List<StandardStudyPlan> standardStudyPlans = new ArrayList<>();
+
+    @OneToMany(mappedBy ="programs")
+    @Builder.Default
+    List<User> user = new ArrayList<>();
+
 }

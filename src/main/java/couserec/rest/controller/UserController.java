@@ -130,6 +130,16 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
     }
+    @PostMapping("/{username}/set-program")
+    public ResponseEntity<?> setUserProgram(@PathVariable String username, @RequestBody Program program) {
+        User user = userService.setUserProgram(username, program);
+        if (user != null){
+            UserDTO saveUserDTO = LabMapper.INSTANCE.getUserDTO(user);
+            return ResponseEntity.ok(saveUserDTO);
+        }else{
+            return ResponseEntity.badRequest().build();
+        }
 
+    }
 
 }

@@ -1,15 +1,14 @@
 package couserec.rest.service;
 
-import couserec.rest.entity.Comment;
-import couserec.rest.entity.FinishedGroupCourse;
-import couserec.rest.entity.Grade;
-import couserec.rest.entity.UserCourseGrade;
+import couserec.rest.entity.*;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
 
 public interface UserService {
+
+    User setUserProgram(String username, Program program);
 
     List<FinishedGroupCourse> getCompletedCoursesByUsername(String username);
 

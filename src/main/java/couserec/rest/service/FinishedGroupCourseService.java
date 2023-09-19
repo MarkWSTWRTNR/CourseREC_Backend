@@ -23,7 +23,7 @@ public interface FinishedGroupCourseService {
 
     Map<String, Double> calculateGroupGPAAndCredit(FinishedGroupCourse finishedGroupCourse);
 
-
-
-    Map<String, Integer> calculateTotalCreditsForFinishedGroupCourse(int finishedGroupId);
+//
+//
+//    Map<String, Integer> calculateTotalCreditsForFinishedGroupCourse(int finishedGroupId);
 }

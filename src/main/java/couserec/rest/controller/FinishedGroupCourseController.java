@@ -50,14 +50,14 @@ public class FinishedGroupCourseController {
     @Autowired
     private GroupCourseService groupCourseService;
 
-    @GetMapping("/{finishedGroupId}/total-credits")
-    public ResponseEntity<Map<String, Integer>> calculateTotalCreditsForFinishedGroupCourse(@PathVariable int finishedGroupId) {
-        Map<String, Integer> result = finishedGroupCourseService.calculateTotalCreditsForFinishedGroupCourse(finishedGroupId);
-
-        if (result.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-
-        return ResponseEntity.ok(result);
-    }
+//    @GetMapping("/{finishedGroupId}/total-credits")
+//    public ResponseEntity<Map<String, Integer>> calculateTotalCreditsForFinishedGroupCourse(@PathVariable int finishedGroupId) {
+//        Map<String, Integer> result = finishedGroupCourseService.calculateTotalCreditsForFinishedGroupCourse(finishedGroupId);
+//
+//        if (result.isEmpty()) {
+//            return ResponseEntity.notFound().build();
+//        }
+//
+//        return ResponseEntity.ok(result);
+//    }
 }

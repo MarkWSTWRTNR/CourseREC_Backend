@@ -21,4 +21,5 @@ public class UserDTO {
     List<UserOwnCommentDTO> comments = new ArrayList<>();
     @Builder.Default
     List<UserOwnFinishedGroupCourseDTO> finishedGroupCourses = new ArrayList<>();
+    private UserOwnProgramDTO programs;
 }

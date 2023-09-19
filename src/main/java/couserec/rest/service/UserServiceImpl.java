@@ -1,9 +1,6 @@
 package couserec.rest.service;
 
-import couserec.rest.dao.CourseDao;
-import couserec.rest.dao.FinishedGroupCourseDao;
-import couserec.rest.dao.UserCourseGradeDao;
-import couserec.rest.dao.UserDao;
+import couserec.rest.dao.*;
 import couserec.rest.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.lang.reflect.UndeclaredThrowableException;
 import java.text.DecimalFormat;
 import java.util.*;
 
@@ -29,6 +27,35 @@ public class UserServiceImpl implements UserService {
     private CourseDao courseDao;
     @Autowired
     private UserCourseGradeDao userCourseGradeDao;
+    @Autowired
+    private ProgramDao programDao;
+    @Transactional // Ensure the method is executed within a transaction
+    @Override
+    public User setUserProgram(String username, Program program) {
+        User user = userDao.getUserByUsername(username);
+        if (user != null) {
+            // Check if the program already exists or needs to be created
+            Program existingProgram = programDao.getProgramByProgramId(program.getProgramId());
+            if (existingProgram == null) {
+                return null;
+            } else {
+                // If the program already exists, you can use it directly
+                program = existingProgram;
+            }
+
+            // Set the program for the user
+            user.setPrograms(program);
+
+            // Save the updated user entity
+            userDao.save(user);
+
+            return user;
+        }
+        return null;
+    }
+
+
+
     @Override
     public List<FinishedGroupCourse> getCompletedCoursesByUsername(String username) {
         User user = userDao.getUsername(username).orElse(null);

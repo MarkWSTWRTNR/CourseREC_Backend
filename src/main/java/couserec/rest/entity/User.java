@@ -33,5 +33,8 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
     private List<UserCourseGrade> userCourseGrades = new ArrayList<>();
+
+    @ManyToOne
+    private Program programs;
 }
 

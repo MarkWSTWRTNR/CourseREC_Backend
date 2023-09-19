@@ -22,5 +22,6 @@ public class ProgramDTO {
     ProgramOwnFacultyDTO faculty;
     @Builder.Default
     List<ProgramOwnStandardStudyPlanDTO> standardStudyPlans = new ArrayList<>();
-
+    @Builder.Default
+    List<ProgramOwnUserDTO> user = new ArrayList<>();
 }

@@ -124,54 +124,36 @@ public class FinishedGroupCourseServiceImpl implements FinishedGroupCourseServic
 
         return result;
     }
-    @Autowired
-    GroupCourseService groupCourseService;
+//    @Autowired
+//    GroupCourseService groupCourseService;
+
 //    @Override
-//    public int calculateTotalCreditsInGroupCourse(FinishedGroupCourse finishedGroupCourse) {
+//    public FinishedGroupCourse getFinishedGroupCourseById(int finishedGroupId) {
+//        return finishedGroupCourseDao.getFinishedGroupCourseById(finishedGroupId);
+//    }
+//    @Override
+//    public Map<String, Integer> calculateTotalCreditsForFinishedGroupCourse(int finishedGroupId) {
+//        FinishedGroupCourse finishedGroupCourse = finishedGroupCourseDao.getFinishedGroupCourseById(finishedGroupId);
+//
+//        if (finishedGroupCourse == null) {
+//            return Collections.emptyMap();
+//        }
+//
+//        Map<String, Integer> result = new HashMap<>();
 //        int totalCredits = 0;
 //
-//        // Retrieve the GroupCourses and check if the courses in the FinishedGroupCourse are present
 //        List<GroupCourse> groupCourses = groupCourseService.getGroupCourses();
 //
 //        for (GroupCourse groupCourse : groupCourses) {
 //            for (Course course : finishedGroupCourse.getCourses()) {
 //                if (groupCourse.getCourses().contains(course)) {
 //                    totalCredits += course.getCredit();
+//                    result.put(groupCourse.getGroupName(), totalCredits);
 //                    break; // No need to check other GroupCourses for this course
 //                }
 //            }
 //        }
 //
-//        return totalCredits;
+//        return result;
 //    }
-
-//    @Override
-//    public FinishedGroupCourse getFinishedGroupCourseById(int finishedGroupId) {
-//        return finishedGroupCourseDao.getFinishedGroupCourseById(finishedGroupId);
-//    }
-    @Override
-    public Map<String, Integer> calculateTotalCreditsForFinishedGroupCourse(int finishedGroupId) {
-        FinishedGroupCourse finishedGroupCourse = finishedGroupCourseDao.getFinishedGroupCourseById(finishedGroupId);
-
-        if (finishedGroupCourse == null) {
-            return Collections.emptyMap();
-        }
-
-        Map<String, Integer> result = new HashMap<>();
-        int totalCredits = 0;
-
-        List<GroupCourse> groupCourses = groupCourseService.getGroupCourses();
-
-        for (GroupCourse groupCourse : groupCourses) {
-            for (Course course : finishedGroupCourse.getCourses()) {
-                if (groupCourse.getCourses().contains(course)) {
-                    totalCredits += course.getCredit();
-                    result.put(groupCourse.getGroupName(), totalCredits);
-                    break; // No need to check other GroupCourses for this course
-                }
-            }
-        }
-
-        return result;
-    }
 }
