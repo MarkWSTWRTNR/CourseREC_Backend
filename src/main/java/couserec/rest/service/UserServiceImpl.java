@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.lang.reflect.UndeclaredThrowableException;
 import java.text.DecimalFormat;
 import java.util.*;
 
@@ -251,5 +250,39 @@ public class UserServiceImpl implements UserService {
 
         return result;
     }
+    @Autowired
+    GroupCourseDao groupCourseDao;
+    @Override
+    public Map<String, Integer> calculateCourseCreditTracking(String username, int groupCourseId) {
+        User user = userDao.getUserByUsername(username);
+        if (user == null) {
+            return null;
+        }
 
+        GroupCourse groupCourse = groupCourseDao.getGroupCourseById(groupCourseId);
+        if (groupCourse == null) {
+            return null;
+        }
+
+        Map<String, Integer> courseCreditTracking = new HashMap<>();
+
+        for (Course course : groupCourse.getCourses()) {
+            int credit = 0;
+            for (FinishedGroupCourse finishedGroupCourse : user.getFinishedGroupCourses()) {
+                if (finishedGroupCourse.getCourses().contains(course)) {
+                    credit += course.getCredit();
+                }
+            }
+
+            // Add credit to the corresponding program and group course name
+            String programName = groupCourse.getPrograms().getName();
+            String groupCourseName = groupCourse.getGroupName();
+            String key = programName + " | " + groupCourseName;
+
+            // Update or add the credit for the program and group course
+            courseCreditTracking.merge(key, credit, Integer::sum);
+        }
+
+        return courseCreditTracking;
+    }
 }

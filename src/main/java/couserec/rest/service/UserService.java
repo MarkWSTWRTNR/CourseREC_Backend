@@ -31,4 +31,6 @@ public interface UserService {
     Map<String, Double> calculateGPAAndCredit(String username);
 
     User getUserByUsername(String username);
+
+    Map<String, Integer> calculateCourseCreditTracking(String username, int groupCourseId);
 }
