@@ -359,6 +359,9 @@ public class UserServiceImpl implements UserService {
         // Convert the set of recommended courses to a list
         List<Course> recommendedCourseList = new ArrayList<>(recommendedCourses);
 
+        // Sort the recommended courses by courseId
+        Collections.sort(recommendedCourseList, Comparator.comparing(Course::getId));
+
         return recommendedCourseList;
     }
 
