@@ -139,14 +139,25 @@ public class UserServiceImpl implements UserService {
     public Comment saveCommentForUser(String username, Comment comment) {
         User user = userDao.getUsername(username).orElse(null);
         if (user != null) {
-            comment.setUser(user); // Associate the comment with the user
-            Comment savedComment = commentService.saveComment(comment); // Save the comment
-            user.getComments().add(savedComment); // Add the comment to the user's comment list
-            userDao.save(user); // Update the user in the database
-            return savedComment;
+            Course course = comment.getCourse(); // Get the course associated with the comment
+
+            // Check if the user has already commented on this course
+            boolean hasCommented = user.getComments().stream()
+                    .anyMatch(existingComment -> existingComment.getCourse().getCourseId().equals(course.getCourseId()));
+
+            if (!hasCommented) {
+                comment.setUser(user); // Associate the comment with the user
+                Comment savedComment = commentService.saveComment(comment); // Save the comment
+                user.getComments().add(savedComment); // Add the comment to the user's comment list
+                userDao.save(user); // Update the user in the database
+                return savedComment;
+            } else {
+                throw new IllegalArgumentException("User has already commented on this course");
+            }
         }
         return null;
     }
+
 
 
     @Override
