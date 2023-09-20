@@ -10,6 +10,8 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.text.DecimalFormat;
 import java.util.*;
+import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -306,11 +308,12 @@ public class UserServiceImpl implements UserService {
             return Collections.emptyList();
         }
 
-        // Get the list of completed courses by the user
-        List<Course> completedCourses = new ArrayList<>();
-        for (FinishedGroupCourse finishedGroupCourse : user.getFinishedGroupCourses()) {
-            completedCourses.addAll(finishedGroupCourse.getCourses());
-        }
+        // Get the list of completed course IDs by the user
+        Set<String> completedCourseIds = user.getFinishedGroupCourses()
+                .stream()
+                .flatMap(finishedGroupCourse -> finishedGroupCourse.getCourses().stream())
+                .map(Course::getCourseId)
+                .collect(Collectors.toSet());
 
         // Get the list of available group courses
         List<GroupCourse> availableGroupCourses = groupCourseDao.getGroupCourses();
@@ -318,22 +321,37 @@ public class UserServiceImpl implements UserService {
         // Create a set to store recommended courses
         Set<Course> recommendedCourses = new HashSet<>();
 
+        // Helper function to recursively check prerequisites
+        final Consumer<Course>[] checkPrerequisites = new Consumer[]{null}; // Initialize an array of Consumers
+        checkPrerequisites[0] = (courseToCheck) -> {
+            // Check if the course is completed or already recommended
+            if (completedCourseIds.contains(courseToCheck.getCourseId()) || recommendedCourses.contains(courseToCheck)) {
+                return;
+            }
+
+            // Check prerequisites for the course
+            boolean allPrerequisitesMet = true;
+            for (Course prerequisite : courseToCheck.getPrerequisite()) {
+                if (!completedCourseIds.contains(prerequisite.getCourseId())) {
+                    allPrerequisitesMet = false;
+                    break;
+                }
+                // Recursively check prerequisites of prerequisite courses
+                checkPrerequisites[0].accept(prerequisite);
+            }
+
+            if (allPrerequisitesMet) {
+                recommendedCourses.add(courseToCheck);
+            }
+        };
+
         // Iterate through available group courses
         for (GroupCourse groupCourse : availableGroupCourses) {
             // Check if the user's program matches the program of the group course
             if (groupCourse.getPrograms().equals(user.getPrograms())) {
-                // Check prerequisites for each course in the group course
-                boolean allPrerequisitesMet = true;
                 for (Course course : groupCourse.getCourses()) {
-                    if (!completedCourses.containsAll(course.getPrerequisite())) {
-                        allPrerequisitesMet = false;
-                        break;
-                    }
-                }
-
-                // If all prerequisites are met, add the courses to recommendations
-                if (allPrerequisitesMet) {
-                    recommendedCourses.addAll(groupCourse.getCourses());
+                    // Check prerequisites for the course
+                    checkPrerequisites[0].accept(course);
                 }
             }
         }
@@ -343,6 +361,5 @@ public class UserServiceImpl implements UserService {
 
         return recommendedCourseList;
     }
-
 
 }
