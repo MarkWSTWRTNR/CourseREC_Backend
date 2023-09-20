@@ -93,15 +93,22 @@ public class FinishedGroupCourseServiceImpl implements FinishedGroupCourseServic
 
         double weightedGradeSum = 0.0;
         int totalCreditHours = 0;
+        int totalCreditHoursForGPA = 0; // To exclude specific grades from GPA calculation
 
         for (Course course : courses) {
             for (User user : users) {
                 UserCourseGrade userCourseGrade = userCourseGradeDao.getByUserAndCourse(user, course);
-                if (userCourseGrade != null) {
+
+                // Check if the grade is one of the excluded grades
+                if (userCourseGrade != null && isExcludedGrade(userCourseGrade.getGrade())) {
+                    int creditHours = course.getCredit();
+                    totalCreditHours += creditHours;
+                } else if (userCourseGrade != null) {
                     double courseGrade = userCourseGrade.getGrade().getValue();
                     int creditHours = course.getCredit();
                     weightedGradeSum += courseGrade * creditHours;
                     totalCreditHours += creditHours;
+                    totalCreditHoursForGPA += creditHours;
                 }
             }
         }
@@ -112,7 +119,7 @@ public class FinishedGroupCourseServiceImpl implements FinishedGroupCourseServic
         }
 
         // Calculate group GPA
-        double groupGPA = weightedGradeSum / totalCreditHours;
+        double groupGPA = (totalCreditHoursForGPA == 0) ? 0.0 : weightedGradeSum / totalCreditHoursForGPA;
 
         // Format group GPA to have two decimal places
         DecimalFormat decimalFormat = new DecimalFormat("0.00");
@@ -124,38 +131,14 @@ public class FinishedGroupCourseServiceImpl implements FinishedGroupCourseServic
 
         return result;
     }
-//    @Autowired
-//    GroupCourseService groupCourseService;
 
-//    @Override
-//    public FinishedGroupCourse getFinishedGroupCourseById(int finishedGroupId) {
-//        return finishedGroupCourseDao.getFinishedGroupCourseById(finishedGroupId);
-//    }
-//    @Override
-//    public Map<String, Integer> calculateTotalCreditsForFinishedGroupCourse(int finishedGroupId) {
-//        FinishedGroupCourse finishedGroupCourse = finishedGroupCourseDao.getFinishedGroupCourseById(finishedGroupId);
-//
-//        if (finishedGroupCourse == null) {
-//            return Collections.emptyMap();
-//        }
-//
-//        Map<String, Integer> result = new HashMap<>();
-//        int totalCredits = 0;
-//
-//        List<GroupCourse> groupCourses = groupCourseService.getGroupCourses();
-//
-//        for (GroupCourse groupCourse : groupCourses) {
-//            for (Course course : finishedGroupCourse.getCourses()) {
-//                if (groupCourse.getCourses().contains(course)) {
-//                    totalCredits += course.getCredit();
-//                    result.put(groupCourse.getGroupName(), totalCredits);
-//                    break; // No need to check other GroupCourses for this course
-//                }
-//            }
-//        }
-//
-//        return result;
-//    }
+    // Helper method to check if a grade is excluded
+    private boolean isExcludedGrade(Grade grade) {
+        return grade == Grade.S || grade == Grade.U || grade == Grade.V ||
+                grade == Grade.W || grade == Grade.CE || grade == Grade.CP ||
+                grade == Grade.CS || grade == Grade.CT || grade == Grade.CX ||
+                grade == Grade.I || grade == Grade.P;
+    }
 
 
 }
