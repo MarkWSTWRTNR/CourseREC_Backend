@@ -215,7 +215,9 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
         FinishedGroupCourse PONY1S1 = finishedGroupCourseRepository.save(FinishedGroupCourse.builder().year("1").semester("1").build());
 
         User pon = userRepository.save(User.builder().username("phonkrit_c").password("632115031").role(UserRole.ROLE_STUDENT).build());
-
+        //Set User To Program
+        SE.getUser().add(pon);
+        pon.setPrograms(SE);
         //FinishedGroupCourse for user
         pon.getFinishedGroupCourses().add(PONY1S1);
         PONY1S1.getUsers().add(pon);
