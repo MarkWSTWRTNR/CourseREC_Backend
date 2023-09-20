@@ -282,7 +282,7 @@ public class UserServiceImpl implements UserService {
                         String existingCredit = courseCreditTracking.getOrDefault(key, "0 / " + groupCourse.getCredit());
                         String[] parts = existingCredit.split(" / ");
                         int totalCredit = Integer.parseInt(parts[0]) + course.getCredit();
-                        courseCreditTracking.put(key, totalCredit + " / " + groupCourse.getCredit());
+                        courseCreditTracking.put(key, totalCredit + " / " + groupCourse.getCredit() + " minimum credit required");
                     }
                 }
 
@@ -299,6 +299,50 @@ public class UserServiceImpl implements UserService {
         return courseCreditTracking;
     }
 
+    @Override
+    public List<Course> getRecommendedCourses(String username) {
+        User user = userDao.getUserByUsername(username);
+        if (user == null) {
+            return Collections.emptyList();
+        }
+
+        // Get the list of completed courses by the user
+        List<Course> completedCourses = new ArrayList<>();
+        for (FinishedGroupCourse finishedGroupCourse : user.getFinishedGroupCourses()) {
+            completedCourses.addAll(finishedGroupCourse.getCourses());
+        }
+
+        // Get the list of available group courses
+        List<GroupCourse> availableGroupCourses = groupCourseDao.getGroupCourses();
+
+        // Create a set to store recommended courses
+        Set<Course> recommendedCourses = new HashSet<>();
+
+        // Iterate through available group courses
+        for (GroupCourse groupCourse : availableGroupCourses) {
+            // Check if the user's program matches the program of the group course
+            if (groupCourse.getPrograms().equals(user.getPrograms())) {
+                // Check prerequisites for each course in the group course
+                boolean allPrerequisitesMet = true;
+                for (Course course : groupCourse.getCourses()) {
+                    if (!completedCourses.containsAll(course.getPrerequisite())) {
+                        allPrerequisitesMet = false;
+                        break;
+                    }
+                }
+
+                // If all prerequisites are met, add the courses to recommendations
+                if (allPrerequisitesMet) {
+                    recommendedCourses.addAll(groupCourse.getCourses());
+                }
+            }
+        }
+
+        // Convert the set of recommended courses to a list
+        List<Course> recommendedCourseList = new ArrayList<>(recommendedCourses);
+
+        return recommendedCourseList;
+    }
 
 
 }

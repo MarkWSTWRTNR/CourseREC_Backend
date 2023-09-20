@@ -33,4 +33,6 @@ public interface UserService {
     User getUserByUsername(String username);
 
     Map<String, String> calculateCourseCreditTracking(String username);
+
+    List<Course> getRecommendedCourses(String username);
 }

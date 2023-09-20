@@ -160,5 +160,13 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
     }
-
+    @GetMapping("/{username}/recommended-courses")
+    public ResponseEntity<?> getRecommendedCourses(@PathVariable String username) {
+        List<Course> recommendedCourses = userService.getRecommendedCourses(username);
+        if (recommendedCourses.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        List<CourseDTO> getCourseDTO = LabMapper.INSTANCE.getCourseDto(recommendedCourses);
+        return ResponseEntity.ok(getCourseDTO);
+    }
 }

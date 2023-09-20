@@ -8,6 +8,8 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 
 @Component
 public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
@@ -132,13 +134,60 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
         Course se493 = courseRepository.save(Course.builder().courseId("953493").name("Special Topics in Cooperative Education 2").credit(3).gradingtype("Letter Grading").description("3(0-9-0)").build());
         Course se494 = courseRepository.save(Course.builder().courseId("953494").name("Selected Topics in Software Engineering 1").credit(3).gradingtype("Letter Grading").description("3(3-0-6)").build());
         Course se495 = courseRepository.save(Course.builder().courseId("953495").name("Selected Topics in Software Engineering 2").credit(3).gradingtype("Letter Grading").description("3(3-0-6)").build());
+
+        //Free Elective For SE
         Course SWFEDL = courseRepository.save(Course.builder().courseId("953111").name("Software For Everyday Life").credit(3).gradingtype("Letter Grading").description("3(3-0-6)").build());
 
         //Set Course prerequisite
         ENGL102.getPrerequisite().add(ENGL101);
         ENGL201.getPrerequisite().add(ENGL102);
-        ENGL225.getPrerequisite().add(ENGL201);
-        se201.getPrerequisite().add(se100);
+        ENGL225.getPrerequisite().add(ENGL102);
+        math255.getPrerequisite().add(math113);
+        math281.getPrerequisite().add(math113);
+        se102.getPrerequisite().add(se100);
+        se102.getPrerequisite().add(atge103);
+        se201.getPrerequisite().add(se102);
+        se202.getPrerequisite().add(se100);
+        se202.getPrerequisite().add(atge103);
+        se212.getPrerequisite().add(se100);
+        se212.getPrerequisite().add(atge103);
+        se214.getPrerequisite().add(se211);
+        se231.getPrerequisite().add(se100);
+        se231.getPrerequisite().add(atge103);
+        se233.getPrerequisite().add(se231);
+        se234.getPrerequisite().add(se233);
+        se321.getPrerequisite().add(se202);
+        se322.getPrerequisite().add(se233);
+        se323.getPrerequisite().add(se234);
+        se325.getPrerequisite().add(se233);
+        se326.getPrerequisite().add(se331);
+        se331.getPrerequisite().add(se233);
+        se351.getPrerequisite().add(se251);
+        se352.getPrerequisite().add(se351);
+        se362.getPrerequisite().add(se214);
+        se363.getPrerequisite().add(se362);
+        se411.getPrerequisite().add(se102);
+        se411.getPrerequisite().add(se201);
+        se422.getPrerequisite().add(se202);
+        se423.getPrerequisite().add(se323);
+        se424.getPrerequisite().add(se234);
+        se441.getPrerequisite().add(se202);
+        se442.getPrerequisite().add(se202);
+        se444.getPrerequisite().add(se231);
+        se444.getPrerequisite().add(se214);
+        se445.getPrerequisite().add(se202);
+        se452.getPrerequisite().add(se202);
+        se463.getPrerequisite().add(se214);
+        se464.getPrerequisite().add(se202);
+        se464.getPrerequisite().add(se214);
+        se465.getPrerequisite().add(se202);
+        se465.getPrerequisite().add(se214);
+        se471.getPrerequisite().add(se102);
+        se472.getPrerequisite().add(se411);
+        se481.getPrerequisite().add(se201);
+
+
+
         // Create Faculty instances
         Faculty Camt = facultyRepository.save(Faculty.builder().facultyId("01").name("College of Arts, Media, and Technology.").build());
         Faculty ECON = facultyRepository.save(Faculty.builder().facultyId("02").name("ECON.").build());
@@ -160,23 +209,30 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
         GroupCourse SEFE = groupCourseRepository.save(GroupCourse.builder().groupName("Free Electives").credit(6).build());
 
         GroupCourse FOSCCDII = groupCourseRepository.save(GroupCourse.builder().groupName("Field of Specialization| Core Courses").credit(15).build());
-        StandardStudyPlan Y1S1SE = standardStudyPlanRepository.save(StandardStudyPlan.builder().yearAndSemester("Year1 Semester1").credit(75).build());
-        StandardStudyPlan Y1S1DII = standardStudyPlanRepository.save(StandardStudyPlan.builder().yearAndSemester("Year1 Semester1").credit(75).build());
+        StandardStudyPlan SEY1S1 = standardStudyPlanRepository.save(StandardStudyPlan.builder().yearAndSemester("Year1 Semester1").credit(75).build());
+        StandardStudyPlan DIIY1S1 = standardStudyPlanRepository.save(StandardStudyPlan.builder().yearAndSemester("Year1 Semester1").credit(75).build());
         GroupCourse GEDII = groupCourseRepository.save(GroupCourse.builder().groupName("General Education | Required courses | Learner Pereson").credit(15).build());
-        FinishedGroupCourse Y1S1 = finishedGroupCourseRepository.save(FinishedGroupCourse.builder().year("1").semester("1").build());
+        FinishedGroupCourse PONY1S1 = finishedGroupCourseRepository.save(FinishedGroupCourse.builder().year("1").semester("1").build());
 
         User pon = userRepository.save(User.builder().username("phonkrit_c").password("632115031").role(UserRole.ROLE_STUDENT).build());
 
-        pon.getFinishedGroupCourses().add(Y1S1);
-        Y1S1.getUsers().add(pon);
-        Y1S1.getCourses().add(se234);
-        se234.getFinishedGroupCourses().add(Y1S1);
-        Y1S1.getCourses().add(se211);
-        se211.getFinishedGroupCourses().add(Y1S1);
-        Y1S1.getCourses().add(se212);
-        se212.getFinishedGroupCourses().add(Y1S1);
-        Y1S1.getCourses().add(ENGL101);
-        ENGL101.getFinishedGroupCourses().add(Y1S1);
+        //FinishedGroupCourse for user
+        pon.getFinishedGroupCourses().add(PONY1S1);
+        PONY1S1.getUsers().add(pon);
+        PONY1S1.getCourses().add(ENGL101);
+        ENGL101.getFinishedGroupCourses().add(PONY1S1);
+        PONY1S1.getCourses().add(atge102);
+        atge102.getFinishedGroupCourses().add(PONY1S1);
+        PONY1S1.getCourses().add(se100);
+        se100.getFinishedGroupCourses().add(PONY1S1);
+        PONY1S1.getCourses().add(math113);
+        math113.getFinishedGroupCourses().add(PONY1S1);
+        PONY1S1.getCourses().add(ANI100);
+        ANI100.getFinishedGroupCourses().add(PONY1S1);
+        PONY1S1.getCourses().add(CPE111);
+        CPE111.getFinishedGroupCourses().add(PONY1S1);
+        PONY1S1.getCourses().add(atge103);
+        atge103.getFinishedGroupCourses().add(PONY1S1);
 
         Camt.getPrograms().add(SE);
         SE.setFaculty(Camt);
@@ -367,13 +423,13 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
         //Free Electives
 
 
-        SE.getStandardStudyPlans().add(Y1S1SE);
-        Y1S1SE.setPrograms(SE);
+        SE.getStandardStudyPlans().add(SEY1S1);
+        SEY1S1.setPrograms(SE);
 
         DII.getGroupCourses().add(GEDII);
         GEDII.setPrograms(DII);
-        DII.getStandardStudyPlans().add(Y1S1DII);
-        Y1S1DII.setPrograms(DII);
+        DII.getStandardStudyPlans().add(DIIY1S1);
+        DIIY1S1.setPrograms(DII);
         DII.getGroupCourses().add(FOSCCDII);
         FOSCCDII.setPrograms(DII);
         FOSCCDII.getCourses().add(ENGL102);
@@ -383,10 +439,10 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
         GEDII.getCourses().add(ENGL101);
         ENGL101.getGroupCourses().add(GEDII);
 
-        Y1S1SE.getCourses().add(se100);
-        se100.getStandardStudyPlans().add(Y1S1SE);
+        SEY1S1.getCourses().add(se100);
+        se100.getStandardStudyPlans().add(SEY1S1);
 
-        Y1S1DII.getCourses().add(se211);
-        se211.getStandardStudyPlans().add(Y1S1DII);
+        DIIY1S1.getCourses().add(se211);
+        se211.getStandardStudyPlans().add(DIIY1S1);
     }
 }
