@@ -104,11 +104,7 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
     }
-
-
-
-
-
+    
     @DeleteMapping("/{username}/courses/{courseId}/removeGrade")
     public ResponseEntity<?> removeCourseGrade(
             @PathVariable String username,

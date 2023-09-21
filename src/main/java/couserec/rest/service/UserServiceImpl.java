@@ -284,32 +284,31 @@ public class UserServiceImpl implements UserService {
         List<GroupCourse> groupCourses = groupCourseDao.getGroupCourses();
         Map<String, String> courseCreditTracking = new HashMap<>();
 
-        // Use a Set to keep track of processed courses
+        // Use a Set to keep track of processed courses for each FinishedGroupCourse
         Set<String> processedCourses = new HashSet<>();
 
         for (FinishedGroupCourse finishedGroupCourse : user.getFinishedGroupCourses()) {
             for (Course course : finishedGroupCourse.getCourses()) {
-                // If the course has already been processed, skip it
-                if (processedCourses.contains(course.getCourseId())) {
+                String courseKey = course.getCourseId() + "-" + finishedGroupCourse.getId();
+                if (processedCourses.contains(courseKey)) {
                     continue;
                 }
 
-                // Check if the course has a grade of U
-                UserCourseGrade userCourseGrade = userCourseGradeDao.getByUserAndCourse(user, course);
+                // Check if the course has a grade of U for this FinishedGroupCourse
+                UserCourseGrade userCourseGrade = userCourseGradeDao.getByUserAndCourseAndFinishedGroupCourse(user, course, finishedGroupCourse);
                 if (userCourseGrade != null && userCourseGrade.getGrade() == Grade.U) {
-                    continue; // Skip this course if it has a grade of U
+                    processedCourses.add(courseKey); // Mark this course instance as processed
+                    continue; // Skip this course instance if it has a grade of U
                 }
 
-                boolean courseBelongsToProgram = false; // Flag to check if the course belongs to the program
+                boolean courseBelongsToProgram = false;
                 for (GroupCourse groupCourse : course.getGroupCourses()) {
                     if (groupCourses.contains(groupCourse) && groupCourse.getPrograms().equals(userProgram)) {
-                        // Course belongs to the program
                         courseBelongsToProgram = true;
                         String programName = groupCourse.getPrograms().getName();
                         String groupCourseName = groupCourse.getGroupName();
                         String key = programName + " | " + groupCourseName;
 
-                        // Calculate the total credit earned for the GroupCourse
                         String existingCredit = courseCreditTracking.getOrDefault(key, "0 / " + groupCourse.getCredit());
                         String[] parts = existingCredit.split(" / ");
                         int totalCredit = Integer.parseInt(parts[0]) + course.getCredit();
@@ -318,20 +317,19 @@ public class UserServiceImpl implements UserService {
                 }
 
                 if (!courseBelongsToProgram) {
-                    // Course is a free elective
                     String key = "Free Elective";
                     String existingCredit = courseCreditTracking.getOrDefault(key, "0");
                     int totalCredit = Integer.parseInt(existingCredit) + course.getCredit();
                     courseCreditTracking.put(key, totalCredit + "");
                 }
 
-                // Mark the course as processed
-                processedCourses.add(course.getCourseId());
+                processedCourses.add(courseKey); // Mark this course instance as processed
             }
         }
 
         return courseCreditTracking;
     }
+
 
 
 
