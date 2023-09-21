@@ -2,6 +2,7 @@ package couserec.rest.service;
 
 import couserec.rest.dao.*;
 import couserec.rest.entity.*;
+import jakarta.persistence.NonUniqueResultException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -330,9 +331,6 @@ public class UserServiceImpl implements UserService {
         return courseCreditTracking;
     }
 
-
-
-
     @Override
     public List<Course> getRecommendedCourses(String username) {
         User user = userDao.getUserByUsername(username);
@@ -350,15 +348,21 @@ public class UserServiceImpl implements UserService {
         // Create a set to store recommended courses
         Set<Course> recommendedCourses = new HashSet<>();
 
-        // Add courses with F grade to the recommended list
+        // Add courses with F or U grade to the recommended list
         List<UserCourseGrade> userGrades = userCourseGradeDao.getByUser(user);
+        Set<String> passedCourses = userGrades.stream()
+                .filter(grade -> grade.getGrade() != Grade.F && grade.getGrade() != Grade.U)
+                .map(grade -> grade.getCourse().getCourseId())
+                .collect(Collectors.toSet());
+
         for (UserCourseGrade userCourseGrade : userGrades) {
-            if (userCourseGrade.getGrade() == Grade.F) {
+            if ((userCourseGrade.getGrade() == Grade.F || userCourseGrade.getGrade() == Grade.U) && !passedCourses.contains(userCourseGrade.getCourse().getCourseId())) {
                 recommendedCourses.add(userCourseGrade.getCourse());
             }
         }
-// Get the list of available group courses
+        // Get the list of available group courses
         List<GroupCourse> availableGroupCourses = groupCourseDao.getGroupCourses();
+
         // Helper function to recursively check prerequisites
         final Consumer<Course>[] checkPrerequisites = new Consumer[]{null};
         checkPrerequisites[0] = (courseToCheck) -> {
@@ -370,11 +374,22 @@ public class UserServiceImpl implements UserService {
             // Check prerequisites for the course
             boolean allPrerequisitesMet = true;
             for (Course prerequisite : courseToCheck.getPrerequisite()) {
-                UserCourseGrade userCourseGrade = userCourseGradeDao.getByUserAndCourse(user, prerequisite);
-                if (userCourseGrade == null || userCourseGrade.getGrade() == Grade.F || !completedCourseIds.contains(prerequisite.getCourseId())) {
+                List<UserCourseGrade> userCourseGrades = userCourseGradeDao.findByUserAndCourse(user, prerequisite);
+
+                // If no grades found for the course, prerequisites are not met
+                if (userCourseGrades.isEmpty()) {
                     allPrerequisitesMet = false;
                     break;
                 }
+
+                // For simplicity, let's take the most recent grade. You can modify this logic as needed.
+                UserCourseGrade mostRecentGrade = userCourseGrades.get(userCourseGrades.size() - 1);
+
+                if (mostRecentGrade.getGrade() == Grade.F || mostRecentGrade.getGrade() == Grade.U || !completedCourseIds.contains(prerequisite.getCourseId())) {
+                    allPrerequisitesMet = false;
+                    break;
+                }
+
                 // Recursively check prerequisites of prerequisite courses
                 checkPrerequisites[0].accept(prerequisite);
             }
@@ -383,7 +398,6 @@ public class UserServiceImpl implements UserService {
                 recommendedCourses.add(courseToCheck);
             }
         };
-
 
         // Iterate through available group courses
         for (GroupCourse groupCourse : availableGroupCourses) {
@@ -404,5 +418,7 @@ public class UserServiceImpl implements UserService {
 
         return recommendedCourseList;
     }
+
+
 
 }

@@ -14,4 +14,6 @@ public interface UserCourseGradeRepository extends JpaRepository<UserCourseGrade
     UserCourseGrade getByUserAndCourseAndFinishedGroupCourse(User user, Course course, FinishedGroupCourse finishedGroupCourse);
 
     List<UserCourseGrade> getByUser(User user);
+    List<UserCourseGrade> findByUserAndCourse(User user, Course course);
+
 }
