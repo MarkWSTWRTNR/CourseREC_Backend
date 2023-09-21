@@ -97,7 +97,7 @@ public class FinishedGroupCourseServiceImpl implements FinishedGroupCourseServic
 
         for (Course course : courses) {
             for (User user : users) {
-                UserCourseGrade userCourseGrade = userCourseGradeDao.getByUserAndCourse(user, course);
+                UserCourseGrade userCourseGrade = userCourseGradeDao.getByUserAndCourseAndFinishedGroupCourse(user, course, finishedGroupCourse);
 
                 // Check if the grade is one of the excluded grades
                 if (userCourseGrade != null && isExcludedGrade(userCourseGrade.getGrade())) {
@@ -131,6 +131,7 @@ public class FinishedGroupCourseServiceImpl implements FinishedGroupCourseServic
 
         return result;
     }
+
 
     // Helper method to check if a grade is excluded
     private boolean isExcludedGrade(Grade grade) {

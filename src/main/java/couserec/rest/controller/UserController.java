@@ -90,20 +90,21 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
     }
-    @PostMapping("/{username}/courses/{courseId}/setGrade")
+    @PostMapping("/{username}/finishedGroupCourses/{finishedGroupCourseId}/courses/{courseId}/setGrade")
     public ResponseEntity<?> addCourseGrade(
             @PathVariable String username,
+            @PathVariable int finishedGroupCourseId,
             @PathVariable String courseId,
-            @RequestBody UserCourseGrade grade) {
-
-        try {
-            UserCourseGrade userCourseGrade = userService.addCourseGrade(username, courseId, grade.getGrade());
+            @RequestBody GradeDTO gradeDTO) {
+        try { Grade grade = gradeDTO.getGrade();
+            UserCourseGrade userCourseGrade = userService.addCourseGrade(username, courseId, finishedGroupCourseId, grade);
             UserCourseGradeDTO userCourseGradeDTO = LabMapper.INSTANCE.getUserCourseGradeDTO(userCourseGrade);
             return ResponseEntity.ok(userCourseGradeDTO);
         } catch (ResponseStatusException e) {
             return ResponseEntity.notFound().build();
         }
     }
+
 
 
 

@@ -25,4 +25,7 @@ public class UserCourseGrade {
     @Enumerated(EnumType.STRING)
     private Grade grade;
 
+    @ManyToOne
+    private FinishedGroupCourse finishedGroupCourse;
+
 }

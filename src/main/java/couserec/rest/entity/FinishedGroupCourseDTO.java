@@ -20,4 +20,6 @@ public class FinishedGroupCourseDTO {
     List<FinishedGroupCourseOwnCourseDTO> courses =new ArrayList<>();
     @Builder.Default
     List<FinishedGroupCourseOwnUserDTO> users = new ArrayList<>();
+    @Builder.Default
+    List<FinishedGroupCourseOwnUserCourseGradeDTO> userCourseGrades = new ArrayList<>();
 }

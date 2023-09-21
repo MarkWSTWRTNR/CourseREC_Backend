@@ -23,7 +23,11 @@ public interface UserService {
 
     String deleteCommentForUser(String username, int id);
 
-    UserCourseGrade addCourseGrade(String username, String courseId, Grade grade);
+
+
+
+    @Transactional
+    UserCourseGrade addCourseGrade(String username, String courseId, int finishedGroupCourseId, Grade grade);
 
     @Transactional
     void removeCourseGrade(String username, String courseId);

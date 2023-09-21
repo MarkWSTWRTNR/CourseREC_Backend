@@ -181,7 +181,7 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
-    public UserCourseGrade addCourseGrade(String username, String courseId, Grade grade) {
+    public UserCourseGrade addCourseGrade(String username, String courseId, int finishedGroupCourseId, Grade grade) {
         User user = userDao.getUsername(username)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
 
@@ -190,10 +190,12 @@ public class UserServiceImpl implements UserService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Course not found");
         }
 
-        UserCourseGrade existingGrade = user.getUserCourseGrades().stream()
-                .filter(userCourseGrade -> userCourseGrade.getCourse().equals(course))
-                .findFirst()
-                .orElse(null);
+        FinishedGroupCourse finishedGroupCourse = finishedGroupCourseDao.getFinishedGroupCourseById(finishedGroupCourseId);
+        if (finishedGroupCourse == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "FinishedGroupCourse not found");
+        }
+
+        UserCourseGrade existingGrade = userCourseGradeDao.getByUserAndCourseAndFinishedGroupCourse(user, course, finishedGroupCourse);
 
         if (existingGrade != null) {
             existingGrade.setGrade(grade);
@@ -202,6 +204,7 @@ public class UserServiceImpl implements UserService {
             UserCourseGrade userCourseGrade = new UserCourseGrade();
             userCourseGrade.setUser(user);
             userCourseGrade.setCourse(course);
+            userCourseGrade.setFinishedGroupCourse(finishedGroupCourse);
             userCourseGrade.setGrade(grade);
 
             user.getUserCourseGrades().add(userCourseGrade);
@@ -209,7 +212,8 @@ public class UserServiceImpl implements UserService {
 
             return userCourseGrade; // Return the newly added grade
         }
-    }
+}
+
 
     @Transactional
     @Override
@@ -326,14 +330,20 @@ public class UserServiceImpl implements UserService {
                 .map(Course::getCourseId)
                 .collect(Collectors.toSet());
 
-        // Get the list of available group courses
-        List<GroupCourse> availableGroupCourses = groupCourseDao.getGroupCourses();
-
         // Create a set to store recommended courses
         Set<Course> recommendedCourses = new HashSet<>();
 
+        // Add courses with F grade to the recommended list
+        List<UserCourseGrade> userGrades = userCourseGradeDao.getByUser(user);
+        for (UserCourseGrade userCourseGrade : userGrades) {
+            if (userCourseGrade.getGrade() == Grade.F) {
+                recommendedCourses.add(userCourseGrade.getCourse());
+            }
+        }
+// Get the list of available group courses
+        List<GroupCourse> availableGroupCourses = groupCourseDao.getGroupCourses();
         // Helper function to recursively check prerequisites
-        final Consumer<Course>[] checkPrerequisites = new Consumer[]{null}; // Initialize an array of Consumers
+        final Consumer<Course>[] checkPrerequisites = new Consumer[]{null};
         checkPrerequisites[0] = (courseToCheck) -> {
             // Check if the course is completed or already recommended
             if (completedCourseIds.contains(courseToCheck.getCourseId()) || recommendedCourses.contains(courseToCheck)) {
@@ -343,7 +353,8 @@ public class UserServiceImpl implements UserService {
             // Check prerequisites for the course
             boolean allPrerequisitesMet = true;
             for (Course prerequisite : courseToCheck.getPrerequisite()) {
-                if (!completedCourseIds.contains(prerequisite.getCourseId())) {
+                UserCourseGrade userCourseGrade = userCourseGradeDao.getByUserAndCourse(user, prerequisite);
+                if (userCourseGrade == null || userCourseGrade.getGrade() == Grade.F || !completedCourseIds.contains(prerequisite.getCourseId())) {
                     allPrerequisitesMet = false;
                     break;
                 }
@@ -355,6 +366,7 @@ public class UserServiceImpl implements UserService {
                 recommendedCourses.add(courseToCheck);
             }
         };
+
 
         // Iterate through available group courses
         for (GroupCourse groupCourse : availableGroupCourses) {

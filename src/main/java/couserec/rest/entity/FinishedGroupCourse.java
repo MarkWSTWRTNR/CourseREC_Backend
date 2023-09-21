@@ -25,4 +25,7 @@ public class FinishedGroupCourse {
     @ManyToMany
     @Builder.Default
     List<User> users = new ArrayList<>();
+    @OneToMany(mappedBy = "finishedGroupCourse")
+    @Builder.Default
+    List<UserCourseGrade> userCourseGrades = new ArrayList<>();
 }
