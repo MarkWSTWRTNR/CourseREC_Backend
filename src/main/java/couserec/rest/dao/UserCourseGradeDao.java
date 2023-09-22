@@ -18,4 +18,6 @@ public interface UserCourseGradeDao {
     List<UserCourseGrade> getByUser(User user);
 
     List<UserCourseGrade> findByUserAndCourse(User user, Course prerequisite);
+
+    List<UserCourseGrade> getAllUserCourseGrade();
 }

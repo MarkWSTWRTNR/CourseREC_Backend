@@ -41,4 +41,9 @@ public class UserCourseGradeDaoImpl implements UserCourseGradeDao {
     public List<UserCourseGrade> findByUserAndCourse(User user, Course prerequisite) {
         return userCourseGradeRepository.findByUserAndCourse(user,prerequisite);
     }
+
+    @Override
+    public List<UserCourseGrade> getAllUserCourseGrade(){
+        return userCourseGradeRepository.findAll();
+    }
 }

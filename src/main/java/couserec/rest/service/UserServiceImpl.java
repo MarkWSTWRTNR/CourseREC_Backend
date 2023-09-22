@@ -2,7 +2,6 @@ package couserec.rest.service;
 
 import couserec.rest.dao.*;
 import couserec.rest.entity.*;
-import jakarta.persistence.NonUniqueResultException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -179,7 +178,10 @@ public class UserServiceImpl implements UserService {
         }
         return "User not found";
     }
-
+@Override
+public List<UserCourseGrade> getAllUserCourseGrade(){
+        return userCourseGradeDao.getAllUserCourseGrade();
+}
     @Transactional
     @Override
     public UserCourseGrade addCourseGrade(String username, String courseId, int finishedGroupCourseId, Grade grade) {

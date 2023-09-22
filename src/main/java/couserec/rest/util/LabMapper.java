@@ -39,5 +39,6 @@ LabMapper INSTANCE = Mappers.getMapper(LabMapper.class);
 //    List<UserDTO> getUserDto(List<User> user);
 
     UserCourseGradeDTO getUserCourseGradeDTO(UserCourseGrade userCourseGrade);
+    List<UserCourseGradeDTO> getUserCourseGradeDTO(List<UserCourseGrade> userCourseGrade);
 }
 

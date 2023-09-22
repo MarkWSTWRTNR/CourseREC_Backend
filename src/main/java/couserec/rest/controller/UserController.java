@@ -90,6 +90,11 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
     }
+    @GetMapping("/userCourseGrades")
+    public ResponseEntity<?> getUserCourseGrade(){
+        List<UserCourseGrade> getUserCourseGrade = userService.getAllUserCourseGrade();
+        return ResponseEntity.ok(LabMapper.INSTANCE.getUserCourseGradeDTO(getUserCourseGrade));
+    }
     @PostMapping("/{username}/finishedGroupCourses/{finishedGroupCourseId}/courses/{courseId}/setGrade")
     public ResponseEntity<?> addCourseGrade(
             @PathVariable String username,

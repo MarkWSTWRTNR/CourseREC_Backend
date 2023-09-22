@@ -24,7 +24,7 @@ public interface UserService {
     String deleteCommentForUser(String username, int id);
 
 
-
+    List<UserCourseGrade> getAllUserCourseGrade();
 
     @Transactional
     UserCourseGrade addCourseGrade(String username, String courseId, int finishedGroupCourseId, Grade grade);
