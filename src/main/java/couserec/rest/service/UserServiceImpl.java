@@ -16,8 +16,9 @@ import java.util.stream.Collectors;
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
+    GroupCourseDao groupCourseDao;
+    @Autowired
     private UserDao userDao;
-
     @Autowired
     private FinishedGroupCourseDao finishedGroupCourseDao;
     @Autowired
@@ -61,7 +62,6 @@ public class UserServiceImpl implements UserService {
         return userDao.getUserByUsername(username);
     }
 
-
     @Override
     public List<FinishedGroupCourse> getCompletedCoursesByUsername(String username) {
         User user = userDao.getUsername(username).orElse(null);
@@ -86,7 +86,6 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
-
     @Override
     public FinishedGroupCourse updateCompletedCourse(String username, int groupId, FinishedGroupCourse finishedGroupCourse) {
         User user = userDao.getUsername(username).orElse(null);
@@ -104,13 +103,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public String deleteCompletedCourse(String username, int groupId) {
         User user = userDao.getUsername(username).orElse(null);
         if (user != null) {
-            FinishedGroupCourse existingCourse = user.getFinishedGroupCourses().stream()
-                    .filter(course -> course.getId() == groupId)
-                    .findFirst()
-                    .orElse(null);
+            FinishedGroupCourse existingCourse = user.getFinishedGroupCourses().stream().filter(course -> course.getId() == groupId).findFirst().orElse(null);
             if (existingCourse != null) {
                 // Remove associated course grades from users
                 for (Course course : existingCourse.getCourses()) {
@@ -134,6 +131,31 @@ public class UserServiceImpl implements UserService {
         }
         return null;
     }
+    @Transactional
+    @Override
+    public void removeCourseFromFinishedGroupCourse(String username, int finishedGroupCourseId, String courseId) {
+        User user = userDao.getUsername(username)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+
+        Course course = courseDao.getCourseByCourseId(courseId);
+        if (course == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Course not found");
+        }
+
+        FinishedGroupCourse finishedGroupCourse = finishedGroupCourseDao.getFinishedGroupCourseById(finishedGroupCourseId);
+        if (finishedGroupCourse == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "FinishedGroupCourse not found");
+        }
+
+        // Remove the course from FinishedGroupCourse
+        finishedGroupCourse.getCourses().remove(course);
+
+        // Remove the grade related to that course
+        user.getUserCourseGrades().removeIf(userCourseGrade ->
+                userCourseGrade.getCourse().equals(course) &&
+                        userCourseGrade.getFinishedGroupCourse().equals(finishedGroupCourse)
+        );
+    }
 
     @Override
     public Comment saveCommentForUser(String username, Comment comment) {
@@ -142,8 +164,7 @@ public class UserServiceImpl implements UserService {
             Course course = comment.getCourse(); // Get the course associated with the comment
 
             // Check if the user has already commented on this course
-            boolean hasCommented = user.getComments().stream()
-                    .anyMatch(existingComment -> existingComment.getCourse().getCourseId().equals(course.getCourseId()));
+            boolean hasCommented = user.getComments().stream().anyMatch(existingComment -> existingComment.getCourse().getCourseId().equals(course.getCourseId()));
 
             if (!hasCommented) {
                 comment.setUser(user); // Associate the comment with the user
@@ -158,15 +179,11 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
-
-
     @Override
     public String deleteCommentForUser(String username, int id) {
         User user = userDao.getUsername(username).orElse(null);
         if (user != null) {
-            Optional<Comment> commentToDelete = user.getComments().stream()
-                    .filter(c -> c.getId() == id)
-                    .findFirst();
+            Optional<Comment> commentToDelete = user.getComments().stream().filter(c -> c.getId() == id).findFirst();
             if (commentToDelete.isPresent()) {
                 user.getComments().remove(commentToDelete.get());
                 userDao.save(user);
@@ -178,15 +195,16 @@ public class UserServiceImpl implements UserService {
         }
         return "User not found";
     }
-@Override
-public List<UserCourseGrade> getAllUserCourseGrade(){
+
+    @Override
+    public List<UserCourseGrade> getAllUserCourseGrade() {
         return userCourseGradeDao.getAllUserCourseGrade();
-}
+    }
+
     @Transactional
     @Override
     public UserCourseGrade addCourseGrade(String username, String courseId, int finishedGroupCourseId, Grade grade) {
-        User user = userDao.getUsername(username)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+        User user = userDao.getUsername(username).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
 
         Course course = courseDao.getCourseByCourseId(courseId);
         if (course == null) {
@@ -215,12 +233,11 @@ public List<UserCourseGrade> getAllUserCourseGrade(){
 
             return userCourseGrade; // Return the newly added grade
         }
-}
-
+    }
 
     @Transactional
     @Override
-    public void removeCourseGrade(String username, String courseId) {
+    public void removeCourseGrade(String username, String courseId, int finishedGroupCourseId) {
         User user = userDao.getUsername(username)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
 
@@ -229,9 +246,17 @@ public List<UserCourseGrade> getAllUserCourseGrade(){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Course not found");
         }
 
-        user.getUserCourseGrades().removeIf(userCourseGrade -> userCourseGrade.getCourse().equals(course));
+        FinishedGroupCourse finishedGroupCourse = finishedGroupCourseDao.getFinishedGroupCourseById(finishedGroupCourseId);
+        if (finishedGroupCourse == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "FinishedGroupCourse not found");
+        }
 
+        user.getUserCourseGrades().removeIf(userCourseGrade ->
+                userCourseGrade.getCourse().equals(course) &&
+                        userCourseGrade.getFinishedGroupCourse().equals(finishedGroupCourse)
+        );
     }
+
 
     @Override
     public Map<String, Double> calculateGPAAndCredit(String username) {
@@ -272,9 +297,6 @@ public List<UserCourseGrade> getAllUserCourseGrade(){
 
         return result;
     }
-
-    @Autowired
-    GroupCourseDao groupCourseDao;
 
     @Override
     public Map<String, String> calculateCourseCreditTracking(String username) {
@@ -341,21 +363,14 @@ public List<UserCourseGrade> getAllUserCourseGrade(){
         }
 
         // Get the list of completed course IDs by the user
-        Set<String> completedCourseIds = user.getFinishedGroupCourses()
-                .stream()
-                .flatMap(finishedGroupCourse -> finishedGroupCourse.getCourses().stream())
-                .map(Course::getCourseId)
-                .collect(Collectors.toSet());
+        Set<String> completedCourseIds = user.getFinishedGroupCourses().stream().flatMap(finishedGroupCourse -> finishedGroupCourse.getCourses().stream()).map(Course::getCourseId).collect(Collectors.toSet());
 
         // Create a set to store recommended courses
         Set<Course> recommendedCourses = new HashSet<>();
 
         // Add courses with F or U grade to the recommended list
         List<UserCourseGrade> userGrades = userCourseGradeDao.getByUser(user);
-        Set<String> passedCourses = userGrades.stream()
-                .filter(grade -> grade.getGrade() != Grade.F && grade.getGrade() != Grade.U)
-                .map(grade -> grade.getCourse().getCourseId())
-                .collect(Collectors.toSet());
+        Set<String> passedCourses = userGrades.stream().filter(grade -> grade.getGrade() != Grade.F && grade.getGrade() != Grade.U).map(grade -> grade.getCourse().getCourseId()).collect(Collectors.toSet());
 
         for (UserCourseGrade userCourseGrade : userGrades) {
             if ((userCourseGrade.getGrade() == Grade.F || userCourseGrade.getGrade() == Grade.U) && !passedCourses.contains(userCourseGrade.getCourse().getCourseId())) {
@@ -420,7 +435,6 @@ public List<UserCourseGrade> getAllUserCourseGrade(){
 
         return recommendedCourseList;
     }
-
 
 
 }

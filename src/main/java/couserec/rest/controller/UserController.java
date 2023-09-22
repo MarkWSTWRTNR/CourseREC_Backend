@@ -90,6 +90,21 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
     }
+    @DeleteMapping("/{username}/finishedGroupCourses/{finishedGroupCourseId}/courses/{courseId}/removeCourse")
+    public ResponseEntity<?> removeCourseFromFinishedGroupCourse(
+            @PathVariable String username,
+            @PathVariable int finishedGroupCourseId,
+            @PathVariable String courseId) {
+
+        try {
+            userService.removeCourseFromFinishedGroupCourse(username, finishedGroupCourseId, courseId);
+            return ResponseEntity.ok("Course and its grade removed successfully.");
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("An error occurred while removing the course or its grade: " + ex.getMessage());
+        }
+    }
+
     @GetMapping("/userCourseGrades")
     public ResponseEntity<?> getUserCourseGrade(){
         List<UserCourseGrade> getUserCourseGrade = userService.getAllUserCourseGrade();
@@ -110,19 +125,21 @@ public class UserController {
         }
     }
 
-    @DeleteMapping("/{username}/courses/{courseId}/removeGrade")
+    @DeleteMapping("/{username}/finishedGroupCourses/{finishedGroupCourseId}/courses/{courseId}/removeGrade")
     public ResponseEntity<?> removeCourseGrade(
             @PathVariable String username,
+            @PathVariable int finishedGroupCourseId,
             @PathVariable String courseId) {
 
         try {
-            userService.removeCourseGrade(username, courseId);
+            userService.removeCourseGrade(username, courseId, finishedGroupCourseId);
             return ResponseEntity.ok("Course grade removed successfully.");
         } catch (Exception ex) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("An error occurred while removing the course grade: " + ex.getMessage());
         }
     }
+
     @GetMapping("/{username}/calculateGPAAndCredit")
     public ResponseEntity<Map<String, Double>> calculateGPAAndCreditForUser(@PathVariable String username) {
         Map<String, Double> result = userService.calculateGPAAndCredit(username);

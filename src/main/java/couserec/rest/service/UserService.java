@@ -18,6 +18,9 @@ public interface UserService {
 
     String deleteCompletedCourse(String username, int groupId);
 
+    @Transactional
+    void removeCourseFromFinishedGroupCourse(String username, int finishedGroupCourseId, String courseId);
+
     Comment saveCommentForUser(String username, Comment comment);
 
 
@@ -30,7 +33,7 @@ public interface UserService {
     UserCourseGrade addCourseGrade(String username, String courseId, int finishedGroupCourseId, Grade grade);
 
     @Transactional
-    void removeCourseGrade(String username, String courseId);
+    void removeCourseGrade(String username, String courseId, int finishedGroupCourseId);
 
     Map<String, Double> calculateGPAAndCredit(String username);
 
