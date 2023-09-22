@@ -109,9 +109,10 @@ public class UserServiceImpl implements UserService {
         if (user != null) {
             FinishedGroupCourse existingCourse = user.getFinishedGroupCourses().stream().filter(course -> course.getId() == groupId).findFirst().orElse(null);
             if (existingCourse != null) {
-                // Remove associated course grades from users
+                // Disassociate all courses and their grades from this group
                 for (Course course : existingCourse.getCourses()) {
-                    UserCourseGrade userCourseGrade = userCourseGradeDao.getByUserAndCourse(user, course);
+                    // Get the UserCourseGrade for the specific FinishedGroupCourse
+                    UserCourseGrade userCourseGrade = userCourseGradeDao.getByUserAndCourseAndFinishedGroupCourse(user, course, existingCourse);
                     if (userCourseGrade != null) {
                         // Delete the course grade
                         user.getUserCourseGrades().remove(userCourseGrade);
@@ -119,6 +120,7 @@ public class UserServiceImpl implements UserService {
                         userCourseGradeDao.deleteUserCourseGrade(userCourseGrade.getId());
                     }
                 }
+                existingCourse.getCourses().clear(); // Clear the courses from the group
 
                 // Remove the completed course from the user
                 user.getFinishedGroupCourses().remove(existingCourse);
@@ -131,6 +133,9 @@ public class UserServiceImpl implements UserService {
         }
         return null;
     }
+
+
+
     @Transactional
     @Override
     public void removeCourseFromFinishedGroupCourse(String username, int finishedGroupCourseId, String courseId) {
@@ -314,16 +319,9 @@ public class UserServiceImpl implements UserService {
 
         for (FinishedGroupCourse finishedGroupCourse : user.getFinishedGroupCourses()) {
             for (Course course : finishedGroupCourse.getCourses()) {
-                String courseKey = course.getCourseId() + "-" + finishedGroupCourse.getId();
+                String courseKey = course.getCourseId();
                 if (processedCourses.contains(courseKey)) {
-                    continue;
-                }
-
-                // Check if the course has a grade of U for this FinishedGroupCourse
-                UserCourseGrade userCourseGrade = userCourseGradeDao.getByUserAndCourseAndFinishedGroupCourse(user, course, finishedGroupCourse);
-                if (userCourseGrade != null && userCourseGrade.getGrade() == Grade.U) {
-                    processedCourses.add(courseKey); // Mark this course instance as processed
-                    continue; // Skip this course instance if it has a grade of U
+                    continue; // Skip the course if it has already been processed
                 }
 
                 boolean courseBelongsToProgram = false;
@@ -354,6 +352,7 @@ public class UserServiceImpl implements UserService {
 
         return courseCreditTracking;
     }
+
 
     @Override
     public List<Course> getRecommendedCourses(String username) {
