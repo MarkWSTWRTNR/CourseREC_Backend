@@ -19,4 +19,7 @@ public interface CourseDao {
     String deleteCourse(int id);
     Page<Course> getCourses(Integer pageSize, Integer page);
 
+    Page<Course> findByCourseIdContainingOrNameContainingOrDescriptionContaining(String keyword, String keyword1, String keyword2, Pageable pageable);
+
+    Page<Course> findAll(Pageable pageable);
 }

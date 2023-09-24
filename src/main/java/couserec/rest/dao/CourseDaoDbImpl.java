@@ -50,4 +50,14 @@ public class CourseDaoDbImpl implements CourseDao{
         return courseRepository.findAll(PageRequest.of(page-1,pageSize));
     }
 
+    @Override
+    public Page<Course> findByCourseIdContainingOrNameContainingOrDescriptionContaining(String keyword, String keyword1, String keyword2, Pageable pageable) {
+        return courseRepository.findByCourseIdContainingOrNameContainingOrDescriptionContaining(keyword,keyword1,keyword2,pageable);
+    }
+
+    @Override
+    public Page<Course> findAll(Pageable pageable) {
+        return courseRepository.findAll(pageable);
+    }
+
 }

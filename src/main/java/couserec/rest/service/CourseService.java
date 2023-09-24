@@ -19,6 +19,8 @@ public interface CourseService {
 
     Course getCourseByCourseId(String courseId);
 
+    Page<Course> searchCourses(String keyword, Integer pageSize, Integer page);
+
 //    Course findByName(Course name);
 //
 //    Course findByDescription(Course description);

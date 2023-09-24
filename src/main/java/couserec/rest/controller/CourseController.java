@@ -61,5 +61,20 @@ public class  CourseController {
         String deleteCourse = courseService.deleteCourse(id);
         return ResponseEntity.ok(deleteCourse);
     }
+    @GetMapping("/searchCourses")
+    public ResponseEntity<?> searchCourses(
+            @RequestParam(value = "keyword", required = false) String keyword,
+            @RequestParam(value = "_limit", required = false) Integer perPage,
+            @RequestParam(value = "_page", required = false) Integer page) {
+
+        perPage = perPage == null ? 12 : perPage;
+        page = page == null ? 1 : page;
+
+        Page<Course> searchResults = courseService.searchCourses(keyword, perPage, page);
+
+        HttpHeaders responseHeader = new HttpHeaders();
+        responseHeader.set("x-total-count", String.valueOf(searchResults.getTotalElements()));
+        return new ResponseEntity<>(LabMapper.INSTANCE.getCourseDto(searchResults.getContent()), responseHeader, HttpStatus.OK);
+    }
 
 }

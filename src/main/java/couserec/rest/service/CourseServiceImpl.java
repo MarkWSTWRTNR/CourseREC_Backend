@@ -4,6 +4,8 @@ import couserec.rest.dao.CourseDao;
 import couserec.rest.entity.Course;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -82,4 +84,17 @@ public class CourseServiceImpl implements CourseService {
     public Page<Course> getCourses(Integer pageSize, Integer page){
         return courseDao.getCourses(pageSize, page);
     }
+    @Override
+    public Page<Course> searchCourses(String keyword, Integer pageSize, Integer page) {
+        Pageable pageable = PageRequest.of(page - 1, pageSize);
+
+        if (keyword != null && !keyword.isEmpty()) {
+            // Implement a custom query using Spring Data JPA to search for courses
+            return courseDao.findByCourseIdContainingOrNameContainingOrDescriptionContaining(keyword, keyword, keyword, pageable);
+        } else {
+            // If no keyword provided, return all courses
+            return courseDao.findAll(pageable);
+        }
+    }
+
 }
