@@ -198,7 +198,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
 
 
 // Create GroupCourse instance for GE
-        GroupCourse SEGERCLP = groupCourseRepository.save(GroupCourse.builder().groupName("General Education | Required courses | Learner Pereson").credit(15).build());
+        GroupCourse SEGERCLP = groupCourseRepository.save(GroupCourse.builder().groupName("General Education | Required courses | Learner Pereson").credit(15).text("Pick one of the two course (Digital Literacy): Course ID: 204100 Information Technology and Modern Life and Course ID: 261111 Internet and Online Community").build());
         GroupCourse SEGERCICC = groupCourseRepository.save(GroupCourse.builder().groupName("General Education | Required courses | Innovative Co-creator").credit(3).build());
         GroupCourse SEGERCAC = groupCourseRepository.save(GroupCourse.builder().groupName("General Education | Required courses | Active Citizen").credit(3).build());
         GroupCourse SEGEECLPandAC = groupCourseRepository.save(GroupCourse.builder().groupName("General Education | Elective courses | Learner Person & Active Citizen").credit(9).build());
@@ -209,7 +209,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
         GroupCourse SEFE = groupCourseRepository.save(GroupCourse.builder().groupName("Free Electives").credit(6).build());
 
         GroupCourse FOSCCDII = groupCourseRepository.save(GroupCourse.builder().groupName("Field of Specialization| Core Courses").credit(15).build());
-        StandardStudyPlan SEY1S1 = standardStudyPlanRepository.save(StandardStudyPlan.builder().yearAndSemester("Year1 Semester1").credit(18).text("General Education in Digital Literacy 3 credit \n General Education in Elective Course 3 credit").build());
+        StandardStudyPlan SEY1S1 = standardStudyPlanRepository.save(StandardStudyPlan.builder().yearAndSemester("Year1 Semester1").credit(18).text("General Education in Digital Literacy 3 credit"+'\n'+"General Education in Elective Course 3 credit").build());
         StandardStudyPlan DIIY1S1 = standardStudyPlanRepository.save(StandardStudyPlan.builder().yearAndSemester("Year1 Semester1").credit(18).build());
         GroupCourse GEDII = groupCourseRepository.save(GroupCourse.builder().groupName("General Education | Required courses | Learner Pereson").credit(15).build());
         FinishedGroupCourse PONY1S1 = finishedGroupCourseRepository.save(FinishedGroupCourse.builder().year("1").semester("1").build());
