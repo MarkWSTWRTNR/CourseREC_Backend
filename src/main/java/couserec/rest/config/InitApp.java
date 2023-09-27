@@ -209,8 +209,8 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
         GroupCourse SEFE = groupCourseRepository.save(GroupCourse.builder().groupName("Free Electives").credit(6).build());
 
         GroupCourse FOSCCDII = groupCourseRepository.save(GroupCourse.builder().groupName("Field of Specialization| Core Courses").credit(15).build());
-        StandardStudyPlan SEY1S1 = standardStudyPlanRepository.save(StandardStudyPlan.builder().yearAndSemester("Year1 Semester1").credit(75).build());
-        StandardStudyPlan DIIY1S1 = standardStudyPlanRepository.save(StandardStudyPlan.builder().yearAndSemester("Year1 Semester1").credit(75).build());
+        StandardStudyPlan SEY1S1 = standardStudyPlanRepository.save(StandardStudyPlan.builder().yearAndSemester("Year1 Semester1").credit(18).text("General Education in Digital Literacy 3 credit \n General Education in Elective Course 3 credit").build());
+        StandardStudyPlan DIIY1S1 = standardStudyPlanRepository.save(StandardStudyPlan.builder().yearAndSemester("Year1 Semester1").credit(18).build());
         GroupCourse GEDII = groupCourseRepository.save(GroupCourse.builder().groupName("General Education | Required courses | Learner Pereson").credit(15).build());
         FinishedGroupCourse PONY1S1 = finishedGroupCourseRepository.save(FinishedGroupCourse.builder().year("1").semester("1").build());
 
@@ -427,6 +427,19 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
 
         SE.getStandardStudyPlans().add(SEY1S1);
         SEY1S1.setPrograms(SE);
+        SEY1S1.getCourses().add(ENGL101);
+        ENGL101.getStandardStudyPlans().add(SEY1S1);
+        SEY1S1.getCourses().add(math113);
+        math113.getStandardStudyPlans().add(SEY1S1);
+        SEY1S1.getCourses().add(se100);
+        se100.getStandardStudyPlans().add(SEY1S1);
+        SEY1S1.getCourses().add(atge102);
+        atge102.getStandardStudyPlans().add(SEY1S1);
+        SEY1S1.getCourses().add(atge103);
+        atge103.getStandardStudyPlans().add(SEY1S1);
+
+
+
 
         DII.getGroupCourses().add(GEDII);
         GEDII.setPrograms(DII);
@@ -441,8 +454,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
         GEDII.getCourses().add(ENGL101);
         ENGL101.getGroupCourses().add(GEDII);
 
-        SEY1S1.getCourses().add(se100);
-        se100.getStandardStudyPlans().add(SEY1S1);
+
 
         DIIY1S1.getCourses().add(se211);
         se211.getStandardStudyPlans().add(DIIY1S1);
